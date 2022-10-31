@@ -1,5 +1,5 @@
 package game;
 
-public class Red {
+public class Red extends Tile {
 
 }

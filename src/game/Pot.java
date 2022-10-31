@@ -9,6 +9,7 @@ public class Pot {
 	
 	public Pot(int players) {
 		piles = new ArrayList<>();
+		middlePile = new MiddlePile();
 		instanciatePiles(players);
 	}
 	
@@ -30,8 +31,6 @@ public class Pot {
 			piles.add(new Pile());
 			i++;
 		}
-		
-		middlePile = new MiddlePile();
 	}
 
 }
