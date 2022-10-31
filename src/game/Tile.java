@@ -1,5 +1,5 @@
 package game;
 
-public class Tile {
+public abstract class Tile {
 
 }
