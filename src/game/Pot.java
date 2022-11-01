@@ -1,7 +1,9 @@
 package game;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 
+// A Pot has many piles that each has 4 tiles. It also has a middle pile
 public class Pot {
 	
 	private ArrayList<Pile> piles;
@@ -31,6 +33,17 @@ public class Pot {
 			piles.add(new Pile());
 			i++;
 		}
+	}
+	
+	public void initialisation() {
+		for(Pile p : piles) {
+			p.randomDistribution();
+		}
+	}
+	
+	
+	public void draw(Graphics g) {
+		
 	}
 
 }

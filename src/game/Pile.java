@@ -1,13 +1,26 @@
 package game;
 
-import java.util.ArrayList;
+import java.awt.Graphics;
+import java.util.LinkedList;
 
 public class Pile {
 	
-	private ArrayList<Tile> tiles;
+	private LinkedList<Tile> tiles;
 	
 	public Pile() {
-		tiles = new ArrayList<>();
+		tiles = new LinkedList<>();
+	}
+	
+	public void randomDistribution() {
+		int i = 0;
+		while(i < 4) {
+			tiles.add(Bag.getRandomTile());
+		}
+	}
+	
+	
+	public void draw(Graphics g) {
+		
 	}
 	
 
