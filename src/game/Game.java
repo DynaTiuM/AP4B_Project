@@ -10,13 +10,11 @@ public class Game {
 
 		players = new Bord[numberPlayers];
 		
-		int i = 0;
-		
-		for(Bord b : players) {
-			i++;
-			b.setPosition(i);
+		for(int i = 0; i < numberPlayers; i++) {
+			players[i] = new Bord();
+			players[i].setPosition(i);
 		}
 		
-		new Bag();
+		//new Bag();
 	}
 }
