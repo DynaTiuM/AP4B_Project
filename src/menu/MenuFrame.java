@@ -8,9 +8,10 @@ import java.awt.event.MouseEvent;
 import javax.swing.*;
 
 import game.Game;
+import game.GameFrame;
 
 @SuppressWarnings("serial")
-public class MenuFrame {
+public class MenuFrame implements WindowProperties {
 
 	private JFrame frame;
 	private JScrollPane scroll;
@@ -23,12 +24,11 @@ public class MenuFrame {
 	
 	public MenuFrame() {
 		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
-		frame.setSize(new Dimension(700,700));
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocationRelativeTo(null);
+		frame.setSize(WINDOW_MENU);
 	 
 		numberPlayersList = new DefaultListModel<>(); // sample usage
 	    for(int i = 2; i < 5; i++)
@@ -36,21 +36,27 @@ public class MenuFrame {
 	    
 	    list = new JList<>(numberPlayersList);
 	    button = new JButton();
-	    label = new JLabel();
+	    label = new JLabel("How many do you want to play ?", JLabel.CENTER);
+	    JScrollPane listScroller = new JScrollPane(list);
 	    
-	    list.setFont(new Font("Tahoma", Font.BOLD,20));
+	    frame.add(listScroller);
+	    frame.add(button);
+	    frame.add(label);
+	    Font font = new Font("Tahoma", Font.BOLD,20);
+	    label.setFont(font);
+	    list.setFont(font);
+	    button.setFont(font);
 	    
-	    button.setBounds(10, 10, 60, 30);
+	    button.setText("Validate");
+	    button.setBounds(WINDOW_WIDTH/2-115, WINDOW_HEIGHT/2, 275, 100);
+	    listScroller.setBounds(WINDOW_WIDTH/2-170, WINDOW_HEIGHT/2, 40, 100);
 	    
 	    button.addActionListener(e -> {
 	    	if(clicked) {
-	    		new Game(numPlayers);
+	    		new GameFrame(numPlayers);
 	    		frame.dispose();
 	    	}
 	    });
-	    
-	    label.setText("How many do you want to play ?");
-	    label.setBounds(10,10,60,60);
 	    
 	    list.addMouseListener(new MouseAdapter(){
 		    @Override 
@@ -60,16 +66,7 @@ public class MenuFrame {
 		    }
 		});
 	    
-	    list.setLocation(500, 500);
-	    
 	    list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	    list.setLayoutOrientation(JList.VERTICAL);
-	    
-	    JScrollPane listScroller = new JScrollPane(list);
-	    listScroller.setBounds(100, 100, 40, 100);
-	    
-	    frame.add(listScroller);
-	    frame.add(button);
-	    frame.add(label);	   
 	}	
 }

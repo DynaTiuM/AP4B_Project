@@ -14,7 +14,10 @@ public class Game {
 			players[i] = new Bord();
 			players[i].setPosition(i);
 		}
-		
 		//new Bag();
+	}
+	
+	Bord getPlayer(int index) {
+		return players[index];
 	}
 }
