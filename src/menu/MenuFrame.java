@@ -2,6 +2,7 @@ package menu;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -27,9 +28,10 @@ public class MenuFrame implements WindowProperties {
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
 		frame.setSize(WINDOW_MENU);
-	 
+		frame.setLocationRelativeTo(null);
+		
+		
 		numberPlayersList = new DefaultListModel<>(); // sample usage
 	    for(int i = 2; i < 5; i++)
 	    	numberPlayersList.addElement(i);
@@ -68,5 +70,11 @@ public class MenuFrame implements WindowProperties {
 	    
 	    list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	    list.setLayoutOrientation(JList.VERTICAL);
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		// TODO Auto-generated method stub
+		
 	}	
 }

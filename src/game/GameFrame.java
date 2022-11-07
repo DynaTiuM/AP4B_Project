@@ -11,6 +11,7 @@ public class GameFrame extends JFrame {
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
+		//this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
 
 }

@@ -6,26 +6,28 @@ import menu.WindowProperties;
 
 public class Bord implements WindowProperties{
 	
-	private int position;
+	private int[] position;
+	private Score score;
+	private Grid grid;
+	private PlayGrid playGrid;
 	
-	public Bord() {
-		
-	}
-	
-	public void setPosition(int position) {
-		this.position = position;
+	public Bord(int line, int column) {
+		position = new int[2];
+		position[0] = line;
+		position[1] = column;
+		score = new Score(position);
+		grid = new Grid(position);
+		playGrid = new PlayGrid(position);
 	}
 	
 	public void draw(Graphics g) {
-		g.setColor(Color.orange);
-		if(position == 0)
-			g.fillRect(0, 0, WINDOW_WIDTH/5*2, WINDOW_WIDTH/5*2);
-		else if(position == 1)
-			g.fillRect(WINDOW_WIDTH/5*3, 0, WINDOW_WIDTH/5*2, WINDOW_WIDTH/5*2);
-		else if(position == 2)
-			g.fillRect(0, WINDOW_WIDTH/5*3, WINDOW_WIDTH/5*2, WINDOW_WIDTH/5*2);
-		else
-			g.fillRect(WINDOW_WIDTH/5*3, WINDOW_WIDTH/5*3, WINDOW_WIDTH/5*2, WINDOW_WIDTH/5*2);
+		Color bord = new Color(193,189,180);
+		g.setColor(bord);
+		g.fillRect(position[1] * BORD_SIZE * 2, position[0] * BORD_SIZE * 2, BORD_SIZE, BORD_SIZE);
+		
+		score.draw(g);
+		grid.draw(g);
+		playGrid.draw(g);
 	}
 
 }
