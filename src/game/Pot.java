@@ -17,6 +17,7 @@ public class Pot {
 	
 	private void instanciatePiles(int players) {
 		int numberOfPiles = 0, i = 0;
+		//decide nombre de piles en fonction nombre de joueurs, peut remplacer le switch par : numberOfPiles = 1 + players * 2
 		switch(players) {
 		case 2 :
 			numberOfPiles = 5;
