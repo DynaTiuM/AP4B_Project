@@ -26,7 +26,7 @@ public class Pot {
 		
 		numberOfPiles = 1 + players * 2;
 		
-		for( i =0; i<(numberOfPiles-1)/2; i++) {
+		for( i = 0; i<(numberOfPiles-1)/2; i++) {
 			piles.add(new Pile(new Position(0, i)));
 			piles.add(new Pile(new Position(1,i)));
 		}
@@ -43,13 +43,8 @@ public class Pot {
 	
 	
 	public void draw(Graphics g) {
-		
-		
+		for(Pile p : piles) {
+			p.draw(g);
+		}
 	}
-	
-	public ListIterator<Pile> returnPile() {
-		
-		return  iterator_pile;
-	}
-
 }

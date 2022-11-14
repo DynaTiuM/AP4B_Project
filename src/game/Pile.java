@@ -24,9 +24,6 @@ public class Pile {
 	public Pile(Position position_p) {
 		tiles = new LinkedList<>();
 		position_m = position_p;
-		System.out.println("ho");
-		
-		
 	}
 	
 	public void randomDistribution() {
@@ -37,7 +34,6 @@ public class Pile {
 	}
 	
 	public void draw(Graphics g) {
-		
 		g.setColor(Color.CYAN);
 		g.fillOval(BORD_SIZE + position_m.getX() * (PILE_SIZE + BORD_SIZE/10) , 100 + position_m.getY() * (PILE_SIZE + BORD_SIZE/10) , PILE_SIZE, PILE_SIZE);
 		g.setColor(Color.BLACK);

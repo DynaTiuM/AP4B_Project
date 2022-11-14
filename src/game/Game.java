@@ -1,5 +1,4 @@
 package game;
-import java.util.ListIterator;
 public class Game {
 	
 	private Pot pot;
@@ -26,14 +25,13 @@ public class Game {
 				break;
 			}
 		}
-		//new Bag();
 	}
 	
 	Bord getPlayer(int index) {
 		return players[index];
 	}
 	
-	ListIterator<Pile> getPile() {
-		return pot.returnPile();
+	Pot getPot() {
+		return pot;
 	}
 }
