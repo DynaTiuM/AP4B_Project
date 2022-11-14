@@ -13,27 +13,21 @@ public class Pot {
 		piles = new ArrayList<>();
 		middlePile = new MiddlePile();
 		instanciatePiles(players);
+		iterator_pile = piles.listIterator();
 	}
 	
 	private void instanciatePiles(int players) {
-		int numberOfPiles = 0, i = 0;
-		//decide nombre de piles en fonction nombre de joueurs, peut remplacer le switch par : numberOfPiles = 1 + players * 2
-		switch(players) {
-		case 2 :
-			numberOfPiles = 5;
-			break;
-		case 3 :
-			numberOfPiles = 7;
-			break;
-		case 4 :
-			numberOfPiles = 9;
-			break;
+		int numberOfPiles = 0, i;
+		
+		numberOfPiles = 1 + players * 2;
+		
+		for( i =0; i<(numberOfPiles-1)/2; i++) {
+			piles.add(new Pile(new Position(0, i)));
+			piles.add(new Pile(new Position(1,i)));
 		}
 		
-		while(i < numberOfPiles) {
-			piles.add(new Pile());
-			i++;
-		}
+		piles.add(new Pile(new Position(0,i)));
+		
 	}
 	
 	public void initialisation() {
@@ -45,6 +39,11 @@ public class Pot {
 	
 	public void draw(Graphics g) {
 		
+	}
+	
+	public ListIterator<Pile> returnPile() {
+		
+		return  iterator_pile;
 	}
 
 }
