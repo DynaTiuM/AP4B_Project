@@ -2,12 +2,14 @@ package game;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+private ListIterator<Pile> iterator_pile;
 
 // A Pot has many piles that each has 4 tiles. It also has a middle pile
 public class Pot {
 	
 	private ArrayList<Pile> piles;
 	private MiddlePile middlePile;
+	private ListIterator<Pile> iterator_pile;
 	
 	public Pot(int players) {
 		piles = new ArrayList<>();
