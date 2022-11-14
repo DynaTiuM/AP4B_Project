@@ -1,6 +1,8 @@
 package game;
 
 import java.awt.Graphics;
+
+
 import java.util.ListIterator;
 
 
@@ -20,6 +22,8 @@ public class GamePanel extends JPanel implements WindowProperties {
 		
 		game = new Game(numberPlayers);
 		this.numberPlayers = numberPlayers;
+		
+		
 	}
 	
 	public void draw(Graphics g) {
@@ -34,6 +38,7 @@ public class GamePanel extends JPanel implements WindowProperties {
 			while(iterator_pile.hasNext()) {
 				iterator_pile.next().draw(g);
 			}
+		
 	}
 	
 	public void paintComponent(Graphics g) {

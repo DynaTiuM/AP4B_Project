@@ -9,7 +9,7 @@ public class PlayGrid implements WindowProperties {
 	private Tile[][] playGrid;
 	private Position position_m;
 	
-	//Ã§a vaut vraiment le coup d'avoir une constante juste pour un for ?
+	//ça vaut vraiment le coup d'avoir une constante juste pour un for ?
 	private static final int LINES = 5;
 
 	private int iter;

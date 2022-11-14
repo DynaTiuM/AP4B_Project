@@ -1,5 +1,6 @@
 package game;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -44,6 +45,8 @@ public class Bag {
 			tiles.add(new White());
 			i++;
 		}
+		
+		Collections.shuffle(tiles);
 	}
 
 }

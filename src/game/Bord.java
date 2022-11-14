@@ -15,6 +15,10 @@ public class Bord implements WindowProperties{
 		
 		position_m = new Position(column, line);
 		
+		/**position_m.setY(line);
+		position_m.setX(column);**/
+		
+		
 		score = new Score(position_m);
 		grid = new Grid(position_m);
 		playGrid = new PlayGrid(position_m);

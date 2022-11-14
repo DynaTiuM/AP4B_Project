@@ -29,11 +29,11 @@ public class Game {
 		//new Bag();
 	}
 	
-	public Bord getPlayer(int index) {
+	Bord getPlayer(int index) {
 		return players[index];
 	}
 	
-	public ListIterator<Pile> getPile() {
+	ListIterator<Pile> getPile() {
 		return pot.returnPile();
 	}
 }

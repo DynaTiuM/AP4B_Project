@@ -5,12 +5,14 @@ import java.awt.Graphics;
 
 import menu.WindowProperties;
 
+
 public class Grid implements WindowProperties{
 	
 	private Tile[][] grid;
 	private int lines = 5;
 	private int columns = 5;
 	private Position position_m;
+	
 	
 	private Color[] colorpos;
 	private Color[] new_colorpos;
@@ -56,7 +58,6 @@ public class Grid implements WindowProperties{
 			}
 		}
 	}
-	
 	
 	
 

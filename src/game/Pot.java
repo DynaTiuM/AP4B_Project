@@ -1,6 +1,8 @@
 package game;
 
 import java.awt.Graphics;
+
+
 import java.util.ArrayList;
 import java.util.ListIterator;
 
@@ -9,6 +11,7 @@ public class Pot {
 	
 	private ArrayList<Pile> piles;
 	private MiddlePile middlePile;
+	
 	private ListIterator<Pile> iterator_pile;
 	
 	public Pot(int players) {
@@ -40,6 +43,7 @@ public class Pot {
 	
 	
 	public void draw(Graphics g) {
+		
 		
 	}
 	
