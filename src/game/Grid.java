@@ -10,36 +10,53 @@ public class Grid implements WindowProperties{
 	private Tile[][] grid;
 	private int lines = 5;
 	private int columns = 5;
-	private int[] position;
+	private Position position_m;
 	
-	public Grid(int[] position) {
+	private Color[] colorpos;
+	private Color[] new_colorpos;
+	
+	public Grid(Position position_p) {
 		grid = new Tile[lines][columns];
-		this.position = position;
+		this.position_m = position_p;
+		colorpos = new Color[5];
+		new_colorpos = new Color[5];
 	}
 
 	@Override
 	public void draw(Graphics g) {
+		
+		
+		colorpos[0] = Color.BLUE;
+		colorpos[1] = Color.ORANGE;
+		colorpos[2] = Color.RED;
+		colorpos[3] = Color.BLACK;
+		colorpos[4] = Color.WHITE;
+		
+
+		
 		for(int l = 0; l < lines; l++) {
 			for(int c = 0; c < columns; c++) {
-				for(int i = 0; i < lines; i++) {
-					if(l%4 == i && c%4 == i)
-						g.setColor(Color.BLUE);
-					if(l%4 == i && c%4 == i+1 || l%4 == i && c%4 == i-4)
-						g.setColor(Color.ORANGE);
-					if(l%4 == i && c%4 == i+2 || l%4 == i && c%4 == i-3)
-						g.setColor(Color.RED);
-					if(l%4 == i && c%4 == i+3 || l%4 == i && c%4 == i-2)
-						g.setColor(Color.BLACK);
-					if(l%4 == i && c%4 == i+4 || l%4 == i && c%4 == i-1)
-						g.setColor(Color.WHITE);
+				
+				g.setColor(colorpos[c]);
+				
+				if(c + 1 >= 5) {
+					new_colorpos[0] = colorpos[c];
+					
+				}else {
+					new_colorpos[c+1] = colorpos[c];
 				}
-				g.fillRect(position[1]* BORD_SIZE * 2 + BORD_SIZE/2 + c*UNIT_GRID, position[0]* BORD_SIZE * 2 + (int)(BORD_SIZE/3.5) + l*UNIT_GRID, UNIT_GRID, UNIT_GRID);
+					
+				g.fillRect(position_m.getX()* BORD_SIZE * 2 + BORD_SIZE/2 + c*UNIT_GRID, position_m.getY()* BORD_SIZE * 2 + (int)(BORD_SIZE/3.5) + l*UNIT_GRID, UNIT_GRID, UNIT_GRID);
 			
 				g.setColor(Color.black);
-				g.drawRect(position[1]* BORD_SIZE * 2 + BORD_SIZE/2 + c*UNIT_GRID, position[0]* BORD_SIZE * 2 + (int)(BORD_SIZE/3.5) + l*UNIT_GRID, UNIT_GRID, UNIT_GRID);
+				g.drawRect(position_m.getX()* BORD_SIZE * 2 + BORD_SIZE/2 + c*UNIT_GRID, position_m.getY()* BORD_SIZE * 2 + (int)(BORD_SIZE/3.5) + l*UNIT_GRID, UNIT_GRID, UNIT_GRID);
 				}
+			for(int i = 0; i<5;i++) {
+				colorpos[i] = new_colorpos[i];
+			}
 		}
 	}
+	
 	
 	
 
