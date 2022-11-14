@@ -7,25 +7,33 @@ import menu.WindowProperties;
 public class PlayGrid implements WindowProperties {
 	
 	private Tile[][] playGrid;
-	private int[] position;
-	private int lines = 5;
-	private int columns = 5;
+	private Position position_m;
 	
-	public PlayGrid(int[] position) {
+	//ça vaut vraiment le coup d'avoir une constante juste pour un for ?
+	private static final int LINES = 5;
+
+	private int iter;
+	
+	public PlayGrid(Position position_p) {
 		playGrid = new Tile[5][5];
-		this.position = position;
+		this.position_m = position_p;
 	}
 
 	@Override
 	public void draw(Graphics g) {
-		for(int l = 0; l < lines; l++) {
-			for(int c = 0; c < columns; c++) {
-				for(int i = lines; i > 4; i--) {
-					if(c == i-l) {
-						g.drawRect(position[1]* BORD_SIZE * 2 + c*UNIT_GRID, position[0]* BORD_SIZE * 2 + (int)(BORD_SIZE/3.5) + l*UNIT_GRID, UNIT_GRID, UNIT_GRID);
-					}
-				}
+		
+		iter = 1;
+		for(int l = 0; l < LINES; l++) {
+			for(int c = 0; c < iter; c++) {
+				
+				
+			g.drawRect(position_m.getX()* BORD_SIZE * 2 + (4-c)*UNIT_GRID, position_m.getY()* BORD_SIZE * 2 + (int)(BORD_SIZE/3.5) + l*UNIT_GRID, UNIT_GRID, UNIT_GRID);
+				
+			//g.drawRect(position_m.getX()* BORD_SIZE * 2 + c*UNIT_GRID, position_m.getY()* BORD_SIZE * 2 + (int)(BORD_SIZE/3.5) + l*UNIT_GRID, UNIT_GRID, UNIT_GRID);
+					
+				
 			}
+			iter++;
 		}
 	}
 
