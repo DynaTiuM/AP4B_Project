@@ -11,11 +11,11 @@ public class Score implements WindowProperties {
 	private final int columns = 20;
 	private final int lines = 5;
 	private boolean[][] grid;
-	private int[] position;
+	private Position position_m;
 	
-	public Score(int[] position) {
+	public Score(Position position_p) {
 		grid = new boolean[lines][columns];
-		this.position = position;
+		this.position_m = position_p;
 	}
 	
 	public int getScore() {
@@ -39,7 +39,7 @@ public class Score implements WindowProperties {
 				else
 					g.setColor(Color.black);
 				
-				g.fillRect(position[1] * BORD_SIZE * 2 + SIZE_GAP * 2 + c * (SCORE_SIZE + SIZE_GAP), position[0] * BORD_SIZE * 2 + SIZE_GAP * 2 + l * (SCORE_SIZE + SIZE_GAP), SCORE_SIZE, SCORE_SIZE);				
+				g.fillRect(position_m.getX() * BORD_SIZE * 2 + SIZE_GAP * 2 + c * (SCORE_SIZE + SIZE_GAP), position_m.getY() * BORD_SIZE * 2 + SIZE_GAP * 2 + l * (SCORE_SIZE + SIZE_GAP), SCORE_SIZE, SCORE_SIZE);				
 			}
 			
 		}
