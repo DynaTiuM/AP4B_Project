@@ -19,6 +19,7 @@ public class Pile {
 	private LinkedList<Tile> tiles;
 	private Position position_m;
 	
+	//why not have the pile class be a JButton that implements ActionListener ?
 	private JButton take_tiles;
 	
 	public Pile(Position position_p) {
