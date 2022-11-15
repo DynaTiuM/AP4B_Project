@@ -27,8 +27,8 @@ public class Pile {
 	}
 	
 	public void randomDistribution() {
-		int i = 0;
-		while(i < 4) {
+		
+		for(int i = 0; i < 4; i++) {
 			tiles.add(Bag.getRandomTile());
 		}
 	}
