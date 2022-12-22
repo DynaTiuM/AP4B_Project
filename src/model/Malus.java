@@ -1,27 +1,33 @@
-package machine;
+package model;
 
-public class MalusGrid {
+import java.util.LinkedList;
+
+public class Malus {
+
 	private Tile[] line;
 	private int[] penalty;
 	
-	private LineSelection selection_m;
+	private LinkedList<Tile> to_send;
+	
+	private Bord bord_ref; 
+
 	private int current_index;
 	
-	public MalusGrid(LineSelection selection_p){
+	public Malus(Bord bord_p){
 		current_index=0;
 		
-		
+		to_send = new LinkedList<Tile>();
 		
 		penalty = new int[7];
 		initPenalty();
 	
 		line = new Tile[7];
 		
-		for(int i = 0; i<7; i++) {
+		/*for(int i = 0; i<7; i++) {
 			line[i] = new Tile();
-		}
+		}*/
 		
-		selection_m = selection_p;
+		bord_ref = bord_p;
 	}
 	
 	public void addTile(Tile to_add) {
@@ -33,6 +39,9 @@ public class MalusGrid {
 			System.out.println("Too many to possibly add, sending to top of the box");
 		}
 	}
+	
+
+	
 	
 	private void initPenalty() {
 		penalty[0]=1;
@@ -66,17 +75,24 @@ public class MalusGrid {
 		System.out.println();
 	}
 	
-	public void clear() {
+	public LinkedList<Tile> clear() {
+		
+		to_send.clear();
+		
+		current_index = 0;
+		
 		for(int i =0; i<current_index; i++) {
+			to_send.add(line[i]);
 			line[i].setOccupiedFalse();
 		}
 		
-		current_index = 0;
+		return to_send;
+		
+		
 	}
 	
 	public Tile[] getLine() {
 		return this.line;
 	}
-	
 	
 }

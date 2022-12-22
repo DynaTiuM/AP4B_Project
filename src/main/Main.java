@@ -1,7 +1,6 @@
-package main;
+package Main;
 
 import controller.Controller;
-import machine.Tile;
 
 public class Main {
 

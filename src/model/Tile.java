@@ -1,4 +1,4 @@
-package machine;
+package model;
 
 import java.awt.Color;
 

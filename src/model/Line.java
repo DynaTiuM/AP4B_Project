@@ -1,11 +1,11 @@
-package machine;
+package model;
 
-import java.awt.Color;
-import java.util.HashMap;
 import java.util.LinkedList;
 
 
+
 public class Line {
+
 	private Tile[] linearray;
 	private int current_index;
 	private int size;
@@ -13,9 +13,11 @@ public class Line {
 
 	
 	private ColorEnum current_color;
-	MalusGrid malus_m;
+	private Malus malus_m;
 	
-	public Line(MalusGrid malus_p) {
+	private LinkedList<Tile> to_send;
+	
+	public Line(Malus malus_p, int size) {
 		malus_m = malus_p;
 		current_index=0;
 		color_presence = new boolean[5];
@@ -24,7 +26,7 @@ public class Line {
 			color_presence[i]=false;
 		}
 		
-		
+		initArray(size);
 		
 		
 		
@@ -33,19 +35,18 @@ public class Line {
 	public void addChoice(LinkedList<Tile> tiles) {
 		
 		int i = current_index;
-		if(!checkColor(tiles.get(0)) &&(tiles.get(0).getColorEnum()==current_color || current_color == null)) {
-			for(Tile p: tiles) {
-				if(i<size) {
+		for(Tile p: tiles) {
+			if(i<size) {
 					//addColor(p);
-					setTileIndex(i, p);
-					i++;
-				}else {
-					malus_m.addTile(p);
-				}
-				current_index = i;
-				
+				setTileIndex(i, p);
+				i++;
+			}else {
+				malus_m.addTile(p);
 			}
+			current_index = i;
+				
 		}
+		
 		
 	}
 	
@@ -59,19 +60,20 @@ public class Line {
 	}
 	
 	public void addChoice(Tile tile) {
-		if(!checkColor(tile) &&(tile.getColorEnum()==current_color || current_color == null)) {
-			//addColor(tile);
+		
 			setTileIndex(current_index, tile);
 			
 			current_index++;
-		}else {
-			System.out.println("error");
-		}
+		
 	}
 	
 	public void addColor(Tile tile_p) {
 		
 		color_presence[tile_p.getColorEnum().ordinal()] = true;
+	}
+	
+	public boolean isPossible(Tile tile) {
+		return !checkColor(tile) &&(tile.getColorEnum()==current_color || current_color == null);
 	}
 	
 	public boolean checkColor(Tile tile_p) {
@@ -94,13 +96,12 @@ public class Line {
 		
 	}
 
-	public void initArray(int index) {
+	private void initArray(int index) {
 		linearray = new Tile[index];
-		for(int i =0; i<index; i++) {
+		/*for(int i =0; i<index; i++) {
 			linearray[i] = new Tile();
-		}
+		}*/
 		size = index;
-		
 	}
 	
 	public Tile[] getTiles() {
@@ -121,16 +122,25 @@ public class Line {
 		
 	}
 	
-	public void clear() {
-		for(int i =0; i<size; i++) 
-			linearray[i].setOccupiedFalse();
+	public LinkedList<Tile> clear() {
+		to_send.clear();
 		
+		for(int i =0; i<size; i++) {
+			linearray[i].setOccupiedFalse();
+			to_send.add(linearray[i]);
+		}
+		
+			
 		current_color = null;
 		current_index = 0;
+		
+		return to_send;
 	}
 	
 	public Tile[] getLine() {
 		return this.linearray;
 	}
+	
+	
 	
 }
