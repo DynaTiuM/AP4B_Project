@@ -1,11 +1,10 @@
 package main;
 
-import menu.MenuFrame;
+import controller.Controller;
 
 public class Main {
-	
+
 	public static void main(String[] args) {
-		new MenuFrame();
-		System.out.println("a");
+		new Controller();
 	}
 }

@@ -1,14 +1,20 @@
-package game;
+package model;
 
+import java.awt.Color;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Random;
 
+
+
 public class Bag {
 	
-	private static LinkedList<Tile> tiles;
 	
-	public Bag() {
+private static LinkedList<Tile> tiles;
+private Pile[] allPiles;
+	
+	public Bag(Pile[] piles) {
+		allPiles = piles;
 		initialiseTiles();
 	}
 	
@@ -26,27 +32,26 @@ public class Bag {
 	private void initialiseTiles() {
 		int i = 0;
 		while(i < 20) {
-			tiles.add(new Black());
+			tiles.add(new Tile(Color.black));
 			i++;
 		}
 		while(i < 40) {
-			tiles.add(new Yellow());
+			tiles.add(new Tile(Color.yellow));
 			i++;
 		}
 		while(i < 60) {
-			tiles.add(new Red());
+			tiles.add(new Tile(Color.red));
 			i++;
 		}
 		while(i < 80) {
-			tiles.add(new Blue());
+			tiles.add(new Tile(Color.BLUE));
 			i++;
 		}
 		while(i < 100) {
-			tiles.add(new White());
+			tiles.add(new Tile(Color.WHITE));
 			i++;
 		}
 		
 		Collections.shuffle(tiles);
 	}
-
 }
