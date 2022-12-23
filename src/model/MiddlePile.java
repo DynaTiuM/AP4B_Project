@@ -44,4 +44,11 @@ public class MiddlePile {
 	public boolean isFirst() {
 		return this.first;
 	}
+	
+	public void display() {
+		System.out.print("Middle : ");
+		for(Tile p: tiles) System.out.print(p.getColorEnum() + " ");
+		System.out.println();
+	}
+	
 }

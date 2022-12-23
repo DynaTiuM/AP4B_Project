@@ -26,15 +26,15 @@ public class Tile {
 		this.color_m = color_p;
 		
 		if(color_p == Color.BLUE) {
-			color_enum_m = ColorEnum.blue;
+			color_enum_m = ColorEnum.Bl;
 		}else if (color_p == Color.BLACK) {
-			color_enum_m = ColorEnum.black;
+			color_enum_m = ColorEnum.B;
 		}else if (color_p == Color.ORANGE) {
-			color_enum_m = ColorEnum.orange;
+			color_enum_m = ColorEnum.O;
 		}else if (color_p == Color.WHITE) {
-			color_enum_m = ColorEnum.white;
+			color_enum_m = ColorEnum.W;
 		}else if (color_p == Color.RED) {
-			color_enum_m = ColorEnum.red;
+			color_enum_m = ColorEnum.R;
 		}
 		
 	}

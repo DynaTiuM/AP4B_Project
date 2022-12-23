@@ -18,6 +18,7 @@ public class ActionMalus implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+	//	this.model.getCurrentPlayer(this.current_player).
 	}
 
 }

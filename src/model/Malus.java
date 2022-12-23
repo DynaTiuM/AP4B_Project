@@ -38,12 +38,11 @@ public class Malus {
 		}else {
 			System.out.println("Too many to possibly add, sending to top of the box");
 		}
-		
-		// Calling the view
-		this.bord_ref.getModel().getController().sendMalusToView(bord_ref.getModel().getCurrentPlayer(), line);
 	}
 	
 
+	
+	
 	private void initPenalty() {
 		penalty[0]=1;
 		penalty[1]=1;
@@ -66,13 +65,23 @@ public class Malus {
 	
 	public void display() {
 		System.out.println("malus");
-		for(int i = 0; i<7; i++) {
-			if(line[i].getOccupied()) {
-				System.out.print(line[i].getColorEnum()+" ");
-			}else {
-				System.out.print("- ");
-			}
+		
+		int i =0;
+		
+		while(i<current_index) {
+			System.out.print(line[i].getColorEnum() + " ");
+			i++;
 		}
+		
+		
+		
+		while(i< 7) {
+			System.out.print("- ");
+			i++;
+		}
+		
+		
+		
 		System.out.println();
 	}
 	

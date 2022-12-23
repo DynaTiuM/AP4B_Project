@@ -13,11 +13,12 @@ public class Pile {
 	private MiddlePile middle_ref;
 	private Game game_ref;
 	
-	private int current_index;
+	
 	
 	public Pile(Game game, MiddlePile middle, Pot pot) {
 		
 		tiles = new Tile[4];
+		//for(int i =0; i<4; i++) tiles[i] = new Tile();
 		
 		tiles_bord = new LinkedList<Tile>();
 		tiles_middle = new LinkedList<Tile>();
@@ -32,8 +33,8 @@ public class Pile {
 		return tiles[0]!=null;
 	}
 	
-	public void setContent(Tile to_add) {
-		tiles[current_index] = to_add;
+	public void setContent(Tile to_add, int index) {
+		tiles[index] = to_add;
 	}
 	
 	public Tile[] getContent(){
@@ -52,6 +53,53 @@ public class Pile {
 	
 	private void sendToMiddle() {
 		this.middle_ref.addContent(tiles_middle);
+	}
+	
+	private void sendToBord() {
+		game_ref.sendSelectionToBord(tiles_bord);
+	}
+	
+	public void test() {
+		//creer un scenar
+		//getSelection(tiles[0]);
+		sendToMiddle();
+		sendToBordTest();
+	}
+	
+	private void sendToBordTest() {
+		game_ref.sendSelectiontoBordTest(tiles_bord);
+		//System.out.println("sent");
+	}
+
+
+	public void display() {
+		
+		int i = 0;
+		while(i <2) {
+			if(tiles[i]!=null) {
+				System.out.print(tiles[i].getColorEnum() + " ");
+			} else {
+				System.out.print("null ");
+			}
+			i++;
+		}
+		
+		System.out.println();
+		
+		while(i <4) {
+			if(tiles[i]!=null) {
+				System.out.print(tiles[i].getColorEnum() + " ");
+			} else {
+				System.out.print("null ");
+			}
+			i++;
+		}
+		
+		
+		System.out.println("\n---");
+		
+		//System.out.println(tiles[0].getColorEnum() + " " + tiles[1].getColorEnum() + "\n" + tiles[2].getColorEnum() + " " + tiles[3].getColorEnum() + "\n" );
+		
 	}
 	
 }
