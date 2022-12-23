@@ -43,6 +43,11 @@ public class Pattern {
 		
 	}
 	
+	public void scoreMalus(int malus) {
+		score = score - malus;
+		if (score <0 ) score = 0;
+	}
+	
 	public void determineSendingPlace(int index, Tile to_place) {
 		int i =0;
 		while(grid[index][i].getColorEnum()!=to_place.getColorEnum()) i++;
@@ -140,8 +145,11 @@ public class Pattern {
 				
 				
 			}
+			
 			System.out.println();
 		}
+		
+		System.out.println("\nscore : " + score);
 	}
 	
 	public void checkLineFull(int index){
