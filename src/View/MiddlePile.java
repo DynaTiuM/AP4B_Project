@@ -13,10 +13,19 @@ public class MiddlePile {
     this.button = new JButton();
   }
 
+  int yPosition = 0;
+  
   public void draw(Graphics g) {
     // Draw the pile at the specified position
-    g.drawRect(position.getX(), position.getY(), RECT_SIZE, RECT_SIZE);
-  }
+	for (int i = 0; i < 28; i++) {
+		
+		if (i != 0 && i % 7 == 0) {
+			yPosition += RECT_SIZE;
+		}
+		
+		g.drawRect(position.getX() + RECT_SIZE * (i % 7), position.getY() + yPosition, RECT_SIZE, RECT_SIZE);
+	}
+}
 
   public void setButton(boolean value) {
     button.setVisible(value);

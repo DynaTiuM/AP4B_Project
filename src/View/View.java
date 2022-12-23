@@ -10,7 +10,7 @@ public class View extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private static final int HEIGHT = 720;
 	private static final int WIDTH = 1080;
-	private static int numberOfPlayers = 4; 
+	private static int numberOfPlayers = 3; 
 	
 	/**
 	 * Create the frame.
@@ -66,24 +66,30 @@ class ViewPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	// Image to display
 	private Image image;
-	  private Bord[] bords; 
-	  private Pot pot;
-
-	  public ViewPanel(Image image, Bord[] bords, Pot pot) {
-	    this.image = image;
+	private Bord[] bords; 
+	private Pot pot;
+	
+	
+	// Constructor that takes in image, bords array, and pot object
+	public ViewPanel(Image image, Bord[] bords, Pot pot) {
+		this.image = image;
 	    this.bords = bords; 
 	    this.pot = pot;
 	    
-	  }
+	}
 
-	  @Override
-	  public void paintComponent(Graphics g) {
+	@Override
+	public void paintComponent(Graphics g) {
 	    super.paintComponent(g);
+	    // Draw image 
 	    g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+	    
+	    // Draw bords 
 	    for (Bord bord : bords) {
 	    	bord.draw(g);
 	    }
 	    pot.draw(g);
-	  }
 	}
+}

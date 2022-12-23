@@ -34,7 +34,7 @@ public class Pot {
     	piles.add(pile);
     }
     
-    middlePile = new MiddlePile(new Position(position.getX(), position.getY()));
+    middlePile = new MiddlePile(new Position(firstPileX, yPosition + pileSize));
 
   }
 

@@ -11,6 +11,7 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					// Create a new View frame and make it visible
 					View frame = new View();
 					frame.setVisible(true);
 				} catch (Exception e) {
