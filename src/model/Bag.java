@@ -6,25 +6,27 @@ import java.util.LinkedList;
 import java.util.Random;
 
 
-
+//déclaration de la classe "Bag"
 public class Bag {
 	
 	
-private static LinkedList<Tile> tiles;
-private Pile[] allPiles;
-private Pot pot_ref;
+	private static LinkedList<Tile> tiles;
+	private Pile[] allPiles;
+	private Pot pot_ref;
 
+	
+	// constructeur de la classe "Bag"
 	public Bag(Pile[] piles, Pot pot) {
 		pot_ref = pot;
 		allPiles = piles;
-		initialiseTiles();
-		this.distributeContents();
+		initialiseTiles(); // on initialise les tiles du bag
+		this.distributeContents(); // on remplit les piles
 	}
 	
+	
+	// retourne une "Tile" du "Bag" de manière aléatoire
 	public static Tile getRandomTile() {
 		Random rd = new Random();
-		
-		
 		
 		int tileIndex = rd.nextInt(tiles.size());
 		
@@ -34,42 +36,28 @@ private Pot pot_ref;
 		return tile;
 	}
 	
+	
+	// initialise les "Tile" dans le "Bag" avec 20 "Tile" de chaque couleur
 	private void initialiseTiles() {
-		int i = 0;
-		
 		tiles = new LinkedList<Tile>();
+
+		// tableau des couleurs possibles pour les tuiles
+		Color[] colors = {Color.black, Color.ORANGE, Color.red, Color.BLUE, Color.WHITE};
 		
-		while(i < 20) {
-			tiles.add(new Tile(Color.black));
-			
-			i++;
-		}
-		while(i < 40) {
-			tiles.add(new Tile(Color.ORANGE));
-			
-			i++;
-		}
-		while(i < 60) {
-			tiles.add(new Tile(Color.red));
-			
-			i++;
-		}
-		while(i < 80) {
-			tiles.add(new Tile(Color.BLUE));
-			
-			i++;
-		}
-		while(i < 100) {
-			tiles.add(new Tile(Color.WHITE));
-			
-			i++;
+		for (int i = 0; i < 20; i++) {
+			// on ajoute une tuile de chaque couleur dans la liste chainée de tuiles
+			for (Color color : colors) {
+				tiles.add(new Tile(color));
+			}
 		}
 		
+		// on mélange aléatoirement les tuiles de la liste chainée de tuiles deux fois
 		Collections.shuffle(tiles);
 		Collections.shuffle(tiles);
-		
 	}
 	
+	
+	// remplit les "Pile" en prenant les dernières "Tile"
 	public void distributeContents() {
 		
 		Tile last;
@@ -81,23 +69,17 @@ private Pot pot_ref;
 				p.setContent(last, i);
 				tiles.remove(last);
 			}
-			
-			
 		}
-			
-		
-		
-		
 	}
 	
+	
+	// Re-remplit le "Bag" 
 	public void getTilesBack(LinkedList<Tile> tiles_toadd) {
-		
 		
 		for(Tile p: tiles_toadd) {
 			System.out.print(p.getColorEnum() + " ");
 			tiles.add(p);
 		}
-		
 		
 		//Collections.shuffle(tiles);
 		System.out.println("\nnb of tiles : " + tiles.size());

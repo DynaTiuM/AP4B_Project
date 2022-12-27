@@ -2,21 +2,36 @@ package model;
 
 import java.util.LinkedList;
 
+
+//ATTENTION DEUX METHODES TEST SONT TOUJOURS DANS LE CODE
+
+//Classe qui représente le plateau de jeu d'un joueur.
+//Le plateau est composé de 5 lignes, d'une grille de malus et d'une grille de motifs.
 public class Bord {
 	
 	private Line[] play_grid;
 	private Malus malus_grid_m;
 	private Pattern pattern_grid_m;
 	
+	// Référence du "Game" auquel appartient le "Bord".
 	private Game game_ref;
 	
+	// Identifiant du joueur associé à ce "Bord"
 	private int playerID;
 	
+	// Numéro de la "Line" actuellement sélectionnée
 	private int current;
 	
+	// Liste des "Tile" en excédent
 	private LinkedList<Tile> excedent_tiles_selection;
+	
+	// Liste des "Tile" dans la main du joueur
 	private LinkedList<Tile> hand_of_player;
 	
+	
+	// Constructeur de la classe Bord.
+	// Initialise les différents éléments du plateau de jeu (lignes, grille de malus, grille de motifs).4
+	// Prends l'identifiant du joueur et la référence de "Game"
 	public Bord(int number, Game ref) {
 		
 		current = 0;
@@ -32,16 +47,12 @@ public class Bord {
 			play_grid[i] = new Line(malus_grid_m, pattern_grid_m, i+1);
 		}
 		
-		
-		
-		
-		
 		this.excedent_tiles_selection = new LinkedList<Tile>();
-		
 		this.hand_of_player = new LinkedList<Tile>();
-		
 	}
 	
+	
+	// modifie la main du joueur 
 	public void setHand(LinkedList<Tile> tiles) {
 		hand_of_player.clear();
 		hand_of_player = tiles;
@@ -66,12 +77,14 @@ public class Bord {
 	    }else current++;
 		display();
 	}
-	
+
+	// permet de changer la main du joueur en y mettant qu'une seule "Tile"
 	public void setHand(Tile tile) {
 		hand_of_player.clear();
 		hand_of_player.add(tile);
 	}
 	
+	// permet d'afficher la main du joueur
 	public void displayHand() {
 		System.out.print("Hand : ");
 		for(Tile p: hand_of_player) System.out.print(p.getColorEnum() + " ");
@@ -79,6 +92,7 @@ public class Bord {
 		
 	}
 	
+	// permet d'afficher les "Line" et la "malus_grid"
 	public void display() {
 		for(Line p: play_grid) p.display();
 		malus_grid_m.display();
@@ -86,43 +100,54 @@ public class Bord {
 	}
 	
 	
-	
+	// permet d'afficher la grille de pattern 
 	public void patternDisplay() {
 		pattern_grid_m.display();
 	}
+		
 	
-	
+	// permet d'ajouter les "Tile" dans la liste des excédents
 	public void setExcedent(LinkedList<Tile> tiles) {
 		excedent_tiles_selection.addAll(tiles);
 	}
-	
+		
+	// permet d'ajouter une "Tile" dans la liste des excédents
 	public void setExcedent(Tile tile) {
 		excedent_tiles_selection.add(tile);
 	}
-	
+			
+	// permet de vider la liste des excédents 
 	public void clearExcedent() {
 		excedent_tiles_selection.clear();
 	}
 	
+	
+	// permet de poser les "Tile" de la main du joueur sur la ligne choisie
 	public void playHandIndex(int index) {
 		play_grid[index].addChoice(hand_of_player);
 	}
 	
+	
+	// fonction appelée en fin de manche 
 	public void endOfSet() {
+		
+		// vide toute les "Line" qui sont pleines 
 		for(Line p: play_grid) {
 			if(p.checkFull()) {
 				game_ref.sendToBag(p.clear());
 			}
 		}
 		
-		game_ref.sendToBag(malus_grid_m.clear());
+		// calcul le malus et remet les "Tile" de malus dans le "Bag"
 		pattern_grid_m.scoreMalus(malus_grid_m.computateMalus());
-		
+		game_ref.sendToBag(malus_grid_m.clear());
 		
 		
 		//display();
 	}
 
+	
+	// envoie le pattern à la view
 	public Tile[][] getPatternToView() {
 		// TODO Auto-generated method stub
 		return pattern_grid_m.getGrid();
