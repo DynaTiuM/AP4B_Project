@@ -37,6 +37,18 @@ public class Pile {
 		tiles[index] = to_add;
 	}
 	
+	public LinkedList<Tile> getcontentList() {
+		System.out.print("pile - ");
+		LinkedList<Tile> to_send = new LinkedList<Tile>();
+		for(Tile p: tiles) {
+			to_send.add(p);
+			System.out.print(p.getColorEnum() + " - ");
+		}
+		
+		return to_send;
+		
+	}
+	
 	public Tile[] getContent(){
 		return this.tiles;
 	}
@@ -61,7 +73,7 @@ public class Pile {
 	
 	public void test() {
 		//creer un scenar
-		//getSelection(tiles[0]);
+		getSelection(tiles[0]);
 		sendToMiddle();
 		sendToBordTest();
 	}
@@ -100,6 +112,10 @@ public class Pile {
 		
 		//System.out.println(tiles[0].getColorEnum() + " " + tiles[1].getColorEnum() + "\n" + tiles[2].getColorEnum() + " " + tiles[3].getColorEnum() + "\n" );
 		
+	}
+	
+	public boolean checkPossible() {
+	  return tiles[0]!=null;
 	}
 	
 }

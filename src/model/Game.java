@@ -16,12 +16,15 @@ public class Game {
 		
 		current_player = 0;
 		
+		controller = ref;
+		
+		
 		players = new Bord[4];
 		for(int i = 0; i<4; i++) players[i] = new Bord(i, this);
 		
 		pot = new Pot(4, this);
 		
-		test();
+		
 	}
 	
 	public void sendSelectiontoBord(LinkedList<Tile> tiles) {
@@ -50,7 +53,9 @@ public class Game {
 	
 	public void test() {
 		pot.test();
-		players[current_player].endOfSet();
+		players[0].endOfSet();
+		
+		controller.setButtonsPot(pot.checkPossible());
 		
 	}
 
@@ -58,6 +63,13 @@ public class Game {
 		players[current_player].test(tiles_bord);
 		
 	}
+	
+	public LinkedList<Tile> getTilesToView(int index){
+		System.out.print("game - ");
+		return pot.updateView(index);
+	}
+	
+	
 	
 	
 	

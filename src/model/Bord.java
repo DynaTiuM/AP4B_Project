@@ -114,8 +114,18 @@ public class Bord {
 				game_ref.sendToBag(p.clear());
 			}
 		}
+		
+		game_ref.sendToBag(malus_grid_m.clear());
 		pattern_grid_m.scoreMalus(malus_grid_m.computateMalus());
-		display();
+		
+		
+		
+		//display();
+	}
+
+	public Tile[][] getPatternToView() {
+		// TODO Auto-generated method stub
+		return pattern_grid_m.getGrid();
 	}
 	
 }

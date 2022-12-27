@@ -12,8 +12,10 @@ public class Bag {
 	
 private static LinkedList<Tile> tiles;
 private Pile[] allPiles;
-	
-	public Bag(Pile[] piles) {
+private Pot pot_ref;
+
+	public Bag(Pile[] piles, Pot pot) {
+		pot_ref = pot;
 		allPiles = piles;
 		initialiseTiles();
 		this.distributeContents();
@@ -72,20 +74,33 @@ private Pile[] allPiles;
 		
 		Tile last;
 		
-		for(Pile p: allPiles) 
+		for(Pile p: allPiles) {
 			for(int i =0; i<4; i++) {
 				last = tiles.getLast();
 				//System.out.println(tiles.getLast().getColorEnum());
 				p.setContent(last, i);
 				tiles.remove(last);
 			}
+			
+			
+		}
+			
+		
 		
 		
 	}
 	
-	public void getTilesBack(LinkedList<Tile> tiles) {
-		tiles.addAll(tiles);
-		Collections.shuffle(tiles);
+	public void getTilesBack(LinkedList<Tile> tiles_toadd) {
+		
+		
+		for(Tile p: tiles_toadd) {
+			System.out.print(p.getColorEnum() + " ");
+			tiles.add(p);
+		}
+		
+		
+		//Collections.shuffle(tiles);
+		System.out.println("\nnb of tiles : " + tiles.size());
 	}
 	
 	

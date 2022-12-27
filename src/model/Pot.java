@@ -8,6 +8,7 @@ public class Pot {
 	private MiddlePile middle_pile;
 	private Bag bag;
 	
+	 private boolean[] possible_pile;
 
 	private Game game_ref;
 	
@@ -17,9 +18,11 @@ public class Pot {
 		
 		middle_pile = new MiddlePile(this);
 		
+		possible_pile = new boolean[1 + numberOfPlayers * 2];
+		
 		instanciatePiles(numberOfPlayers);
 		
-		bag = new Bag(piles);
+		bag = new Bag(piles, this);
 		
 		display();
 		
@@ -58,5 +61,22 @@ public class Pot {
 	public void sendToBag(LinkedList<Tile> tiles) {
 		bag.getTilesBack(tiles);
 	}
+	
+	public boolean[] checkPossible() {
+		  for(int i =0; i< possible_pile.length; i++) {
+			  possible_pile[i] = piles[i].checkPossible();
+		  }
+		  
+		  return possible_pile;
+	  }
+	
+	public LinkedList<Tile> updateView(int index) {
+		System.out.print("pot - ");
+		return piles[index].getcontentList();
+			
+		
+	}
+	
+
 	
 }

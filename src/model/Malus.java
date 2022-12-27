@@ -87,14 +87,21 @@ public class Malus {
 	
 	public LinkedList<Tile> clear() {
 		
+		System.out.println("clear malus");
+		
 		to_send.clear();
 		
-		current_index = 0;
+		
 		
 		for(int i =0; i<current_index; i++) {
 			to_send.add(line[i]);
-			line[i].setOccupiedFalse();
+			line[i] = null;
 		}
+		
+		current_index = 0;
+		
+		for(Tile p: to_send) System.out.print(p.getColorEnum() + " ");
+		System.out.println();
 		
 		return to_send;
 		
