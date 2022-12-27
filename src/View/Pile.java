@@ -1,18 +1,29 @@
 package View;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
-public class Pile {
+public class Pile extends JPanel{
+	/**
+	 * 
+	 */
+	
+	
+	private static final long serialVersionUID = 1L;
 	private static final int RECT_SIZE = Bord.RECT_SIZE;
   private Position position;
   private JButton button;
 
   public Pile(Position position) {
+	  super();
+	    setOpaque(false);
+	  setPreferredSize(new Dimension(RECT_SIZE * 4, RECT_SIZE * 4));
     this.position = position;
     this.button = new JButton();
   }
@@ -28,20 +39,35 @@ public class Pile {
 
 	        }
 
-	    // Crée 4 tuiles vertes à l'emplacement de la pile
+	    // CrÃ©e 4 tuiles vertes ï¿½ l'emplacement de la pile
 	    Green tile1 = new Green(new Position(position.getX(), position.getY()));
-	    Green tile2 = new Green(new Position(position.getX() + RECT_SIZE, position.getY()));
-	    Green tile3 = new Green(new Position(position.getX(), position.getY() + RECT_SIZE));
-	    Green tile4 = new Green(new Position(position.getX() + RECT_SIZE, position.getY() + RECT_SIZE));
+	    Green tile2 = new Green(new Position(position.getX() + (RECT_SIZE * 2), position.getY()));
+	    Green tile3 = new Green(new Position(position.getX(), position.getY() + (RECT_SIZE * 2)));
+	    Green tile4 = new Green(new Position(position.getX() + (RECT_SIZE * 2), position.getY() + (RECT_SIZE * 2)));
 
 	    // Dessine les 4 tuiles vertes
 	    tile1.draw(g);
 	    tile2.draw(g);
 	    tile3.draw(g);
 	    tile4.draw(g);
+	    
+		 // DÃ©finir la position et la taille du bouton
+	    int buttonX = position.getX() + RECT_SIZE;
+	    int buttonY = position.getY() + RECT_SIZE;
+	    int buttonWidth = RECT_SIZE;
+	    int buttonHeight = RECT_SIZE;
+	    button.setBounds(buttonX, buttonY, buttonWidth, buttonHeight);
+	    this.add(button);
 	  }
+  
+  @Override
+	public void paintComponent(Graphics g) {
+	    super.paintComponent(g);
+	    // Draw image 
+	    draw(g);
+	    }    
 
-  public void setButton(boolean value) {
+public void setButton(boolean value) {
     button.setVisible(value);
   }
 }

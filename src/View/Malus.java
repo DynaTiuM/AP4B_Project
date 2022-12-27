@@ -4,13 +4,14 @@ import java.awt.*;
 import javax.swing.*;
 
 public class Malus {
-	private static final int RECT_SIZE = Bord.RECT_SIZE;
+	private int RECT_SIZE;
   private Position position;
   private JButton button;
 
-  public Malus(Position position) {
+  public Malus(Position position, int RECT_SIZE) {
     this.position = position;
     this.button = new JButton();
+    this.RECT_SIZE = RECT_SIZE;
   }
 
   public void draw(Graphics g) {

@@ -5,10 +5,11 @@ import java.awt.*;
 import javax.swing.ImageIcon;
 
 public class Pattern {
-	private static final int RECT_SIZE = Bord.RECT_SIZE;
+	private int RECT_SIZE;
   private Position position;
 
-  public Pattern(Position position) {
+  public Pattern(Position position, int RECT_SIZE) {
+	  this.RECT_SIZE = RECT_SIZE;
     this.position = position;
   }
 

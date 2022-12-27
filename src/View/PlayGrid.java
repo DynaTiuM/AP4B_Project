@@ -3,16 +3,17 @@ package View;
 import java.awt.*;
 
 public class PlayGrid {
-  private static final int RECT_SIZE = Bord.RECT_SIZE;
+  private int RECT_SIZE;
   private Position position;
   private Line[] lines;
 
-  public PlayGrid(Position position) {
+  public PlayGrid(Position position, int RECT_SIZE) {
+	  this.RECT_SIZE = RECT_SIZE;
     this.position = position;
     this.lines = new Line[5];
 
     for (int i = 0; i < 5; i++) {
-      lines[i] = new Line(new Position(position.getX(), position.getY() + i * RECT_SIZE), i + 1);
+      lines[i] = new Line(new Position(position.getX(), position.getY() + i * RECT_SIZE), i + 1, RECT_SIZE);
     }
   }
 

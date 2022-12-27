@@ -4,12 +4,13 @@ import java.awt.*;
 import javax.swing.*;
 
 public class Line {
-	private static final int RECT_SIZE = Bord.RECT_SIZE;
+	private int RECT_SIZE;
   private Position position;
   private int length;
   private JButton button;
 
-  public Line(Position position, int length) {
+  public Line(Position position, int length, int RECT_SIZE) {
+	  this.RECT_SIZE = RECT_SIZE;
     this.position = position;
     this.length = length;
     this.button = new JButton();
