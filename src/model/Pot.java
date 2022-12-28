@@ -36,13 +36,17 @@ public class Pot {
 	
 	public void test() {
 		
-		for(Pile p: piles) p.test();
-		//piles[0].test();
+		piles[0].test();
+		/*for(Pile p: piles) {
+			p.test();
+		}*/
+		
+		//display();
 	}
 	
 	private void instanciatePiles(int numberOfPlayers) {
 		piles = new Pile[1 + numberOfPlayers * 2];
-		for(int i = 0; i< 1 + numberOfPlayers * 2; i++) piles[i] = new Pile(game_ref, middle_pile, this);
+		for(int i = 0; i< 1 + numberOfPlayers * 2; i++) piles[i] = new Pile(game_ref, middle_pile, this, i);
 	}
 	
 	public Pile getPileIndex(int index) {
@@ -70,12 +74,13 @@ public class Pot {
 		  return possible_pile;
 	  }
 	
-	public LinkedList<Tile> updateView(int index) {
-		System.out.print("pot - ");
-		return piles[index].getcontentList();
-			
+	
+	public void testShuffle() {
+		bag.distributeContents();
 		
 	}
+
+	
 	
 
 	

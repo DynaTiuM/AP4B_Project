@@ -44,7 +44,7 @@ public class Bord {
 		
 		play_grid = new Line[5];
 		for(int i=0; i<5; i++) {
-			play_grid[i] = new Line(malus_grid_m, pattern_grid_m, i+1);
+			play_grid[i] = new Line(malus_grid_m, pattern_grid_m, i+1, this);
 		}
 		
 		this.excedent_tiles_selection = new LinkedList<Tile>();
@@ -61,7 +61,7 @@ public class Bord {
 	public void test(LinkedList<Tile> tiles) {
 		setHand(tiles);
 		displayHand();
-		playHandIndex(current);
+		playHandIndex(0);
 		if(current+1>=4) {
 	    	current = 0;
 	    }else current++;
@@ -71,7 +71,7 @@ public class Bord {
 	public void test(Tile tile) {
 		setHand(tile);
 		displayHand();
-		playHandIndex(current);
+		playHandIndex(0);
 		if(current+1>=4) {
 	    	current = 0;
 	    }else current++;
@@ -151,6 +151,12 @@ public class Bord {
 	public Tile[][] getPatternToView() {
 		// TODO Auto-generated method stub
 		return pattern_grid_m.getGrid();
+	}
+
+
+	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i) {
+		// TODO Auto-generated method stub
+		this.game_ref.updateViewLine(to_send, previous_index, i, malus_grid_m.getContent(), malus_grid_m.getPrevious());
 	}
 	
 }

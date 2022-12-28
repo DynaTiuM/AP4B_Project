@@ -4,7 +4,7 @@ import javax.swing.ImageIcon;
 
 public class Blue extends Tile_View {
   public Blue(Position position) {
-	super(position);
-    this.texture = new ImageIcon("src\\Images\\Algorithm.png").getImage();
+	super(position, new ImageIcon("src\\Images\\Algorithm.png"));
+    //this.texture = new ImageIcon("src\\Images\\Algorithm.png");
   }
 }

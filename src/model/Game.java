@@ -51,6 +51,8 @@ public class Game {
 	}
 	
 	
+	
+	
 	// Envoie une liste de tuiles au Bag
 	public void sendToBag(LinkedList<Tile> tiles) {
 		pot.sendToBag(tiles);
@@ -74,10 +76,14 @@ public class Game {
 	
 	public void test() {
 		pot.test();
-		players[0].endOfSet();
+		/*players[0].endOfSet();
 		
-		controller.setButtonsPot(pot.checkPossible());
+		controller.setButtonsPot(pot.checkPossible());*/
 		
+	}
+	
+	public void testShuffle() {
+		pot.testShuffle();
 	}
 
 	
@@ -89,9 +95,24 @@ public class Game {
 	
 	
 	
-	public LinkedList<Tile> getTilesToView(int index){
-		System.out.print("game - ");
-		return pot.updateView(index);
+	
+
+
+	public Tile[][] getPatternToView() {
+		// TODO Auto-generated method stub
+		return players[current_player].getPatternToView();
+	}
+
+
+	public void sendContentList(LinkedList<Tile> to_send, int index) {
+		controller.updatePile(to_send, index);
+		
+	}
+
+
+	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, LinkedList<Tile> linkedList, int previous_index_2) {
+		controller.updateViewLine(to_send, previous_index, i, current_player, linkedList, previous_index_2);
+		
 	}
 	
 	

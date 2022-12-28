@@ -12,9 +12,11 @@ public class Malus {
 	private Bord bord_ref; 
 
 	private int current_index;
+	private int previous_index;
 	
 	public Malus(Bord bord_p){
 		current_index=0;
+		previous_index = 0;
 		
 		to_send = new LinkedList<Tile>();
 		
@@ -30,14 +32,35 @@ public class Malus {
 		bord_ref = bord_p;
 	}
 	
-	public void addTile(Tile to_add) {
+	public void addTile(LinkedList<Tile> tiles) {
+		
+		for(Tile p: tiles) {
+			if(current_index<7) {
+				line[current_index] = p;
+				
+				previous_index = current_index;
+				current_index++;
+			}else {
+				System.out.println("Too many to possibly add, sending to top of the box");
+			
+		}
+		
+		}
+	}
+	
+	public void addTile(Tile tile_p) {
+		
 		if(current_index<7) {
-			line[current_index] = to_add;
-			line[current_index].setOccupiedTrue();
+			line[current_index] = tile_p;
+			
+			previous_index = current_index;
 			current_index++;
 		}else {
 			System.out.println("Too many to possibly add, sending to top of the box");
-		}
+			//TODO 
+		
+	}
+		
 	}
 	
 
@@ -73,6 +96,7 @@ public class Malus {
 			i++;
 		}
 		
+	
 		
 		
 		while(i< 7) {
@@ -84,6 +108,15 @@ public class Malus {
 		
 		System.out.println();
 	}
+	
+	public LinkedList<Tile> getContent(){
+		to_send.clear();
+		for(int i = 0; i< current_index; i++) 
+			to_send.add(line[i]);
+		
+		return to_send;
+	}
+		
 	
 	public LinkedList<Tile> clear() {
 		
@@ -111,5 +144,17 @@ public class Malus {
 	public Tile[] getLine() {
 		return this.line;
 	}
+
+	public int getPrevious() {
+		// TODO Auto-generated method stub
+		System.out.println("previous " + previous_index);
+		return previous_index;
+	}
+	
+	public void setPrevious(int previous) {
+		this.previous_index = previous;
+	}
+
+	
 	
 }

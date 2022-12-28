@@ -59,7 +59,7 @@ public class Bag {
 	
 	// remplit les "Pile" en prenant les dernières "Tile"
 	public void distributeContents() {
-		
+		System.out.println("distribution");
 		Tile last;
 		
 		for(Pile p: allPiles) {
@@ -69,6 +69,7 @@ public class Bag {
 				p.setContent(last, i);
 				tiles.remove(last);
 			}
+			p.sendContentList();
 		}
 	}
 	

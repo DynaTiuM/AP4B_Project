@@ -42,7 +42,7 @@ public class Pot {
         }
     	
     	//Pile pile = new Pile(new Position(firstPileX + (i % 2) * pileSize, yPosition));
-    	piles[i] = new Pile(new Position(firstPileX + (i % 2) * pileSize, yPosition), ref, i);
+    	piles[i] = new Pile(new Position(firstPileX + (i % 2) * pileSize, yPosition), view_m, i);
     }
     
     middlePile = new MiddlePile(new Position(firstPileX, yPosition + pileSize));
@@ -68,12 +68,18 @@ public class Pot {
     
     //la dernière valeur de value c donc pour cheque que middle Pile est okay
     // Set the button for the middle pile
-    middlePile.setButton(value[i]);
+    //middlePile.setButton(value[i]);
   }
   
   public void setTile(LinkedList<Tile> tiles, int number) {
 	  //piles[number].redraw(tiles);
   }
+
+public void updatePile(LinkedList<Tile> to_update, int index) {
+	piles[index].updatePile(to_update);
+}
+
+
   
   
   

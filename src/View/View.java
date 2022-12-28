@@ -15,17 +15,20 @@ public class View extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private static final int HEIGHT = 720;
 	private static final int WIDTH = 1080;
-	private static int numberOfPlayers = 3; 
+	private int numberOfPlayers; 
 	
 	private Bord[] bords;
 	private Pot pot_m;
+	
+	private ViewPanel panel;
 	
 	private Controller controller_m;
 	
 	/**
 	 * Create the frame.
 	 */
-	public View(Controller ref) {		
+	public View(Controller ref, int numberOfPlayers) {	
+		this.numberOfPlayers = numberOfPlayers;
 		controller_m = ref;
         // Set the background color of the frame to white
 		setBackground(new Color(255, 255, 255));
@@ -44,14 +47,14 @@ public class View extends JFrame {
 		// Set the frame's icon
 		setIconImage(icon);
 		bords = new Bord[numberOfPlayers];
-		bords[0] = new Bord(new Position(30, 20));
-		bords[1] = new Bord(new Position(WIDTH - Bord.BORD_SIZE - 50, 20));
+		bords[0] = new Bord(new Position(30, 20), this);
+		bords[1] = new Bord(new Position(WIDTH - Bord.BORD_SIZE - 50, 20), this);
 		
 		if (numberOfPlayers > 2) {
-			bords[2] = new Bord(new Position(30, HEIGHT -Bord.BORD_SIZE - 50));
+			bords[2] = new Bord(new Position(30, HEIGHT -Bord.BORD_SIZE - 50), this);
 		}
 		if (numberOfPlayers > 3) {
-			bords[3] = new Bord(new Position(WIDTH - Bord.BORD_SIZE - 50, HEIGHT -Bord.BORD_SIZE - 50));
+			bords[3] = new Bord(new Position(WIDTH - Bord.BORD_SIZE - 50, HEIGHT -Bord.BORD_SIZE - 50), this);
 		}
 		//getContentPane().add(center);
 		bords[0].setButtons(true);
@@ -60,13 +63,16 @@ public class View extends JFrame {
 	    pot_m = new Pot(new Position(WIDTH/2, HEIGHT/2), (numberOfPlayers * 2) + 1, this);
 	    
 	    if (iconTable.getImageLoadStatus() == MediaTracker.ERRORED) {
-		      // There was an error loading the image
+		      System.out.println("ERRO LOADING IMAGE BACKGROUND " + MediaTracker.ERRORED);
 		    } else {
 		      // The image was successfully loaded
+		    	System.out.println("hop");
 		      Image image = Toolkit.getDefaultToolkit().getImage("src\\Images\\Table.png");
-		      ViewPanel panel = new ViewPanel(image, bords, pot_m);
+		      panel = new ViewPanel(image, bords, pot_m);
 			  setContentPane(panel);
 		    }
+	    
+	    
 	    
 	    this.setVisible(true);
 	}
@@ -79,10 +85,23 @@ public class View extends JFrame {
 		  pot_m.setTile(tiles, number);
 	  }
 	
-	public LinkedList<Tile> updtatePile(int index) {
-		System.out.print("view - ");
-		return controller_m.getTilesToView(index);
+	public void updtatePile(LinkedList<Tile> to_update,int index) {
+		
+		pot_m.updatePile(to_update, index);
 	}
+	
+	
+	
+	public ViewPanel getPanel() {
+		return this.panel;
+	}
+
+	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, int current_player, LinkedList<Tile> linkedList, int previous_index_2) {
+		bords[current_player].updateViewLine(to_send, previous_index, i, linkedList, previous_index_2);
+		
+	}
+
+	
 	
 }
 
@@ -105,13 +124,21 @@ class ViewPanel extends JPanel {
 		this.image = image;
 	    this.bords = bords; 
 	    this.pot = pot;
-	    System.out.println("HEY");
+	    this.setLayout(null); 
+	   
+	    
 	    
 	}
 	
-	public Graphics getGraphics() {
-		return ref;
+	public void addT(Tile_View tile) {
+		this.add(tile);
+		this.repaint();
 	}
+	
+	public void removeT(Tile_View tile) {
+		this.remove(tile);
+	}
+	
 
 	@Override
 	public void paintComponent(Graphics g) {

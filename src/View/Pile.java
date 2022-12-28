@@ -7,6 +7,7 @@ import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
 import model.Tile;
 import model.ColorEnum;
@@ -20,17 +21,26 @@ public class Pile {
  
   
   private View view_m;
+  
+  private JPanel panel;
+  
   int number;
+  
+  private int passage;
 
   public Pile(Position position, View view_ref, int number) {
 	  this.number = number;
 	 
 	 view_m = view_ref;
+	 
+	 
 	  
     this.position = position;
     this.button = new JButton();
     this.button.setBounds(position.getX(), position.getY(), 25, 25);
     tiles = new Tile_View[4];
+    
+   
   }
   
  
@@ -41,7 +51,7 @@ public class Pile {
 	 
 	  ImageIcon icon = new ImageIcon("src\\Images\\Pile.png");
 	    if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
-	        // There was an error loading the image
+	        System.out.println("CANT LOAD IMAGE");
 	      } else {
 	        // The image was successfully loaded
 	        Image pile = icon.getImage();
@@ -57,17 +67,7 @@ public class Pile {
 	    Green tile2 = new Green(new Position(position.getX() + (RECT_SIZE * 2), position.getY()));
 	    Green tile3 = new Green(new Position(position.getX(), position.getY() + (RECT_SIZE * 2)));
 	    Green tile4 = new Green(new Position(position.getX() + (RECT_SIZE * 2), position.getY() + (RECT_SIZE * 2)));*/
-	    if(updateTile()) {
-	    	for(Tile_View p: tiles) {
-	    		//System.out.println("test ");
-		    	p.draw(g);
-		    	System.out.print(i + " ");
-		    	i++;
-		    	
-		    }
-	    }
 	    
-	    System.out.println();
 	    
 	    // Dessine les 4 tuiles vertes
 	    /*tile1.draw(g);
@@ -76,33 +76,34 @@ public class Pile {
 	    tile4.draw(g);*/
 	  }
   
-  public boolean updateTile() {
+  public boolean updateTile(LinkedList<Tile> to_iterate) {
 	  
 	  int x = 0; 
 	  int y = 0;
 	  int i = 0;
 	  
-	  LinkedList<Tile> to_iterate = view_m.updtatePile(number);
+	  
 	 
 	  if(to_iterate.getFirst()!=null) {
 		  
 		  
 		  for(Tile p: to_iterate) {
 			  switch (p.getColorEnum()){
-			  case O: this.tiles[i] =  new Orange(new Position(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2)));
-			 
+			  case O: tiles[i] = new Orange(new Position(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2))); 
+
 			  	break;
-			  case B: this.tiles[i] =  new Purple(new Position(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2)));
+			  case B: tiles[i] = new Purple(new Position(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2)));
 			  	break;
-			  case Bl: this.tiles[i] =  new Blue(new Position(position.getX() +x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2)));
+			  case Bl: tiles[i] = new Blue(new Position(position.getX() +x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2)));
 			  	break;
-			  case W: this.tiles[i] =  new Yellow(new Position(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2)));
+			  case W: tiles[i] = new Yellow(new Position(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2)));
 			  	break;
-			  case R: this.tiles[i] =  new Green(new Position(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2)));
+			  case R: tiles[i] = new Green(new Position(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2)));
 				  break;
 			  }
-			  
 			  System.out.print(p.getColorEnum() + " / ");
+			 view_m.getPanel().addT(tiles[i]);			  
+			  
 			  
 			  switch (i) {
 			  case 0: x++;
@@ -116,8 +117,12 @@ public class Pile {
 			  
 			  i++;
 			  
+			  
 		}
+		  
 	  }
+		  
+	  
 	  return to_iterate.getFirst()!=null;
 	  
   }
@@ -126,6 +131,30 @@ public class Pile {
     button.setVisible(value);
     System.out.println("button");
   }
+
+
+
+public void updatePile(LinkedList<Tile> to_update) {
+	
+	ViewPanel temp = this.view_m.getPanel();
+	
+	int i =0;
+	if(!updateTile(to_update)) {
+		//System.out.println("\n" +number + "test bari");
+		for(Tile_View p: tiles) {
+			temp.removeT(p);
+		}
+		//temp.revalidate();
+		temp.repaint();
+    }
+    
+    
+	
+}
+
+
+
+
   
  
 }

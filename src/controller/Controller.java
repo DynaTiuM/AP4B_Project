@@ -10,9 +10,20 @@ public class Controller {
 	private Game game_m;
 	private View view_m;
 	
-	public Controller() {
+	public Controller()  {
+		view_m = new View(this, 4);
 		game_m = new Game(this, 4);
-		view_m = new View(this);
+		
+		
+		try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+        	 e.printStackTrace();
+        }
+		
+		game_m.test();
+		
+		
 		
 		
 		
@@ -30,8 +41,21 @@ public class Controller {
 		
 	}
 	
-	public LinkedList<Tile> getTilesToView(int index){
-		System.out.print("controller - ");
-		return game_m.getTilesToView(index);
+
+	
+	public Tile[][] getPatternToView(){
+		return game_m.getPatternToView();
 	}
+	
+	public void updatePile(LinkedList<Tile> to_update, int position) {
+		view_m.updtatePile(to_update, position);
+	}
+
+
+
+	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, int current_player, LinkedList<Tile> linkedList, int previous_index_2) {
+		view_m.updateViewLine(to_send, previous_index, i, current_player, linkedList, previous_index_2);
+		
+	}
+	
 }
