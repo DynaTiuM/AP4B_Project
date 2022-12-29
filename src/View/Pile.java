@@ -17,6 +17,7 @@ public class Pile extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
 	private static final int RECT_SIZE = Bord.RECT_SIZE;
+	private static int buttonIdCounter = 0;
   private Position position;
   private JButton button;
 
@@ -25,7 +26,12 @@ public class Pile extends JPanel{
 	    setOpaque(false);
 	  setPreferredSize(new Dimension(RECT_SIZE * 4, RECT_SIZE * 4));
     this.position = position;
-    this.button = new JButton();
+    button = new JButton();
+
+    button.setBounds(position.getX() + RECT_SIZE, position.getY() + RECT_SIZE, RECT_SIZE, RECT_SIZE);
+    button.setActionCommand("buttonPile" + Integer.toString(buttonIdCounter));
+    buttonIdCounter++;
+    this.add(button);
   }
 
   public void draw(Graphics g) {
@@ -50,14 +56,7 @@ public class Pile extends JPanel{
 	    tile2.draw(g);
 	    tile3.draw(g);
 	    tile4.draw(g);
-	    
-		 // Définir la position et la taille du bouton
-	    int buttonX = position.getX() + RECT_SIZE;
-	    int buttonY = position.getY() + RECT_SIZE;
-	    int buttonWidth = RECT_SIZE;
-	    int buttonHeight = RECT_SIZE;
-	    button.setBounds(buttonX, buttonY, buttonWidth, buttonHeight);
-	    this.add(button);
+
 	  }
   
   @Override
