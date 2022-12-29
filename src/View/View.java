@@ -112,7 +112,7 @@ class ViewPanel extends JPanel {
 	 * 
 	 */
 	private Graphics ref;
-	
+
 	private static final long serialVersionUID = 1L;
 	// Image to display
 	private Image image;
@@ -135,9 +135,9 @@ class ViewPanel extends JPanel {
 	
 	public void removeT(Tile_View tile) {
 		this.remove(tile);
+		this.repaint();
 	}
 	
-
 	@Override
 	public void paintComponent(Graphics g) {
 	    super.paintComponent(g);

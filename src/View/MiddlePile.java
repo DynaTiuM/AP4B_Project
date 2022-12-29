@@ -51,9 +51,9 @@ public class MiddlePile {
 		  switch (p.getColorEnum()){
 		  case O: tile = new Orange(new Position(position.getX() + offsetX, position.getY() + this.offsetY)); 
 		  	break;
-		  case B: tile = new Purple(new Position(position.getX() + offsetX, position.getY() + this.offsetY));
+		  case M: tile = new Purple(new Position(position.getX() + offsetX, position.getY() + this.offsetY));
 		  	break;
-		  case Bl: tile = new Blue(new Position(position.getX() + offsetX, position.getY() + this.offsetY));
+		  case B: tile = new Blue(new Position(position.getX() + offsetX, position.getY() + this.offsetY));
 		  	break;
 		  case Y: tile = new Yellow(new Position(position.getX() + offsetX, position.getY() + this.offsetY));
 		  	break;

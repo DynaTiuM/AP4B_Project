@@ -43,6 +43,10 @@ public class Tile_View extends JLabel {
 		 
 	  }
 	  
+	  public ImageIcon getTexture() {
+		  return this.texture;
+	  }
+	  
 	  /*public void paintComponent(Graphics g){
 		  super.paintComponent(g);
 		  this.draw(g);

@@ -18,6 +18,10 @@ public class PlayGrid {
 		  lines[i] = new Line(new Position(position.getX(), position.getY() + i * RECT_SIZE), i + 1, view_ref);
 	  }
   }
+  
+  public Line[] getLines() {
+	  return lines;
+  }
 
   public void draw(Graphics g) {
 	  for (Line line : lines) {

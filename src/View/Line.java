@@ -18,14 +18,21 @@ public class Line {
 	private View view_m;
 
 	public Line(Position position, int length, View view_ref) {
-	  
 		view_m = view_ref;  
 		
 	    this.position = position;
 	    tiles = new Tile_View[length];
 	    this.length = length;
 	    this.button = new JButton();
-  }
+	}
+	
+	public Tile_View[] getTiles() {
+		return tiles;
+	}
+	
+	public int getLength() {
+		return this.length;
+	}
 
 	public void draw(Graphics g) {
 		ImageIcon icon = new ImageIcon("src\\Images\\Cube.png");
@@ -52,15 +59,16 @@ public class Line {
 		  switch (p.getColorEnum()){
 		  case O: tiles[temp] = new Orange(new Position(position.getX() + (4 - temp) * (RECT_SIZE ), position.getY())); 
 		  	break;
-		  case B: tiles[temp] = new Purple(new Position(position.getX() +  (4 - temp) * (RECT_SIZE), position.getY()));
+		  case M: tiles[temp] = new Purple(new Position(position.getX() +  (4 - temp) * (RECT_SIZE), position.getY()));
 		  	break;
-		  case Bl: tiles[temp] = new Blue(new Position(position.getX() + (4 - temp) * (RECT_SIZE), position.getY()));
+		  case B: tiles[temp] = new Blue(new Position(position.getX() + (4 - temp) * (RECT_SIZE), position.getY()));
 		  	break;
 		  case Y: tiles[temp] = new Yellow(new Position(position.getX() + (4 - temp) * (RECT_SIZE), position.getY()));
 		  	break;
 		  case G: tiles[temp] = new Green(new Position(position.getX() + (4 - temp) * (RECT_SIZE), position.getY()));
 			  break;
 		  }
+		  
 		  System.out.print(p.getColorEnum() + " / ");
 		  view_m.getPanel().addT(tiles[temp]);
 		 

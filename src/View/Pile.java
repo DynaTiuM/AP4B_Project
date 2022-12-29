@@ -19,7 +19,6 @@ public class Pile {
   
   private Tile_View[] tiles;
  
-  
   private View view_m;
   
   private JPanel panel;
@@ -39,11 +38,8 @@ public class Pile {
     this.button = new JButton();
     this.button.setBounds(position.getX(), position.getY(), 25, 25);
     tiles = new Tile_View[4];
-    
    
   }
-  
- 
 
   public void draw(Graphics g) {
 	  
@@ -90,11 +86,10 @@ public class Pile {
 		  for(Tile p: to_iterate) {
 			  switch (p.getColorEnum()){
 			  case O: tiles[i] = new Orange(new Position(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2))); 
-
 			  	break;
-			  case B: tiles[i] = new Purple(new Position(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2)));
+			  case M: tiles[i] = new Purple(new Position(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2)));
 			  	break;
-			  case Bl: tiles[i] = new Blue(new Position(position.getX() +x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2)));
+			  case B: tiles[i] = new Blue(new Position(position.getX() +x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2)));
 			  	break;
 			  case Y: tiles[i] = new Yellow(new Position(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2)));
 			  	break;

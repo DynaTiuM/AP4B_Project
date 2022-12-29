@@ -26,11 +26,11 @@ public class Pattern {
 		
 		new_colorpos = new Color[5];
 
-		grid[0][0] = new Tile(Color.blue);
-		grid[0][1] = new Tile(Color.orange);
-		grid[0][2] = new Tile(Color.red);
-		grid[0][3] = new Tile(Color.black);
-		grid[0][4] = new Tile(Color.white);
+		grid[0][0] = new Tile(Color.MAGENTA);
+		grid[0][1] = new Tile(Color.BLUE);
+		grid[0][2] = new Tile(Color.YELLOW);
+		grid[0][3] = new Tile(Color.GREEN);
+		grid[0][4] = new Tile(Color.ORANGE);
 		
 		for(int l = 0; l < 4; l++) {
 			for(int c = 0; c < 5; c++) {
@@ -55,11 +55,19 @@ public class Pattern {
 	
 	public void determineSendingPlace(int index, Tile to_place) {
 		int i = 0;
-		while(grid[index][i].getColorEnum()!=to_place.getColorEnum()) i++;
+		while(i < 5) {
+			System.out.print("index : " + index + ", i : " + i);
+			if(grid[index][i].getColorEnum() != to_place.getColorEnum()) 
+				i++;
+			else {
+				newTiles.put(to_place, new Position(i, index));
+				System.out.print("new Tiles : Pattern | " + newTiles + "Position : " + i + index);
+				calculateScore(index, i, to_place);
+				break;
+			}
+		}
 
-		newTiles.put(to_place, new Position(index, i));
-		System.out.print("new Tiles : Pattern | " + newTiles + "Position : " + index + i);
-		calculateScore(index, i, to_place);
+		
 	}
 	
 	private void calculateScore(int index, int indexy, Tile to_add) {

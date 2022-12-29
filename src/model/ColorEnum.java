@@ -11,6 +11,6 @@ public enum ColorEnum {
   Y, 
   // Green color
   G, 
-  // Black color
-  Bl
+  // Magenta color
+  M
 }

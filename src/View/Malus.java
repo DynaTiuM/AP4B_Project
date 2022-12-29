@@ -58,15 +58,15 @@ public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
 	System.out.println("malus_view");
 	for(Tile p: linkedList) {
 		switch (p.getColorEnum()){
-		  case O: tiles[temp] = new Orange(new Position(position.getX() + (int)(RECT_SIZE *1.5*temp), position.getY())); 
+		  case O: tiles[temp] = new Orange(new Position(position.getX() + (int)(RECT_SIZE *2*temp), position.getY())); 
 		  	break;
-		  case B: tiles[temp] = new Purple(new Position(position.getX() + (int)(RECT_SIZE *1.5*temp), position.getY()));
+		  case M: tiles[temp] = new Purple(new Position(position.getX() + (int)(RECT_SIZE *2*temp), position.getY()));
 		  	break;
-		  case Bl: tiles[temp] = new Blue(new Position(position.getX() + (int)(RECT_SIZE *1.5*temp), position.getY()));
+		  case B: tiles[temp] = new Blue(new Position(position.getX() + (int)(RECT_SIZE *2*temp), position.getY()));
 		  	break;
-		  case Y: tiles[temp] = new Yellow(new Position(position.getX() + (int)(RECT_SIZE *1.5*temp), position.getY()));
+		  case Y: tiles[temp] = new Yellow(new Position(position.getX() + (int)(RECT_SIZE *2*temp), position.getY()));
 		  	break;
-		  case G: tiles[temp] = new Green(new Position(position.getX() + (int)(RECT_SIZE *1.5*temp), position.getY()));
+		  case G: tiles[temp] = new Green(new Position(position.getX() + (int)(RECT_SIZE *2*temp), position.getY()));
 			  break;
 		  }
 		  System.out.print(p.getColorEnum() + " / ");

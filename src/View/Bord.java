@@ -44,8 +44,15 @@ public class Bord{
 	    pattern.draw(g);
 	  }
 	  
-	  public void repaint() {
-		  view_ref.repaint();
+	  public void addT(Tile_View tile) {
+		  view_ref.getPanel().addT(tile);
+	  }
+	  public void removeT(Tile_View tile) {
+		  view_ref.getPanel().removeT(tile);
+	  }
+	  
+	  public PlayGrid getPlayGrid() {
+		  return playGrid;
 	  }
 
 	  public void setButtons(boolean visible) {

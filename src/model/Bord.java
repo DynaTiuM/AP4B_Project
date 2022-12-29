@@ -139,7 +139,7 @@ public class Bord {
 			if(line.checkFull()) {
 				for(Tile tile : line.getTiles()) {
 					System.out.println("COLOR : "+ tile.getColor());
-					pattern_grid_m.determineSendingPlace(line.getIndex(tile), tile);
+					pattern_grid_m.determineSendingPlace(line.getLength() - 1, tile);
 				}
 				game_ref.sendToBag(line.clear());
 				

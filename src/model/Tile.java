@@ -45,9 +45,9 @@ public class Tile {
 		this.color_m = color_p;
 		
 		if(color_p == Color.BLUE) {
-			setColorEnum(ColorEnum.Bl);
-		}else if (color_p == Color.BLACK) {
 			setColorEnum(ColorEnum.B);
+		}else if (color_p == Color.MAGENTA) {
+			setColorEnum(ColorEnum.M);
 		}else if (color_p == Color.ORANGE) {
 			setColorEnum(ColorEnum.O);
 		}else if (color_p == Color.YELLOW) {

@@ -2,6 +2,8 @@ package View;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.LinkedList;
+
 import javax.swing.ImageIcon;
 
 import model.Tile;
@@ -10,8 +12,10 @@ public class Pattern {
 	private static final int RECT_SIZE = Bord.RECT_SIZE;
 	private Position position;
 	private Bord bord_ref;
+	private Tile_View[][] tile;
 
 	public Pattern(Bord ref, Position position) {
+		tile = new Tile_View[5][5];
 		bord_ref = ref;
 		this.position = position;
 	}
@@ -19,38 +23,17 @@ public class Pattern {
   public void draw(Graphics g) {  	  
 	ImageIcon icon = new ImageIcon("src\\Images\\Pattern.png");
     if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
-      System.out.println("Error Patern : " + MediaTracker.ERRORED);
+      System.out.println("Error Pattern : " + MediaTracker.ERRORED);
     } else {
       // The image was successfully loaded
       Image pattern = icon.getImage();
-      for(int i = 0; i < 6; i++) {
-    		g.drawImage(pattern, position.getX(), position.getY(), RECT_SIZE*5, RECT_SIZE*5, null);
-      }
+      		for(int i = 0; i < 6; i++) {
+      			g.drawImage(pattern, position.getX(), position.getY(), RECT_SIZE*5, RECT_SIZE*5, null);
+      		}
       }
 
   }
   
-  public void drawPattern(Graphics g, Tile[][] pattern) {
-	  
-	  for(int i =0; i<5; i++) {
-		  for(int j = 0; j<5; j++) {
-			  if(pattern[i][j]!=null) {
-				  switch (pattern[i][j].getColorEnum()){
-				  case O: new Orange(new Position(position.getX() + j * (RECT_SIZE * 2), position.getY() + i * (RECT_SIZE * 2)));
-				  	break;
-				  case B:  new Purple(new Position(position.getX() + j * (RECT_SIZE * 2), position.getY() + i * (RECT_SIZE * 2)));
-				  	break;
-				  case Bl: new Blue(new Position(position.getX() + j * (RECT_SIZE * 2), position.getY() + i * (RECT_SIZE * 2)));
-				  	break;
-				  case Y: new Yellow(new Position(position.getX() + j * (RECT_SIZE * 2), position.getY() + i * (RECT_SIZE * 2)));
-				  	break;
-				  case G: new Green(new Position(position.getX() + j * (RECT_SIZE * 2), position.getY() + i * (RECT_SIZE * 2)));
-					  break;
-				  }
-			  }
-		  }
-	  }
-  }
   
   public void updatePattern(HashMap<Tile, Position> to_add) {
       for (HashMap.Entry<Tile, Position> entry : to_add.entrySet()) {
@@ -60,21 +43,36 @@ public class Pattern {
       
           // Afficher les pairs clé-valeur
           switch (key.getColorEnum()){
-		  case O: new Orange(new Position(position.getX() + value.getX() * (RECT_SIZE * 2), position.getY() + value.getY() * (RECT_SIZE * 2)));
+		  case O: tile[value.getY()][value.getX()] = new Orange(new Position(position.getX() + value.getX() * RECT_SIZE, position.getY() + value.getY() * RECT_SIZE));
 		  	break;
-		  case B:  new Purple(new Position(position.getX() + value.getX() * (RECT_SIZE * 2), position.getY() + value.getY() * (RECT_SIZE * 2)));
+		  case M: tile[value.getY()][value.getX()] = new Purple(new Position(position.getX() + value.getX() * RECT_SIZE, position.getY() + value.getY() * RECT_SIZE));
 		  	break;
-		  case Bl: new Blue(new Position(position.getX() + value.getX() * (RECT_SIZE * 2), position.getY() + value.getY() * (RECT_SIZE * 2)));
+		  case B: tile[value.getY()][value.getX()] = new Blue(new Position(position.getX() + value.getX() * RECT_SIZE, position.getY() + value.getY() * RECT_SIZE));
 		  	break;
-		  case Y: new Yellow(new Position(position.getX() + value.getX() * (RECT_SIZE * 2), position.getY() + value.getY() * (RECT_SIZE * 2)));
+		  case Y: tile[value.getY()][value.getX()] = new Yellow(new Position(position.getX() + value.getX() * RECT_SIZE, position.getY() + value.getY() * RECT_SIZE));
 		  	break;
-		  case G: new Green(new Position(position.getX() + value.getX() * (RECT_SIZE * 2), position.getY() + value.getY() * (RECT_SIZE * 2)));
+		  case G: tile[value.getY()][value.getX()] = new Green(new Position(position.getX() + value.getX() * RECT_SIZE, position.getY() + value.getY() * RECT_SIZE));
 			  break;
 		  }
-	  } 
+          
+          bord_ref.addT(tile[value.getY()][value.getX()]);
+      
+	  }
+      
+      PlayGrid play_grid = bord_ref.getPlayGrid();
 
-      bord_ref.repaint();
-	  
+	  for(Line line : play_grid.getLines()) {
+		  for(Tile_View tileView : line.getTiles()) {
+			  for(int y = 0; y < 5; y++)
+				  for(int x = 0; x < 5; x++)
+					  if (tile[y][x] != null)
+						  if(tileView.getTexture() == tile[y][x].getTexture() 
+						  && line.getLength() == y + 1) {
+							  System.out.println("SAME TEXTURE!");
+							  bord_ref.removeT(tileView);
+						  }
+		  }
+	  }
   }
   
 }
