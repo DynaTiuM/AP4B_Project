@@ -1,102 +1,120 @@
 package model;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
+import View.Position;
 import controller.Controller;
 
+// ATTENTION : dans game on crée toujours 4 bord est-ce normal ?
+// Toujours une fonction test
+
+// déclaration de la classe Game
 public class Game {
 	
+	// Centre de la table 
 	private Pot pot;
-	private Bord[] players;
-	private Controller controller;
-	private Pattern pattern;
 	
+	// Plateau de jeu pour chaque joueur 
+	private Bord[] players;
+	
+	// Le contrôleur qui gère le déroulement du jeu
+	private Controller controller;
+	
+	// L'indice du joueur actuellement actif
 	private int current_player;
 	
+	
+	// Constructeur qui prend en paramètre un contrôleur et le nombre de joueurs
 	public Game(Controller ref, int nb_player) {
-		this.current_player = 0;
-		this.controller = ref;
 		
+		current_player = 0;
+		controller = ref;
+		
+		// initialise les Bord avec le nombre de joueurs
 		players = new Bord[4];
 		for(int i = 0; i<4; i++) players[i] = new Bord(i, this);
 		
-		this.pot = new Pot(4, this);
-		this.pattern = new Pattern();
+		// initialise le Pot en fonction du nombre de joueurs 
+		pot = new Pot(4, this);
 		
-		test();
-	}
-
-	// TODO
-	private int determineWinner() {
-		/*for(Bord player : players) {
-			
-		}*/
-		return 0;
 	}
 	
-	public int getCurrentPlayer() {
-		return this.current_player;
-	}
 	
-	public Bord getPlayer(int current) {
-		return players[current];
-	}
-	
-	public Controller getController() {
-		return this.controller;
-	}
-	
-	public void sendSelectionToBord(LinkedList<Tile> tiles) {
+	// Envoie une liste de tuiles à la main du joueur actuel
+	public void sendSelectiontoBord(LinkedList<Tile> tiles) {
 		players[current_player].setHand(tiles);
 	}
 	
-	public void sendSelectionToBord(Tile tile) {
+	
+	// Envoie une tuile à la main du joueur actuel
+	public void sendSelectiontoBord(Tile tile) {
 		players[current_player].setHand(tile);
 	}
 	
+	
+	
+	
+	// Envoie une liste de tuiles au Bag
 	public void sendToBag(LinkedList<Tile> tiles) {
 		pot.sendToBag(tiles);
 	}
 	
-	public void sendScore(int score) {
-		this.pattern.addScore(score);
-	}
-
-	public void sendMalus(Tile[] malus) {
-		players[this.current_player].sendMalus(malus);
-	}
 	
-	public void sendWinner() {
-		
-	}
-	
-	public void sendGrid(Tile[][] grid) {
-		players[this.getCurrentPlayer()].getPattern().setGrid(grid);
-	}
-	
-	public void sendLines(Line[] lines) {
-		players[this.getCurrentPlayer()].sendLines(lines);
-	}
-	
+	// Indique la fin d'un tour de jeu et passe au joueur suivant
 	public void endOfSet() {
 		
-		
+		// Appelle la méthode endOfSet() de chaque joueur
 		for(Bord p: players) {
 			p.endOfSet();
 		}
 
+		// passe au joueur suivant 
 		current_player++;
+	
 	}
 	
 	public void test() {
 		pot.test();
-		players[current_player].endOfSet();
+		players[0].endOfSet();
+		
+		//controller.setButtonsPot(pot.checkPossible());*/
+		
+	}
+	
+	public void testShuffle() {
+		pot.testShuffle();
+	}
+
+	
+	
+	public void sendSelectiontoBordTest(LinkedList<Tile> tiles_bord) {
+		players[current_player].test(tiles_bord);
+	}
+
+	public Tile[][] getPatternToView() {
+		// TODO Auto-generated method stub
+		return players[current_player].getPatternToView();
+	}
+
+	public void sendContentList(LinkedList<Tile> to_send, int index) {
+		controller.updatePile(to_send, index);
 		
 	}
 
-	public void sendSelectiontoBordTest(LinkedList<Tile> tiles_bord) {
-		players[current_player].test(tiles_bord);
-		
+	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, LinkedList<Tile> linkedList, int previous_index_2) {
+		controller.updateViewLine(to_send, previous_index, i, current_player, linkedList, previous_index_2);
 	}
+	
+	public void updateMiddlePileView(LinkedList<Tile> to_add, int previous_index) {
+		controller.updateMiddlePileView(to_add, previous_index);
+	}
+	
+	public void updatePatternView(HashMap<Tile, Position> to_send) {
+		controller.updatePatternView(current_player, to_send);
+	}
+	
+	
+	
 	
 }

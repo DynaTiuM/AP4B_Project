@@ -1,6 +1,9 @@
 package model;
 
 import java.awt.Color;
+import java.util.HashMap;
+
+import View.Position;
 
 
 
@@ -8,13 +11,17 @@ public class Pattern {
 
 	private Tile[][] grid;
 	private Color[] new_colorpos;
+	private HashMap<Tile, Position> newTiles;
+	private Bord bord_ref;
 	
 	private boolean end_trigger;
 	
 	private int score;
 	
-	public Pattern() {
-		
+	public Pattern(Bord bord) {
+
+		newTiles = new HashMap<Tile, Position>();
+		this.bord_ref = bord;
 		grid = new Tile[5][5];
 		
 		new_colorpos = new Color[5];
@@ -38,24 +45,20 @@ public class Pattern {
 			}
 		}
 		
-		
 		end_trigger = false;
-		
-	}
-	
-	public void setGrid(Tile[][] grid) {
-		this.grid = grid;
 	}
 	
 	public void scoreMalus(int malus) {
 		score = score - malus;
-		if (score <0 ) score = 0;
+		if (score < 0) score = 0;
 	}
 	
 	public void determineSendingPlace(int index, Tile to_place) {
-		int i =0;
+		int i = 0;
 		while(grid[index][i].getColorEnum()!=to_place.getColorEnum()) i++;
-		
+
+		newTiles.put(to_place, new Position(index, i));
+		System.out.print("new Tiles : Pattern | " + newTiles + "Position : " + index + i);
 		calculateScore(index, i, to_place);
 	}
 	
@@ -146,8 +149,6 @@ public class Pattern {
 				}else {
 					System.out.print("_ ");
 				}
-				
-				
 			}
 			
 			System.out.println();
@@ -178,7 +179,7 @@ public class Pattern {
 			if(grid[i][index].getOccupied()) check++;
 		}
 		
-		if(check ==5) {
+		if(check == 5) {
 			score +=7;
 		}
 	}
@@ -189,6 +190,10 @@ public class Pattern {
 	
 	public int getScore() {
 		return this.score;
+	}
+	
+	public void sendPattern() {
+		bord_ref.updatePatternView(this.newTiles);
 	}
 	
 	

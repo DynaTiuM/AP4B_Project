@@ -1,60 +1,58 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
+import View.Position;
+import View.View;
 import model.Game;
-import model.Line;
-import model.Pile;
 import model.Tile;
 
 public class Controller {
 	private Game game_m;
-	private GamePanel view;
-	private int current_player;
+	private View view_m;
 	
-	private ActionSelectionPile actionSelectionPile;
-	private ActionDisplayMiddlePile actionDisplayMiddlePile;
-	private ActionSelectionMiddlePile actionSelectionMiddlePile;
-	private ActionDisplayPile actionDisplayPile;
-	private ActionLine actionLine;
-	private ActionMalus actionMalus;
-	
-	public Controller() {
+	public Controller()  {
+		view_m = new View(this, 4);
 		game_m = new Game(this, 4);
-		actionMalus = new ActionMalus(game_m);
-		actionSelectionPile = new ActionSelectionPile(game_m);
+		
+		try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+        	 e.printStackTrace();
+        }
+		
+		game_m.test();
+		game_m.endOfSet();
 	}
 	
-	public int getCurrentPlayer() {
-		return this.game_m.getCurrentPlayer();
+	public void setButtonsPot(boolean possible[]) {
+		view_m.setButtonsPot(possible);
 	}
 	
-	
-	public void sendMalusToView(int current_player, Tile[] malus) {
-		view.getBord(current_player).getMalus.draw(malus);
+	public void drawTile(LinkedList<Tile> tiles, int position) {
+		view_m.setTile(tiles, position);
+		
 	}
 	
-	public void sendGridToView(int current_player, Tile[][] grid) {
-		view.getBord(current_player).getGrid.draw(grid);
+	public Tile[][] getPatternToView(){
+		return game_m.getPatternToView();
 	}
 	
-	public void sendLinesToView(int current_player, Line[] lines) {
-		view.getBord(current_player).getPlayGrid.draw(lines);
+	public void updatePile(LinkedList<Tile> to_update, int position) {
+		view_m.updtatePile(to_update, position);
+	}
+
+	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, int current_player, LinkedList<Tile> linkedList, int previous_index_2) {
+		view_m.updateViewLine(to_send, previous_index, i, current_player, linkedList, previous_index_2);
 	}
 	
-	public void sendScoreToView(int current_player, int score) {
-		view.getScore.draw(score);
+	public void updateMiddlePileView(LinkedList<Tile> to_send, int previous_index) {
+		view_m.updateMiddlePile(to_send, previous_index);
 	}
 	
-	public void sendMiddlePileToView(LinkedList<Pile> middlePile) {
-		view.getPot().getMiddlePile().draw(middlePile);
+	public void updatePatternView(int current_player, HashMap<Tile, Position> to_send) {
+		view_m.updatePattern(current_player, to_send);
 	}
 	
-	public void sendPilesToView(Pile[] piles) {
-		view.getPot().draw(piles);
-	}
-	
-	public void updateCurrentPlayer() {
-		this.current_player = this.game_m.getCurrentPlayer();
-	}
 }
