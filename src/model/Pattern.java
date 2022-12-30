@@ -56,7 +56,6 @@ public class Pattern {
 	public void determineSendingPlace(int index, Tile to_place) {
 		int i = 0;
 		while(i < 5) {
-			
 			if(grid[index][i].getColorEnum() != to_place.getColorEnum()) 
 				i++;
 			else {
