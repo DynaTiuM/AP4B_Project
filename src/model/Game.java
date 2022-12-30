@@ -52,14 +52,10 @@ public class Game {
 		players[current_player].setHand(tile);
 	}
 	
-	
-	
-	
 	// Envoie une liste de tuiles au Bag
 	public void sendToBag(LinkedList<Tile> tiles) {
 		pot.sendToBag(tiles);
 	}
-	
 	
 	// Indique la fin d'un tour de jeu et passe au joueur suivant
 	public void endOfSet() {
@@ -94,10 +90,6 @@ public class Game {
 		players[number].test(tiles_bord);
 	}
 
-	public Tile[][] getPatternToView() {
-		// TODO Auto-generated method stub
-		return players[current_player].getPatternToView();
-	}
 
 	public void sendContentList(LinkedList<Tile> to_send, int index) {
 		controller.updatePile(to_send, index);

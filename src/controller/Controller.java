@@ -32,11 +32,6 @@ public class Controller {
 	
 	public void drawTile(LinkedList<Tile> tiles, int position) {
 		view_m.setTile(tiles, position);
-		
-	}
-	
-	public Tile[][] getPatternToView(){
-		return game_m.getPatternToView();
 	}
 	
 	public void updatePile(LinkedList<Tile> to_update, int position) {

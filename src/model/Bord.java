@@ -133,12 +133,13 @@ public class Bord {
 	
 	// fonction appelée en fin de manche 
 	public void endOfSet() {
-		
+		int i = 0;
 		// vide toute les "Line" qui sont pleines 
 		for(Line line: play_grid) {
 			if(line.checkFull()) {
 				for(Tile tile : line.getTiles()) {
-					System.out.println("COLOR : "+ tile.getColor());
+					i ++;
+					System.out.println("Coming : " + i);
 					pattern_grid_m.determineSendingPlace(line.getLength() - 1, tile);
 				}
 				game_ref.sendToBag(line.clear());

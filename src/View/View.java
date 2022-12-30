@@ -102,6 +102,8 @@ public class View extends JFrame {
 	}
 	
 	public void updatePattern(HashMap<Tile, Position> to_send, int playerID) {
+		System.out.println("Updating Bord of : " + playerID);
+		System.out.println("To Send : " + to_send);
 		bords[playerID].updatePattern(to_send);
 	}
 	
