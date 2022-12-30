@@ -56,7 +56,6 @@ public class Pattern {
 	public void determineSendingPlace(int index, Tile to_place) {
 		int i = 0;
 		while(i < 5) {
-			System.out.print("index : " + index + ", i : " + i);
 			if(grid[index][i].getColorEnum() != to_place.getColorEnum()) 
 				i++;
 			else {
@@ -66,8 +65,9 @@ public class Pattern {
 				break;
 			}
 		}
-
-		
+	}
+	public void clearNewTiles() {
+		this.newTiles.clear();
 	}
 	
 	private void calculateScore(int index, int indexy, Tile to_add) {

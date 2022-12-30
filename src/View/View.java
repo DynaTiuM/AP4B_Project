@@ -101,8 +101,12 @@ public class View extends JFrame {
 		pot_m.updateMiddlePile(to_send, previous_index);
 	}
 	
-	public void updatePattern(int current_player, HashMap<Tile, Position> to_send) {
-		bords[current_player].updatePattern(to_send);
+	public void updatePattern(HashMap<Tile, Position> to_send, int playerID) {
+		bords[playerID].updatePattern(to_send);
+	}
+	
+	public void updateMalus(int playerID) {
+		bords[playerID].updateMalus();
 	}
 }
 

@@ -152,6 +152,7 @@ public class Bord {
 		game_ref.sendToBag(malus_grid_m.clear());
 		
 		pattern_grid_m.sendPattern();
+		pattern_grid_m.clearNewTiles();
 		
 		System.out.println("END OF ROUND!");
 		
@@ -171,7 +172,10 @@ public class Bord {
 	}
 	
 	public void updatePatternView(HashMap<Tile, Position> to_send) {
-		this.game_ref.updatePatternView(to_send);
+		this.game_ref.updatePatternView(to_send, playerID);
 	}
 	
+	public void updateMalusView() {
+		this.game_ref.updateMalusView(playerID);
+	}
 }

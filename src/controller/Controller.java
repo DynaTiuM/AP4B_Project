@@ -51,8 +51,12 @@ public class Controller {
 		view_m.updateMiddlePile(to_send, previous_index);
 	}
 	
-	public void updatePatternView(int current_player, HashMap<Tile, Position> to_send) {
-		view_m.updatePattern(current_player, to_send);
+	public void updatePatternView(HashMap<Tile, Position> to_send, int playerID) {
+		view_m.updatePattern(to_send, playerID);
+	}
+	
+	public void updateMalusView(int current_player) {
+		view_m.updateMalus(current_player);
 	}
 	
 }

@@ -77,5 +77,12 @@ public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
 	
 }
 
+	public void updateMalus() {
+		for(Tile_View tile : tiles) {
+			if(tile != null)
+				view_m.getPanel().removeT(tile);
+		}
+	}
+
 
 }

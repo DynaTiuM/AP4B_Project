@@ -75,9 +75,10 @@ public class Game {
 	}
 	
 	public void test() {
-		pot.test();
-		players[0].endOfSet();
-		
+		pot.test(0);
+		pot.test(1);
+		pot.test(2);
+		pot.test(3);
 		//controller.setButtonsPot(pot.checkPossible());*/
 		
 	}
@@ -88,8 +89,8 @@ public class Game {
 
 	
 	
-	public void sendSelectiontoBordTest(LinkedList<Tile> tiles_bord) {
-		players[current_player].test(tiles_bord);
+	public void sendSelectiontoBordTest(LinkedList<Tile> tiles_bord, int number) {
+		players[number].test(tiles_bord);
 	}
 
 	public Tile[][] getPatternToView() {
@@ -110,8 +111,12 @@ public class Game {
 		controller.updateMiddlePileView(to_add, previous_index);
 	}
 	
-	public void updatePatternView(HashMap<Tile, Position> to_send) {
-		controller.updatePatternView(current_player, to_send);
+	public void updatePatternView(HashMap<Tile, Position> to_send, int playerID) {
+		controller.updatePatternView(to_send, playerID);
+	}
+	
+	public void updateMalusView(int playerID) {
+		controller.updateMalusView(playerID);
 	}
 	
 	

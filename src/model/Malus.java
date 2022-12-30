@@ -43,7 +43,7 @@ public class Malus {
 			}else {
 				System.out.println("Too many to possibly add, sending to top of the box");
 			
-		}
+			}
 		
 		}
 	}
@@ -58,13 +58,9 @@ public class Malus {
 		}else {
 			System.out.println("Too many to possibly add, sending to top of the box");
 			//TODO 
+		}
 		
 	}
-		
-	}
-	
-
-	
 	
 	private void initPenalty() {
 		penalty[0]=1;
@@ -79,9 +75,11 @@ public class Malus {
 	public int computateMalus() {
 		int badpoints = 0;
 		
-		for(int i = 0; i<current_index; i++) {
+		for(int i = 0; i < current_index; i++) {
 			badpoints += penalty[i];
 		}
+		
+		bord_ref.updateMalusView();
 		
 		return badpoints;
 	}
@@ -96,15 +94,10 @@ public class Malus {
 			i++;
 		}
 		
-	
-		
-		
 		while(i< 7) {
 			System.out.print("- ");
 			i++;
 		}
-		
-		
 		
 		System.out.println();
 	}
@@ -124,8 +117,6 @@ public class Malus {
 		
 		to_send.clear();
 		
-		
-		
 		for(int i =0; i<current_index; i++) {
 			to_send.add(line[i]);
 			line[i] = null;
@@ -137,8 +128,6 @@ public class Malus {
 		System.out.println();
 		
 		return to_send;
-		
-		
 	}
 	
 	public Tile[] getLine() {

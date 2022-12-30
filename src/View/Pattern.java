@@ -11,12 +11,12 @@ import model.Tile;
 public class Pattern {
 	private static final int RECT_SIZE = Bord.RECT_SIZE;
 	private Position position;
-	private Bord bord_ref;
+	private View view_ref;
 	private Tile_View[][] tile;
 
-	public Pattern(Bord ref, Position position) {
+	public Pattern(Position position, View ref_view) {
 		tile = new Tile_View[5][5];
-		bord_ref = ref;
+		view_ref = ref_view;
 		this.position = position;
 	}
 
@@ -35,7 +35,7 @@ public class Pattern {
   }
   
   
-  public void updatePattern(HashMap<Tile, Position> to_add) {
+  public void updatePattern(HashMap<Tile, Position> to_add, PlayGrid playGrid) {
       for (HashMap.Entry<Tile, Position> entry : to_add.entrySet()) {
           Tile key = entry.getKey();
           Position value = entry.getValue();
@@ -55,21 +55,19 @@ public class Pattern {
 			  break;
 		  }
           
-          bord_ref.addT(tile[value.getY()][value.getX()]);
+          view_ref.getPanel().addT(tile[value.getY()][value.getX()]);
       
 	  }
-      
-      PlayGrid play_grid = bord_ref.getPlayGrid();
-
-	  for(Line line : play_grid.getLines()) {
+     
+	  for(Line line : playGrid.getLines()) {
 		  for(Tile_View tileView : line.getTiles()) {
 			  for(int y = 0; y < 5; y++)
 				  for(int x = 0; x < 5; x++)
-					  if (tile[y][x] != null)
+					  if (tile[y][x] != null && tileView != null)
 						  if(tileView.getTexture() == tile[y][x].getTexture() 
 						  && line.getLength() == y + 1) {
 							  System.out.println("SAME TEXTURE!");
-							  bord_ref.removeT(tileView);
+							  view_ref.getPanel().removeT(tileView);
 						  }
 		  }
 	  }
