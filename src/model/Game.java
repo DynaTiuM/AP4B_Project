@@ -68,6 +68,7 @@ public class Game {
 		for(Bord p: players) {
 			p.endOfSet();
 		}
+		
 
 		// passe au joueur suivant 
 		current_player++;

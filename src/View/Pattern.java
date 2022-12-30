@@ -34,7 +34,6 @@ public class Pattern {
 
   }
   
-  
   public void updatePattern(HashMap<Tile, Position> to_add, PlayGrid playGrid) {
       for (HashMap.Entry<Tile, Position> entry : to_add.entrySet()) {
           Tile key = entry.getKey();
