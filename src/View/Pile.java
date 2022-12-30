@@ -1,72 +1,141 @@
 package View;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
+import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class Pile extends JPanel{
-	/**
-	 * 
-	 */
-	
-	
-	private static final long serialVersionUID = 1L;
-	private static final int RECT_SIZE = Bord.RECT_SIZE;
-	private static int buttonIdCounter = 0;
-  private Position position;
-  private JButton button;
+import model.Tile;
 
-  public Pile(Position position) {
-	  super();
-	    setOpaque(false);
-	  setPreferredSize(new Dimension(RECT_SIZE * 4, RECT_SIZE * 4));
-    this.position = position;
-    button = new JButton();
+public class Pile {
+    private static final int RECT_SIZE = Bord.RECT_SIZE;
+    private static int buttonIdCounter = 0;
+    private Position position;
+    private JButton button;
 
-    button.setBounds(position.getX() + RECT_SIZE, position.getY() + RECT_SIZE, RECT_SIZE, RECT_SIZE);
-    button.setActionCommand("buttonPile" + Integer.toString(buttonIdCounter));
-    buttonIdCounter++;
-    this.add(button);
-  }
+    private Tile_View[] tiles;
+    private View view_m;
+    private JPanel panel;
+    int number;
+    private int passage;
 
-  public void draw(Graphics g) {
-	  ImageIcon icon = new ImageIcon("src\\Images\\Pile.png");
-	    if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
-	        // There was an error loading the image
-	      } else {
-	        // The image was successfully loaded
-	        Image pile = icon.getImage();
-	        g.drawImage(pile, position.getX(), position.getY(), RECT_SIZE*3, RECT_SIZE*3, null);
+    public Pile(Position position, View view_ref, int number) {
+        this.number = number;
 
-	        }
+        view_m = view_ref;
 
-	    // Crée 4 tuiles vertes � l'emplacement de la pile
-	    Green tile1 = new Green(new Position(position.getX(), position.getY()));
-	    Green tile2 = new Green(new Position(position.getX() + (RECT_SIZE * 2), position.getY()));
-	    Green tile3 = new Green(new Position(position.getX(), position.getY() + (RECT_SIZE * 2)));
-	    Green tile4 = new Green(new Position(position.getX() + (RECT_SIZE * 2), position.getY() + (RECT_SIZE * 2)));
+        this.position = position;
+        this.button = new JButton();
+        this.button.setBounds(position.getX(), position.getY(), 25, 25);
+        tiles = new Tile_View[4];
 
-	    // Dessine les 4 tuiles vertes
-	    tile1.draw(g);
-	    tile2.draw(g);
-	    tile3.draw(g);
-	    tile4.draw(g);
+        button.setBounds(position.getX() + RECT_SIZE, position.getY() + RECT_SIZE, RECT_SIZE, RECT_SIZE);
+        button.setActionCommand("buttonPile" + Integer.toString(buttonIdCounter));
+        buttonIdCounter++;
+    }
 
-	  }
-  
-  @Override
-	public void paintComponent(Graphics g) {
-	    super.paintComponent(g);
-	    // Draw image 
-	    draw(g);
-	    }    
+    public void draw(Graphics g) {
 
-public void setButton(boolean value) {
-    button.setVisible(value);
-  }
+        int i = 0;
+
+        ImageIcon icon = new ImageIcon("src\\Images\\Pile.png");
+        if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
+            System.out.println("CANT LOAD IMAGE");
+        } else {
+            // The image was successfully loaded
+            Image pile = icon.getImage();
+            g.drawImage(pile, position.getX(), position.getY(), RECT_SIZE * 3, RECT_SIZE * 3, null);
+
+        }
+
+    }
+
+    public boolean updateTile(LinkedList<Tile> to_iterate) {
+
+        int x = 0;
+        int y = 0;
+        int i = 0;
+
+
+        if (to_iterate.getFirst() != null) {
+
+
+            for (Tile p : to_iterate) {
+                switch (p.getColorEnum()) {
+                    case O:
+                        tiles[i] = new Orange(new Position(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2)));
+                        break;
+                    case M:
+                        tiles[i] = new Purple(new Position(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2)));
+                        break;
+                    case B:
+                        tiles[i] = new Blue(new Position(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2)));
+                        break;
+                    case Y:
+                        tiles[i] = new Yellow(new Position(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2)));
+                        break;
+                    case G:
+                        tiles[i] = new Green(new Position(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2)));
+                        break;
+                }
+                System.out.print(p.getColorEnum() + " / ");
+                view_m.getPanel().addT(tiles[i]);
+
+
+                switch (i) {
+                    case 0:
+                        x++;
+                        break;
+                    case 1:
+                        x = 0;
+                        y++;
+                        break;
+                    case 2:
+                        x++;
+                        break;
+                }
+
+                i++;
+
+
+            }
+
+        }
+
+
+        return to_iterate.getFirst() != null;
+
+    }
+
+    public void setButton(boolean value) {
+        button.setVisible(value);
+        System.out.println("button");
+    }
+
+
+    public void updatePile(LinkedList<Tile> to_update) {
+
+        ViewPanel temp = this.view_m.getPanel();
+
+        int i = 0;
+        if (!updateTile(to_update)) {
+            //System.out.println("\n" +number + "test bari");
+            for (Tile_View p : tiles) {
+                temp.removeT(p);
+            }
+            //temp.revalidate();
+            temp.repaint();
+        }
+
+
+    }
+    
+    public JButton getButton() {
+    	return button;
+    }
+
 }
