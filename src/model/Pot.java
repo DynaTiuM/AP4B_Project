@@ -31,9 +31,9 @@ public class Pot {
 		this.game_ref.updateMiddlePileView(to_add, previous_index);
 	}
 	
-	public void test(int number) {
+	public void test() {
 		
-		piles[number].test(number);
+		piles[0].test();
 		/*for(Pile p: piles) {
 			p.test();
 		}*/

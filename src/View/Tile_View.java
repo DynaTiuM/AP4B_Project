@@ -35,6 +35,13 @@ public class Tile_View extends JLabel {
 		  //this.setVisible(true);
 	  }
 
+	  public void hide(Graphics g) {
+	    // Désafiche la tuile en utilisant la position actuelle de la tuile
+		System.out.print(" hide");
+		this.setVisible(false);
+	    //g.clearRect(position.getX(), position.getY(), RECT_SIZE, RECT_SIZE);
+		 
+	  }
 	  
 	  public ImageIcon getTexture() {
 		  return this.texture;

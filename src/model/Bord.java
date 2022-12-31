@@ -133,13 +133,12 @@ public class Bord {
 	
 	// fonction appelée en fin de manche 
 	public void endOfSet() {
-		int i = 0;
+		
 		// vide toute les "Line" qui sont pleines 
 		for(Line line: play_grid) {
 			if(line.checkFull()) {
 				for(Tile tile : line.getTiles()) {
-					i ++;
-					System.out.println("Coming : " + i);
+					System.out.println("COLOR : "+ tile.getColor());
 					pattern_grid_m.determineSendingPlace(line.getLength() - 1, tile);
 				}
 				game_ref.sendToBag(line.clear());
@@ -153,7 +152,6 @@ public class Bord {
 		game_ref.sendToBag(malus_grid_m.clear());
 		
 		pattern_grid_m.sendPattern();
-		pattern_grid_m.clearNewTiles();
 		
 		System.out.println("END OF ROUND!");
 		
@@ -173,10 +171,11 @@ public class Bord {
 	}
 	
 	public void updatePatternView(HashMap<Tile, Position> to_send) {
-		this.game_ref.updatePatternView(to_send, playerID);
+		this.game_ref.updatePatternView(this.playerID, to_send);
 	}
 	
-	public void updateMalusView() {
-		this.game_ref.updateMalusView(playerID);
+	public void updateMalus() {
+		this.game_ref.updateMalus(playerID);
 	}
+	
 }

@@ -52,10 +52,14 @@ public class Game {
 		players[current_player].setHand(tile);
 	}
 	
+	
+	
+	
 	// Envoie une liste de tuiles au Bag
 	public void sendToBag(LinkedList<Tile> tiles) {
 		pot.sendToBag(tiles);
 	}
+	
 	
 	// Indique la fin d'un tour de jeu et passe au joueur suivant
 	public void endOfSet() {
@@ -64,7 +68,6 @@ public class Game {
 		for(Bord p: players) {
 			p.endOfSet();
 		}
-		
 
 		// passe au joueur suivant 
 		current_player++;
@@ -72,12 +75,10 @@ public class Game {
 	}
 	
 	public void test() {
-		pot.test(0);
-		pot.test(1);
-		pot.test(2);
-		pot.test(3);
-		//controller.setButtonsPot(pot.checkPossible());*/
+		pot.test();
+		players[0].endOfSet();
 		
+		//controller.setButtonsPot(pot.checkPossible());*/
 	}
 	
 	public void testShuffle() {
@@ -86,11 +87,10 @@ public class Game {
 
 	
 	
-	public void sendSelectiontoBordTest(LinkedList<Tile> tiles_bord, int number) {
-		players[number].test(tiles_bord);
+	public void sendSelectiontoBordTest(LinkedList<Tile> tiles_bord) {
+		players[current_player].test(tiles_bord);
 	}
-
-
+	
 	public void sendContentList(LinkedList<Tile> to_send, int index) {
 		controller.updatePile(to_send, index);
 		
@@ -104,14 +104,13 @@ public class Game {
 		controller.updateMiddlePileView(to_add, previous_index);
 	}
 	
-	public void updatePatternView(HashMap<Tile, Position> to_send, int playerID) {
-		controller.updatePatternView(to_send, playerID);
+	public void updatePatternView(int playerID, HashMap<Tile, Position> to_send) {
+		controller.updatePatternView(playerID, to_send);
 	}
 	
-	public void updateMalusView(int playerID) {
-		controller.updateMalusView(playerID);
+	public void updateMalus(int playerID) {
+		controller.updateMalus(playerID);
 	}
-	
 	
 	
 	

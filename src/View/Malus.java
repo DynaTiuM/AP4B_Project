@@ -8,7 +8,7 @@ import javax.swing.*;
 import model.Tile;
 
 public class Malus {
-	private static final int RECT_SIZE = Bord.RECT_SIZE;
+	private int RECT_SIZE;
   private Position position;
   private JButton button;
   
@@ -16,13 +16,15 @@ public class Malus {
   
   private View view_m;
 
-  public Malus(Position position, View view_ref) {
+  public Malus(Position position, View view_ref, int RECT_SIZE) {
 	
 	view_m = view_ref;  
 	
 	tiles = new Tile_View[6];
     this.position = position;
     this.button = new JButton();
+    
+    this.RECT_SIZE = RECT_SIZE;
   }
 
   public void draw(Graphics g) {
@@ -77,10 +79,11 @@ public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
 	
 }
 
-	public void updateMalus() {
+	public void updateMalusView() {
 		for(Tile_View tile : tiles) {
-			if(tile != null)
+			if(tile != null) {
 				view_m.getPanel().removeT(tile);
+			}
 		}
 	}
 

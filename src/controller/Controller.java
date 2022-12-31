@@ -17,6 +17,7 @@ public class Controller {
 		game_m = new Game(this, 4);
 		
 		try {
+
             Thread.sleep(1000);
         } catch (InterruptedException e) {
         	 e.printStackTrace();
@@ -24,6 +25,8 @@ public class Controller {
 		
 		game_m.test();
 		game_m.endOfSet();
+
+		view_m.showBordInPopUp();
 	}
 	
 	public void setButtonsPot(boolean possible[]) {
@@ -32,8 +35,9 @@ public class Controller {
 	
 	public void drawTile(LinkedList<Tile> tiles, int position) {
 		view_m.setTile(tiles, position);
+		
 	}
-	
+
 	public void updatePile(LinkedList<Tile> to_update, int position) {
 		view_m.updtatePile(to_update, position);
 	}
@@ -46,12 +50,12 @@ public class Controller {
 		view_m.updateMiddlePile(to_send, previous_index);
 	}
 	
-	public void updatePatternView(HashMap<Tile, Position> to_send, int playerID) {
-		view_m.updatePattern(to_send, playerID);
+	public void updatePatternView(int playerID, HashMap<Tile, Position> to_send) {
+		view_m.updatePattern(playerID, to_send);
 	}
 	
-	public void updateMalusView(int current_player) {
-		view_m.updateMalus(current_player);
+	public void updateMalus(int playerID) {
+		view_m.updateMalus(playerID);
 	}
 	
 }

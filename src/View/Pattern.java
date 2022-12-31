@@ -2,22 +2,22 @@ package View;
 
 import java.awt.*;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 
 import model.Tile;
 
 public class Pattern {
-	private static final int RECT_SIZE = Bord.RECT_SIZE;
+	private int RECT_SIZE;
 	private Position position;
-	private View view_ref;
 	private Tile_View[][] tile;
+	private View view_m;
 
-	public Pattern(Position position, View ref_view) {
+	public Pattern(Position position, View view, int RECT_SIZE) {
 		tile = new Tile_View[5][5];
-		view_ref = ref_view;
+		view_m = view;
 		this.position = position;
+		this.RECT_SIZE = RECT_SIZE;
 	}
 
   public void draw(Graphics g) {  	  
@@ -31,8 +31,8 @@ public class Pattern {
       			g.drawImage(pattern, position.getX(), position.getY(), RECT_SIZE*5, RECT_SIZE*5, null);
       		}
       }
-
   }
+  
   
   public void updatePattern(HashMap<Tile, Position> to_add, PlayGrid playGrid) {
       for (HashMap.Entry<Tile, Position> entry : to_add.entrySet()) {
@@ -54,10 +54,10 @@ public class Pattern {
 			  break;
 		  }
           
-          view_ref.getPanel().addT(tile[value.getY()][value.getX()]);
+          view_m.getPanel().addT(tile[value.getY()][value.getX()]);
       
 	  }
-     
+
 	  for(Line line : playGrid.getLines()) {
 		  for(Tile_View tileView : line.getTiles()) {
 			  for(int y = 0; y < 5; y++)
@@ -66,7 +66,7 @@ public class Pattern {
 						  if(tileView.getTexture() == tile[y][x].getTexture() 
 						  && line.getLength() == y + 1) {
 							  System.out.println("SAME TEXTURE!");
-							  view_ref.getPanel().removeT(tileView);
+							  view_m.getPanel().removeT(tileView);
 						  }
 		  }
 	  }

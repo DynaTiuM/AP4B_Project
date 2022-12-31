@@ -41,29 +41,28 @@ public class MiddlePile {
   	public void updatePile(LinkedList<Tile> to_add, int previous_index) {
 
   		Tile_View tile = null;
-  		int offsetX = (previous_index % 7) * RECT_SIZE;
+  		int offsetX = previous_index * RECT_SIZE;
   		
-	  
-  		for(Tile p: to_add) {
-  			switch (p.getColorEnum()){
-  				case O: tile = new Orange(new Position(position.getX() + offsetX, position.getY() + this.offsetY)); 
-  					break;
-  				case M: tile = new Purple(new Position(position.getX() + offsetX, position.getY() + this.offsetY));
-  					break;
-  				case B: tile = new Blue(new Position(position.getX() + offsetX, position.getY() + this.offsetY));
-  					break;
-  				case Y: tile = new Yellow(new Position(position.getX() + offsetX, position.getY() + this.offsetY));
-  					break;
-  				case G: tile = new Green(new Position(position.getX() + offsetX, position.getY() + this.offsetY));
-  					break;
-  			}
-  			pot_m.addT(tile);
-  			offsetX += RECT_SIZE;
-  			if (offsetX >= 7* RECT_SIZE) {
-  				offsetX = 0;
-  				this.offsetY += RECT_SIZE;
-	  		}
+  		if ((offsetX % 7) / RECT_SIZE == 0) {
+			this.offsetY += RECT_SIZE;
   		}
-  		tile = null;
-  	}
+	  
+	  for(Tile p: to_add) {
+		  switch (p.getColorEnum()){
+		  case O: tile = new Orange(new Position(position.getX() + offsetX, position.getY() + this.offsetY)); 
+		  	break;
+		  case M: tile = new Purple(new Position(position.getX() + offsetX, position.getY() + this.offsetY));
+		  	break;
+		  case B: tile = new Blue(new Position(position.getX() + offsetX, position.getY() + this.offsetY));
+		  	break;
+		  case Y: tile = new Yellow(new Position(position.getX() + offsetX, position.getY() + this.offsetY));
+		  	break;
+		  case G: tile = new Green(new Position(position.getX() + offsetX, position.getY() + this.offsetY));
+			break;
+		  }
+		  pot_m.addT(tile);
+		  offsetX += RECT_SIZE;
+	  }
+	  tile = null;
+  }
 }

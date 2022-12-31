@@ -56,20 +56,18 @@ public class Pattern {
 	public void determineSendingPlace(int index, Tile to_place) {
 		int i = 0;
 		while(i < 5) {
+			System.out.print("index : " + index + ", i : " + i);
 			if(grid[index][i].getColorEnum() != to_place.getColorEnum()) 
 				i++;
 			else {
-				if(!grid[index][i].getOccupied()) {
-					newTiles.put(to_place, new Position(i, index));
-					System.out.println("new Tiles : Pattern | " + newTiles + "Position : " + i + index);
-				}
+				newTiles.put(to_place, new Position(i, index));
+				System.out.print("new Tiles : Pattern | " + newTiles + "Position : " + i + index);
 				calculateScore(index, i, to_place);
-				return;
+				break;
 			}
 		}
-	}
-	public void clearNewTiles() {
-		this.newTiles.clear();
+
+		
 	}
 	
 	private void calculateScore(int index, int indexy, Tile to_add) {
