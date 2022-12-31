@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+import controller.ActionSelectionPile;
 import controller.Controller;
 import model.Tile;
 
@@ -110,12 +111,26 @@ public class View extends JFrame {
     public void updateMalus(int playerID) {
     	bords[playerID].updateMalus();
     }
-    
 
     //Cette fonction est appelée pour afficher en grand le Bord du joueur actif avec des boutons
     public void showBordInPopUp() {
         ContentPanel.showBordInPopUp();
     }
+    
+    public void initiateButtons() {
+    	pot_m.initiateButtons();
+    }
+    
+    public void displayPilePopup(LinkedList<Tile> tiles, int ID) {
+    	
+    	System.out.println("ID : " + ID);
+    	System.out.println(tiles);
+    }
+    
+    public ActionSelectionPile actionSelectionPile(int number) {
+    	return controller_ref.actionSelectionPile(number);
+    }
+    
 }
 
 
@@ -164,7 +179,7 @@ class ViewPanel extends JPanel {
         this.repaint();
     }
 
-    //Cette fonction est appelée pour affiché en grand le Bord du joueur actif avec des boutons
+    //Cette fonction est appelée pour afficher en grand le Bord du joueur actif avec des boutons
     public void showBordInPopUp() {
         // Créer un panel pour afficher le bord en grand
         PopupPanel panel = new PopupPanel(view_ref);
@@ -211,17 +226,17 @@ class PopupPanel extends JPanel {
         this.playGrid = new PlayGrid(new Position(POPUP_RECT_SIZE, POPUP_RECT_SIZE*4), view_ref, POPUP_RECT_SIZE);
         this.pattern = new Pattern(new Position(10 + POPUP_BORD_SIZE / 2, POPUP_RECT_SIZE*4), view_ref,  POPUP_RECT_SIZE);
         this.malus = new Malus(new Position(18, POPUP_BORD_SIZE - POPUP_RECT_SIZE * 2 - 20 ), view_ref, POPUP_RECT_SIZE);
-
+        
       //Add the buttons of the Piles and middle pile
         JButton[] buttons = playGrid.getPileButtons();
 
+       
         // Ajout des boutons au JPanel
         for (JButton button : buttons) {
             if (button != null) {
                 this.add(button);
                 button.setVisible(true);
             }
-
         }
 
 

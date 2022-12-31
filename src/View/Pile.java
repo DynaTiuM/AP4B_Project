@@ -9,6 +9,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import controller.ActionDisplayPile;
+import controller.ActionSelectionPile;
 import model.Tile;
 
 public class Pile {
@@ -36,6 +38,12 @@ public class Pile {
         button.setBounds(position.getX() + RECT_SIZE, position.getY() + RECT_SIZE, RECT_SIZE, RECT_SIZE);
         button.setActionCommand("buttonPile" + Integer.toString(buttonIdCounter));
         buttonIdCounter++;
+        
+    }
+    
+    public void initiateButton() {
+    	ActionSelectionPile action = view_m.actionSelectionPile(number);
+        button.addActionListener(action);
     }
 
     public void draw(Graphics g) {
@@ -113,7 +121,7 @@ public class Pile {
 
     public void setButton(boolean value) {
         button.setVisible(value);
-        System.out.println("button");
+        System.out.println("button : " + number);
     }
 
 

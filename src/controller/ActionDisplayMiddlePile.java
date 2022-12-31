@@ -7,12 +7,10 @@ import model.Game;
 
 public class ActionDisplayMiddlePile implements ActionListener {
 	
-	private int current_player;
 	private Game model;
 	
 	public ActionDisplayMiddlePile(Game ref) {
 		this.model = ref;
-		this.current_player = this.model.getCurrentPlayer();
 	}
 	
 	private void open() {

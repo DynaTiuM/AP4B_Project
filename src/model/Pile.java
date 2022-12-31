@@ -30,6 +30,10 @@ public class Pile {
 		game_ref = game;
 	}
 	
+	public Tile[] getTiles() {
+		return this.tiles;
+	}
+	
 	
 	public boolean hasContent() {
 		return tiles[0]!=null;
@@ -61,7 +65,7 @@ public class Pile {
 		return this.tiles;
 	}
 	
-	public void getSelection(Tile chosen) {
+	public void getSelection(Tile chosen, int number) {
 		tiles_middle.clear();
 		tiles_bord.clear();
 		
@@ -75,7 +79,7 @@ public class Pile {
 		
 		if (tiles_middle != null && tiles_middle.getFirst() != null) sendToMiddle();
 		
-		sendToBordTest();
+		sendToBordTest(number);
 		sendContentList();
 		
 	}
@@ -88,13 +92,13 @@ public class Pile {
 		game_ref.sendSelectiontoBord(tiles_bord);
 	}
 	
-	public void test() {
+	public void test(int number) {
 		//creer un scénar
-		getSelection(tiles[0]);
+		getSelection(tiles[number], number);
 	}
 	
-	private void sendToBordTest() {
-		game_ref.sendSelectiontoBordTest(tiles_bord);
+	private void sendToBordTest(int number) {
+		game_ref.sendSelectiontoBordTest(tiles_bord, number);
 		//System.out.println("sent");
 	}
 

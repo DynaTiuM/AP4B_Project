@@ -75,6 +75,12 @@ public class Pot {
     // Dessin de la pile du milieu
     middlePile.draw(g);
   }
+  
+  public void initiateButtons() {
+		for(Pile pile : piles) {
+			pile.initiateButton();
+		}
+	}
 
     public void setButtons(boolean value) {
         // Set the buttons for the piles

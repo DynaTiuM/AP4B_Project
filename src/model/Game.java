@@ -75,8 +75,7 @@ public class Game {
 	}
 	
 	public void test() {
-		pot.test();
-		players[0].endOfSet();
+		pot.test(0);
 		
 		//controller.setButtonsPot(pot.checkPossible());*/
 	}
@@ -85,10 +84,12 @@ public class Game {
 		pot.testShuffle();
 	}
 
+	public Pile getPile(int ID) {
+		return pot.getPileIndex(ID);
+	}
 	
-	
-	public void sendSelectiontoBordTest(LinkedList<Tile> tiles_bord) {
-		players[current_player].test(tiles_bord);
+	public void sendSelectiontoBordTest(LinkedList<Tile> tiles_bord, int number) {
+		players[number].test(tiles_bord);
 	}
 	
 	public void sendContentList(LinkedList<Tile> to_send, int index) {

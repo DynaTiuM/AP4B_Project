@@ -39,7 +39,7 @@ public class Pattern {
           Tile key = entry.getKey();
           Position value = entry.getValue();
           System.out.println("Clé: " + key.getColorEnum() + ", Valeur: " + value.getX() + " ; " + value.getY());
-      
+  
           // Afficher les pairs clé-valeur
           switch (key.getColorEnum()){
 		  case O: tile[value.getY()][value.getX()] = new Orange(new Position(position.getX() + value.getX() * RECT_SIZE, position.getY() + value.getY() * RECT_SIZE));
@@ -71,6 +71,10 @@ public class Pattern {
 		  }
 	  }
   }
+  
+  	public Tile_View[][] getTiles() {
+  		return this.tile;
+  	}
   
 }
 

@@ -16,6 +16,8 @@ public class Controller {
 		view_m = new View(this, 4);
 		game_m = new Game(this, 4);
 		
+		view_m.initiateButtons();
+		
 		try {
 
             Thread.sleep(1000);
@@ -23,10 +25,10 @@ public class Controller {
         	 e.printStackTrace();
         }
 		
-		game_m.test();
-		game_m.endOfSet();
-
+		//game_m.test();
 		view_m.showBordInPopUp();
+		//game_m.endOfSet();
+
 	}
 	
 	public void setButtonsPot(boolean possible[]) {
@@ -56,6 +58,10 @@ public class Controller {
 	
 	public void updateMalus(int playerID) {
 		view_m.updateMalus(playerID);
+	}
+	
+	public ActionSelectionPile actionSelectionPile(int number) {
+		return new ActionSelectionPile(game_m, number, view_m);
 	}
 	
 }
