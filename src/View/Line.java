@@ -28,7 +28,17 @@ public class Line {
     this.button = new JButton();
     button.setBounds(position.getX() - RECT_SIZE, position.getY(), RECT_SIZE, RECT_SIZE);
     button.setActionCommand("buttonPile" + Integer.toString(buttonIdCounter));
+    
+    JButton button = new JButton();
+    ImageIcon icon = new ImageIcon("src\\Images\\ButtonLines.png");
+    button.setIcon(icon);
+        
+    ImageIcon selectedIcon = new ImageIcon("selectedButtonLines.png");
+    ImageIcon rolloverIcon = new ImageIcon("rolloverButtonLines.png");
+    button.setSelectedIcon(selectedIcon);
+    button.setRolloverIcon(rolloverIcon);
     buttonIdCounter++;
+
   }
   
   // Méthode qui retourne le tableau de tuiles de la ligne

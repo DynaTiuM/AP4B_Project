@@ -8,9 +8,11 @@ import javax.swing.*;
 import model.Tile;
 
 public class Malus {
-	private int RECT_SIZE;
+	private int RECT_WIDTH;
+	private int RECT_HEIGHT;
   private Position position;
   private JButton button;
+  private Font font;
   
   private Tile_View[] tiles;
   
@@ -24,20 +26,13 @@ public class Malus {
     this.position = position;
     this.button = new JButton();
     
-    this.RECT_SIZE = RECT_SIZE;
+    RECT_WIDTH = (int)(RECT_SIZE*1.5);
+    RECT_HEIGHT = (int)(RECT_SIZE*2);
+    font = new Font("Arial", Font.BOLD, RECT_WIDTH/4);
   }
 
   public void draw(Graphics g) {
-    // Afficher les cases numérotées -1
-    g.drawString("-1", position.getX(), position.getY());
-    g.drawString("-1", position.getX() + RECT_SIZE, position.getY());
-    // Afficher les cases numérotées -2
-    g.drawString("-2", position.getX() + RECT_SIZE * 2, position.getY());
-    g.drawString("-2", position.getX() + RECT_SIZE * 3, position.getY());
-    g.drawString("-2", position.getX() + RECT_SIZE * 4, position.getY());
-    // Afficher les cases numérotées -3
-    g.drawString("-3", position.getX() + RECT_SIZE * 5, position.getY());
-    g.drawString("-3", position.getX() + RECT_SIZE * 6, position.getY());
+
 
     ImageIcon icon = new ImageIcon("src\\Images\\Malus.png");
     if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
@@ -45,11 +40,29 @@ public class Malus {
     } else {
       // The image was successfully loaded
       Image malus = icon.getImage();
-      for(int i = 0; i < 6; i++) {
-        g.drawImage(malus, position.getX() + (int)(RECT_SIZE *1.5*i), position.getY(), (int)(RECT_SIZE*1.5), (int) RECT_SIZE*2, null);
+      for(int i = 0; i <= 6; i++) {
+        g.drawImage(malus, position.getX() + (int)(RECT_WIDTH *i), position.getY(), RECT_WIDTH, RECT_HEIGHT, null);
       }
       }
+    //Modification de la couleur et de la police de g
+    g.setFont(font);
+    g.setColor(Color.RED);
+    // Afficher les cases numérotées -1
+    g.drawString("-1", position.getX() + (int)(RECT_WIDTH*0.35), position.getY() + RECT_HEIGHT/3);
+    g.drawString("-1", position.getX() + (int)(RECT_WIDTH*1.35), position.getY() + RECT_HEIGHT/3);
+    // Afficher les cases numérotées -2
+    g.drawString("-2", position.getX() + (int)(RECT_WIDTH * 2.35), position.getY() + RECT_HEIGHT/3);
+    g.drawString("-2", position.getX() + (int)(RECT_WIDTH * 3.35), position.getY() + RECT_HEIGHT/3);
+    g.drawString("-2", position.getX() + (int)(RECT_WIDTH * 4.35), position.getY() + RECT_HEIGHT/3);
+    // Afficher les cases numérotées -3
+    g.drawString("-3", position.getX() + (int)(RECT_WIDTH * 5.35), position.getY() + RECT_HEIGHT/3);
+    g.drawString("-3", position.getX() + (int)(RECT_WIDTH * 6.35), position.getY() + RECT_HEIGHT/3);
+    
+    //On remet g à le couleur de base;
+    g.setColor(Color.BLACK);
     }
+  
+  
 
   public void setButton(boolean value) {
     button.setVisible(value);
@@ -60,15 +73,15 @@ public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
 	System.out.println("malus_view");
 	for(Tile p: linkedList) {
 		switch (p.getColorEnum()){
-		  case O: tiles[temp] = new Orange(new Position(position.getX() + (int)(RECT_SIZE *2*temp), position.getY())); 
+		  case O: tiles[temp] = new Orange(new Position(position.getX() + (int)(RECT_WIDTH *2*temp), position.getY())); 
 		  	break;
-		  case M: tiles[temp] = new Purple(new Position(position.getX() + (int)(RECT_SIZE *2*temp), position.getY()));
+		  case M: tiles[temp] = new Purple(new Position(position.getX() + (int)(RECT_WIDTH *2*temp), position.getY()));
 		  	break;
-		  case B: tiles[temp] = new Blue(new Position(position.getX() + (int)(RECT_SIZE *2*temp), position.getY()));
+		  case B: tiles[temp] = new Blue(new Position(position.getX() + (int)(RECT_WIDTH *2*temp), position.getY()));
 		  	break;
-		  case Y: tiles[temp] = new Yellow(new Position(position.getX() + (int)(RECT_SIZE *2*temp), position.getY()));
+		  case Y: tiles[temp] = new Yellow(new Position(position.getX() + (int)(RECT_WIDTH *2*temp), position.getY()));
 		  	break;
-		  case G: tiles[temp] = new Green(new Position(position.getX() + (int)(RECT_SIZE *2*temp), position.getY()));
+		  case G: tiles[temp] = new Green(new Position(position.getX() + (int)(RECT_WIDTH *2*temp), position.getY()));
 			  break;
 		  }
 		  System.out.print(p.getColorEnum() + " / ");
