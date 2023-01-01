@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import View.Position;
 import View.View;
 import model.Game;
+import model.Line;
 import model.Tile;
 
 public class Controller {
@@ -26,7 +27,6 @@ public class Controller {
         }
 		
 		game_m.test();
-		view_m.showBordInPopUp();
 		//game_m.endOfSet();
 
 	}
@@ -58,6 +58,10 @@ public class Controller {
 	
 	public void updateMalus(int playerID) {
 		view_m.updateMalus(playerID);
+	}
+	
+	public void updatePopup(Tile[][] pattern, Tile[] malus, Line[] grid) {
+		view_m.updatePopup(pattern, malus, grid);
 	}
 	
 	public ActionSelectionPile actionSelectionPile(int number) {

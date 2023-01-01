@@ -31,5 +31,7 @@ public class ActionSelectionMiddlePile implements ActionListener {
 		
 		view_m.updateMiddlePile(toSend);
 		model.sendCompleteMiddlePileToView(true);
+		model.getInformationForPopUp();
+		//view_m.showBordInPopUp();
 	}
 }

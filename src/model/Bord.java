@@ -61,13 +61,21 @@ public class Bord {
 		hand_of_player = tiles;
 	}
 	
+	public Line[] getLines() {
+		return play_grid;
+	}
+	
+	public Tile[] getMalus() {
+		return malus_grid_m.getLine();
+	}
+	
 	public void test(LinkedList<Tile> tiles) {
 		setHand(tiles);
 		displayHand();
 		playHandIndex(0);
-		if(current+1>=4) {
+		if(current + 1 >= 4) {
 	    	current = 0;
-	    }else current++;
+	    } else current++;
 		display();
 	}
 	

@@ -40,6 +40,10 @@ public class Game {
 		
 	}
 	
+	public int getCurrentPlayer() {
+		return current_player;
+	}
+	
 	
 	// Envoie une liste de tuiles à la main du joueur actuel
 	public void sendSelectiontoBord(LinkedList<Tile> tiles) {
@@ -94,7 +98,6 @@ public class Game {
 	
 	public void sendContentList(LinkedList<Tile> to_send, int index) {
 		controller.updatePile(to_send, index);
-		
 	}
 
 	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, LinkedList<Tile> linkedList, int previous_index_2) {
@@ -117,6 +120,17 @@ public class Game {
 		pot.sendCompleteMiddlePileToView(bool);
 	}
 	
+	public void getInformationForPopUp() {
+		Tile[][] pattern = players[current_player].getPatternToView();
+		
+		Line[] grid = players[current_player].getLines();
+		Tile[] malus = players[current_player].getMalus();
+		updatePopUp(pattern, malus, grid);
+	}
+	
+	public void updatePopUp(Tile[][] pattern, Tile[] malus, Line[] grid) {
+		controller.updatePopup(pattern, malus, grid);
+	}
 	
 	
 }

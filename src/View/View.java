@@ -10,6 +10,7 @@ import javax.swing.*;
 import controller.ActionSelectionMiddlePile;
 import controller.ActionSelectionPile;
 import controller.Controller;
+import model.Line;
 import model.Tile;
 
 public class View extends JFrame {
@@ -116,11 +117,11 @@ public class View extends JFrame {
     public void updateMalus(int playerID) {
     	bords[playerID].updateMalus();
     }
-
-    //Cette fonction est appelée pour afficher en grand le Bord du joueur actif avec des boutons
-    public void showBordInPopUp() {
-        ContentPanel.showBordInPopUp();
+    
+    public void updatePopup(Tile[][] pattern, Tile[] malus, Line[] grid) {
+    	ContentPanel.updateBordPopUp(pattern, malus, grid);
     }
+
     
     public void initiateButtons() {
     	pot_m.initiateButtons();
@@ -152,7 +153,7 @@ class ViewPanel extends JPanel {
     private Image image;
     private Bord[] bords;
     private Pot pot;
-
+    private PopupPanel panel;
 
     // Constructor that takes in image, bords array, and pot object
     public ViewPanel(Image image, Bord[] bords, Pot pot, View view_ref) {
@@ -161,6 +162,7 @@ class ViewPanel extends JPanel {
         this.bords = bords;
         this.pot = pot;
         this.setLayout(null);
+        
 
         //Add the buttons of the Piles and middle pile
         JButton[] buttons = pot.getPileButtons();
@@ -195,16 +197,16 @@ class ViewPanel extends JPanel {
     	this.remove(button);
     	this.repaint();
     }
-
-    //Cette fonction est appelée pour afficher en grand le Bord du joueur actif avec des boutons
-    public void showBordInPopUp() {
-        // Créer un panel pour afficher le bord en grand
-        PopupPanel panel = new PopupPanel(view_ref);
+  //Cette fonction est appelée pour afficher en grand le Bord du joueur actif avec des boutons
+    public void updateBordPopUp(Tile[][] pattern, Tile[] malus, Line[] grid) {
+    	// Créer un panel pour afficher le bord en grand
+        panel = new PopupPanel(view_ref, pattern, malus, grid);
         panel.setLayout(new BorderLayout());
 
         // Afficher la fenêtre pop-up avec le panel contenant le bord en grand
         JOptionPane.showMessageDialog(null, panel, "Bord en grand", JOptionPane.PLAIN_MESSAGE);
     }
+
 
     @Override
     public void paintComponent(Graphics g) {
@@ -233,21 +235,34 @@ class PopupPanel extends JPanel {
     private PlayGrid playGrid;
     private Pattern pattern;
     private Malus malus;
+    
+    private HashMap<Tile_View, Position> tiles_pattern;
+    private Tile_View[] tiles_malus;
+    private Tile_View[][] tiles_playGrid;
+    
+    private View view_ref;
+    
+    private Position patternPosition = new Position(10 + POPUP_BORD_SIZE / 2, POPUP_RECT_SIZE*4);
+    private Position gridPosition = new Position(POPUP_RECT_SIZE, POPUP_RECT_SIZE*4);
+    private Position malusPosition = new Position(18, POPUP_BORD_SIZE - POPUP_RECT_SIZE * 2 - 20);
+    
+    private final static int TILE_SIZE = 30;
+    
 
     // Timer to blink the buttons
     private Timer blinkTimer;
     // Constructor that takes in image, bords array, and pot object
-    public PopupPanel(View view_ref) {
+    public PopupPanel(View view_ref, Tile[][] pattern, Tile[] malus, Line[] grid) {
+    	this.view_ref = view_ref;
         setLayout(null);
         setPreferredSize(new Dimension(500, 500));
-        this.playGrid = new PlayGrid(new Position(POPUP_RECT_SIZE, POPUP_RECT_SIZE*4), view_ref, POPUP_RECT_SIZE);
-        this.pattern = new Pattern(new Position(10 + POPUP_BORD_SIZE / 2, POPUP_RECT_SIZE*4), view_ref,  POPUP_RECT_SIZE);
-        this.malus = new Malus(new Position(18, POPUP_BORD_SIZE - POPUP_RECT_SIZE * 2 - 20 ), view_ref, POPUP_RECT_SIZE);
+        this.playGrid = new PlayGrid(gridPosition, view_ref, POPUP_RECT_SIZE);
+        this.pattern = new Pattern(patternPosition, view_ref,  POPUP_RECT_SIZE);
+        this.malus = new Malus(malusPosition, view_ref, POPUP_RECT_SIZE);
         
-      //Add the buttons of the Piles and middle pile
+        //Add the buttons of the Piles and middle pile
         JButton[] buttons = playGrid.getPileButtons();
-
-       
+     
         // Ajout des boutons au JPanel
         for (JButton button : buttons) {
             if (button != null) {
@@ -276,6 +291,64 @@ class PopupPanel extends JPanel {
 
         // Start the timer
         blinkTimer.start();
+        
+        updateBord(pattern, malus, grid);
+        
+    }
+    
+    public void updateBord(Tile[][] pattern, Tile[] malus, Line[] grid) {
+    	
+    	int offsetX = 12;
+    	int offsetY = 12;
+    	
+    	for(int y = 0; y < 5; y++) {
+    		for(int x = 0; x < 5; x++) {
+    			if(pattern[y][x].getOccupied())
+	    			switchEnum(pattern[y][x], offsetX, offsetY, 1, 1);
+    		}
+    	}
+    	
+    	offsetX = -18;
+    	offsetY = 35;
+    	
+    	for(Tile t : malus) {
+    		if(t != null) {
+    			switchEnum(t, offsetX, -TILE_SIZE + offsetY, 1, 1);
+    			offsetX = 40;
+    		}
+    	}
+    	
+    	offsetX = 12;
+    	offsetY = 12;
+    	
+    	
+    	for(Line line : grid) {
+    		for(Tile t : line.getTiles()) {
+    			if(t != null) {
+    				switchEnum(t, offsetX, offsetY, 5 - line.getLength(), line.getLength() - 1);
+        		}
+    		}
+    	}
+    	
+    	this.repaint();
+    }
+    
+    private void switchEnum(Tile t, int offsetX, int offsetY, int x, int y) {
+    	Tile_View tile = null;    	
+
+    	switch (t.getColorEnum()){
+			case O: tile = new Orange(new Position(gridPosition.getX() + x * (TILE_SIZE + offsetX), gridPosition.getY() + y * (TILE_SIZE + offsetY)), true);
+				break;
+			case M: tile = new Purple(new Position(gridPosition.getX() + x * (TILE_SIZE + offsetX), gridPosition.getY() + y * (TILE_SIZE + offsetY)), true);
+				break;
+			case B: tile = new Blue(new Position(gridPosition.getX() + x * (TILE_SIZE + offsetX), gridPosition.getY() + y * (TILE_SIZE + offsetY)), true);
+				break;
+			case Y: tile = new Yellow(new Position(gridPosition.getX() + x * (TILE_SIZE + offsetX), gridPosition.getY() + y * (TILE_SIZE + offsetY)), true);
+				break;
+			case G: tile = new Green(new Position(gridPosition.getX() + x * (TILE_SIZE + offsetX), gridPosition.getY() + y * (TILE_SIZE + offsetY)), true);
+				break;
+		}
+		this.add(tile);
     }
 
 
