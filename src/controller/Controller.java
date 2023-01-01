@@ -25,7 +25,7 @@ public class Controller {
         	 e.printStackTrace();
         }
 		
-		//game_m.test();
+		game_m.test();
 		view_m.showBordInPopUp();
 		//game_m.endOfSet();
 
@@ -48,8 +48,8 @@ public class Controller {
 		view_m.updateViewLine(to_send, previous_index, i, current_player, linkedList, previous_index_2);
 	}
 	
-	public void updateMiddlePileView(LinkedList<Tile> to_send, int previous_index) {
-		view_m.updateMiddlePile(to_send, previous_index);
+	public void updateMiddlePileView(LinkedList<Tile> to_send, int previous_index, boolean delete) {
+		view_m.updateMiddlePile(to_send, previous_index, delete);
 	}
 	
 	public void updatePatternView(int playerID, HashMap<Tile, Position> to_send) {
@@ -63,5 +63,7 @@ public class Controller {
 	public ActionSelectionPile actionSelectionPile(int number) {
 		return new ActionSelectionPile(game_m, number, view_m);
 	}
-	
+	public ActionSelectionMiddlePile actionSelectionMiddlePile(int ID) {
+		return new ActionSelectionMiddlePile(game_m, ID, view_m);
+	}
 }

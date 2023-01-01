@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
+import View.View;
 import model.Game;
 import model.MiddlePile;
 import model.Pile;
@@ -13,26 +14,22 @@ public class ActionSelectionMiddlePile implements ActionListener {
 	
 	private Pile pile;
 	private MiddlePile middlePile;
-	private int current_player;
+	private View view_m;
 	private Game model;
+	private int index;
 	private LinkedList<Tile> toSend;
 	
-	public ActionSelectionMiddlePile(Game ref) {
-		this.model = ref;
-		this.current_player = this.model.getCurrentPlayer();
-	}
-	
-	private void open() {
-		
-	}
-	
-	private void close() {
-		
+	public ActionSelectionMiddlePile(Game ref_game, int index, View ref) {
+		this.view_m = ref;
+		this.index = index;
+		this.model = ref_game;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		toSend = model.modifyMiddlePile(index);
 		
+		view_m.updateMiddlePile(toSend);
+		model.sendCompleteMiddlePileToView(true);
 	}
 }

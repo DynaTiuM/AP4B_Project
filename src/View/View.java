@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+import controller.ActionSelectionMiddlePile;
 import controller.ActionSelectionPile;
 import controller.Controller;
 import model.Tile;
@@ -100,8 +101,12 @@ public class View extends JFrame {
         bords[current_player].updateViewLine(to_send, previous_index, i, linkedList, previous_index_2);
     }
 
-    public void updateMiddlePile(LinkedList<Tile> to_send, int previous_index) {
-        pot_m.updateMiddlePile(to_send, previous_index);
+    public void updateMiddlePile(LinkedList<Tile> to_send, int previous_index, boolean delete) {
+        pot_m.updateMiddlePile(to_send, previous_index, delete);
+    }
+    
+    public void updateMiddlePile(LinkedList<Tile> to_send) {
+    	pot_m.updateMiddlePile(to_send);
     }
 
     public void updatePattern(int playerID, HashMap<Tile, Position> to_send) {
@@ -130,7 +135,9 @@ public class View extends JFrame {
     public ActionSelectionPile actionSelectionPile(int number) {
     	return controller_ref.actionSelectionPile(number);
     }
-    
+    public ActionSelectionMiddlePile actionSelectionMiddlePile(int ID) {
+    	return controller_ref.actionSelectionMiddlePile(ID);
+    }
 }
 
 
@@ -173,10 +180,20 @@ class ViewPanel extends JPanel {
         this.add(tile);
         this.repaint();
     }
+    
+    public void addB(JButton button) {
+    	this.add(button);
+    	this.repaint();
+    }
 
     public void removeT(Tile_View tile) {
         this.remove(tile);
         this.repaint();
+    }
+    
+    public void removeB(JButton button) {
+    	this.remove(button);
+    	this.repaint();
     }
 
     //Cette fonction est appelée pour afficher en grand le Bord du joueur actif avec des boutons

@@ -2,6 +2,8 @@ package View;
 
 import javax.swing.ImageIcon;
 
+import model.ColorEnum;
+
 public class Yellow extends Tile_View {
   /**
 	 * 
@@ -10,7 +12,7 @@ public class Yellow extends Tile_View {
 
 public Yellow(Position position) {
 	  
-	  super(position, new ImageIcon("src\\Images\\Database.jpg"));
+	  super(position, new ImageIcon("src\\Images\\Database.jpg"), ColorEnum.Y);
 	  //this.texture = new ImageIcon("src\\Images\\Database.jpg");
   }
 }

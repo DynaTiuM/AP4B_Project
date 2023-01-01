@@ -34,20 +34,42 @@ public class MiddlePile {
 		
 	}
 	
-	
 	// Ajoute une liste de tuiles à la pile
 	public void addContent(LinkedList<Tile> to_add) {
 		tiles.addAll(to_add);
-		this.pot_ref.sendAddedTilesToView(to_add, previous_index);
+		this.pot_ref.sendAddedTilesToView(to_add, previous_index, false);
 		previous_index += to_add.size();
 		to_add.clear();
 	}
 	
 	// Renvoie la pile
-	public LinkedList<Tile> getContent(){
+	public LinkedList<Tile> getTiles(){
 		return tiles;
 	}
 	
+	public void sendCompletePileToView(boolean bool) {
+		previous_index = 0;
+		this.pot_ref.sendAddedTilesToView(tiles, previous_index, bool);
+		previous_index += tiles.size();
+	}
+	
+	public LinkedList<Tile> modifyMiddlePile(int index) {
+		Tile tile_ref = tiles.get(index);
+		LinkedList<Tile> toSend = new LinkedList<>();
+		LinkedList<Tile> tmp = new LinkedList<>();
+		for(Tile tile : this.tiles) {
+			if(tile.getColor() == tile_ref.getColor()) {
+				toSend.add(tile);
+				tmp.add(tile);
+			}
+		}
+		
+		for(Tile tile : tmp) {
+			tiles.remove(tile);
+		}
+		
+		return toSend;
+	}
 	
 	// Renvoie une sélection de tuiles de la pile en fonction de leur couleur
 	public LinkedList<Tile> getSelection(Color color) {

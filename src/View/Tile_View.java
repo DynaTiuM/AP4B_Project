@@ -7,14 +7,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import model.ColorEnum;
+
 public class Tile_View extends JLabel {
 	private static final int RECT_SIZE = 25;
 	  protected Position position;
 	  protected ImageIcon texture;
+	  protected ColorEnum color;
 	  
 	  //Constructeur protected pour que Tile ne puisse pas être initialisé
-	  protected Tile_View(Position position, ImageIcon image2) {
+	  protected Tile_View(Position position, ImageIcon image2, ColorEnum color) {
 		    this.position = position;
+		    this.color = color;
 		    //this.setSize(RECT_SIZE, RECT_SIZE);
 		    this.setBounds(position.getX(), position.getY(), RECT_SIZE, RECT_SIZE);
 		    ImageIcon imageIcon3 = image2; // load the image to a imageIcon

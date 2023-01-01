@@ -52,9 +52,6 @@ public class Game {
 		players[current_player].setHand(tile);
 	}
 	
-	
-	
-	
 	// Envoie une liste de tuiles au Bag
 	public void sendToBag(LinkedList<Tile> tiles) {
 		pot.sendToBag(tiles);
@@ -71,7 +68,6 @@ public class Game {
 
 		// passe au joueur suivant 
 		current_player++;
-	
 	}
 	
 	public void test() {
@@ -88,6 +84,10 @@ public class Game {
 		return pot.getPileIndex(ID);
 	}
 	
+	public LinkedList<Tile> modifyMiddlePile(int index) {
+		return pot.modifyMiddlePile(index);
+	}
+	
 	public void sendSelectiontoBordTest(LinkedList<Tile> tiles_bord, int number) {
 		players[number].test(tiles_bord);
 	}
@@ -101,8 +101,8 @@ public class Game {
 		controller.updateViewLine(to_send, previous_index, i, current_player, linkedList, previous_index_2);
 	}
 	
-	public void updateMiddlePileView(LinkedList<Tile> to_add, int previous_index) {
-		controller.updateMiddlePileView(to_add, previous_index);
+	public void updateMiddlePileView(LinkedList<Tile> to_add, int previous_index, boolean delete) {
+		controller.updateMiddlePileView(to_add, previous_index, delete);
 	}
 	
 	public void updatePatternView(int playerID, HashMap<Tile, Position> to_send) {
@@ -111,6 +111,10 @@ public class Game {
 	
 	public void updateMalus(int playerID) {
 		controller.updateMalus(playerID);
+	}
+	
+	public void sendCompleteMiddlePileToView(boolean bool) {
+		pot.sendCompleteMiddlePileToView(bool);
 	}
 	
 	

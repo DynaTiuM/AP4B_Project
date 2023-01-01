@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 
+import controller.ActionSelectionMiddlePile;
 import model.Tile;
 
 // La classe Pot représente une collection de piles de tuiles dans un jeu
@@ -65,6 +66,18 @@ public class Pot {
 	  System.out.println("CALLING addT : Pot");
 	  view_m.getPanel().addT(tile);
   }
+  
+  public void addB(JButton button) {
+	  view_m.getPanel().addB(button);
+  }
+  
+  public ActionSelectionMiddlePile actionSelectionMiddlePile(int ID) {
+	  return view_m.actionSelectionMiddlePile(ID);
+  }
+  
+  public void repaint() {
+	  view_m.repaint();
+  }
 
   // Méthode dessinant les piles
   public void draw(Graphics g) {
@@ -103,8 +116,12 @@ public class Pot {
         piles[index].updatePile(to_update);
     }
 
-    public void updateMiddlePile(LinkedList<Tile> to_update, int previous_index) {
-        middlePile.updatePile(to_update, previous_index);
+    public void updateMiddlePile(LinkedList<Tile> to_update, int previous_index, boolean delete) {
+        middlePile.updatePile(to_update, previous_index, delete);
+    }
+    
+    public void updateMiddlePile(LinkedList<Tile> to_update) {
+    	middlePile.updatePile(to_update);
     }
 
     public JButton[] getPileButtons() {
@@ -115,4 +132,11 @@ public class Pot {
         return buttons;
     }
 
+	public void removeT(Tile_View tile) {
+		view_m.getPanel().removeT(tile);
+	}
+	
+	public void removeB(JButton button) {
+		view_m.getPanel().removeB(button);
+	}
 }
