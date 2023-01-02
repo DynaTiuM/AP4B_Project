@@ -33,19 +33,12 @@ public class Pot {
 		this.game_ref.updateMiddlePileView(to_add, previous_index, delete);
 	}
 	
+	public void distributeContents() {
+		this.bag.distributeContents();
+	}
+	
 	public void setTilesSelectedToHand(int numberOfPile, int ID) {
 		piles[numberOfPile].setTilesSelectedToHand(ID);
-	}
-
-	
-	public void test(int number) {
-		
-		piles[number].test(0);
-		/*for(Pile p: piles) {
-			p.test();
-		}*/
-		
-		//display();
 	}
 	
 	private void instanciatePiles(int numberOfPlayers) {

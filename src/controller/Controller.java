@@ -17,7 +17,7 @@ public class Controller {
 		view_m = new View(this, 4);
 		game_m = new Game(this, 4);
 		
-		view_m.initiateButtons();
+		initialiseButtonsPiles();
 		
 		try {
 
@@ -28,6 +28,10 @@ public class Controller {
 		
 		//game_m.test();
 
+	}
+	
+	public void initialiseButtonsPiles() {
+		view_m.initiateButtons();
 	}
 	
 	public void setButtonsPot(boolean possible[]) {
@@ -57,10 +61,6 @@ public class Controller {
 	
 	public void updateMalusView(int playerID) {
 		view_m.updateMalus(playerID);
-	}
-	
-	public void updateMalusView(int current_player, LinkedList<Tile> to_send, int previous_index) {
-		view_m.updateMalus(current_player, to_send, previous_index);
 	}
 	
 	public void updatePopup(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {

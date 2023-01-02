@@ -157,9 +157,6 @@ public class Bord {
 		// vide toute les "Line" qui sont pleines 
 		for(Line line: play_grid) {
 			if(line.checkFull()) {
-				
-				
-				
 				game_ref.sendToBag(line.clear());
 				
 				System.out.println("CLEARING A LINE!");
@@ -171,13 +168,12 @@ public class Bord {
 		if(!this.malus_grid_m.isEmpty()) {
 			pattern_grid_m.scoreMalus(malus_grid_m.computateMalus());
 			game_ref.sendToBag(malus_grid_m.clear());
+			game_ref.updateMalusToView(playerID);
 		}
-		
 		
 		if(update) {
 			pattern_grid_m.sendPattern();
 		}
-		
 		
 		System.out.println("END OF ROUND!");
 		
@@ -200,13 +196,8 @@ public class Bord {
 		this.game_ref.updatePatternView(this.playerID, to_send);
 	}
 	
-	public void updateMalusToView() {
-		this.game_ref.updateMalusToView(playerID);
-	}
-	
 	public void updateMalus() {
 		this.malus_grid_m.addTile(hand_of_player);
-		this.game_ref.updateMalusToView(playerID, hand_of_player, malus_grid_m.getPrevious());
 		this.malus_grid_m.setPrevious(malus_grid_m.getPrevious() + hand_of_player.size());
 	}
 

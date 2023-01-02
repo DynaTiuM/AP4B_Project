@@ -61,9 +61,6 @@ public class Pile {
         int x = 0;
         int y = 0;
         int i = 0;
-        
-        Tile_View tile = null;
-        JButton[] button = new JButton[4];
 
         if (to_iterate.getFirst() != null) {
             for (Tile p : to_iterate) {

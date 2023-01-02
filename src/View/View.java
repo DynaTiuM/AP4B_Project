@@ -119,10 +119,6 @@ public class View extends JFrame {
     	bords[playerID].updateMalus();
     }
     
-    public void updateMalus(int current_player, LinkedList<Tile> to_send, int previous_index) {
-    	bords[current_player].updateMalus(to_send, previous_index);
-    }
-    
     public void updatePopup(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
     	ContentPanel.updateBordPopUp(pattern, malus, grid, hand);
     }

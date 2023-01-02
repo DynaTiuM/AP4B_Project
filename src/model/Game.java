@@ -61,7 +61,6 @@ public class Game {
 		System.out.println("Played on line : " + lineNumber);
 	}
 	
-	
 	// Indique la fin d'un tour de jeu et passe au joueur suivant
 	public void endOfSet() {
 		
@@ -69,18 +68,10 @@ public class Game {
 		for(Bord p: players) {
 			p.endOfSet();
 		}
-
-	
-		
+		pot.distributeContents();
+		controller.initialiseButtonsPiles();
 	}
 	
-	public void test() {
-		for(int i = 0; i<9; i++) {
-			pot.test(i);
-		}
-		
-		//controller.setButtonsPot(pot.checkPossible());*/
-	}
 	
 	public void testShuffle() {
 		pot.testShuffle();
@@ -118,10 +109,6 @@ public class Game {
 		controller.updateMalusView(playerID);
 	}
 	
-	public void updateMalusToView(int playerID, LinkedList<Tile> to_add, int previous_index) {
-		controller.updateMalusView(playerID, to_add, previous_index);
-	}
-	
 	public void sendCompleteMiddlePileToView(boolean bool) {
 		pot.sendCompleteMiddlePileToView(bool);
 	}
@@ -149,8 +136,9 @@ public class Game {
 
 	public void nextPlayer() {
 		this.current_player++;
-		if(current_player ==4) {
-			current_player =0;
+		
+		if(current_player == 4) {
+			current_player = 0;
 		}
 		
 		System.out.println("NEXT PLAYER : " + current_player);

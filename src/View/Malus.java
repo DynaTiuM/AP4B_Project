@@ -84,8 +84,8 @@ public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
 			  break;
 		  }
 		  System.out.print(p.getColorEnum() + " / ");
-		 view_m.getPanel().addT(tiles[temp]);
-		 temp++;
+		  if(tiles[temp] != null) view_m.getPanel().addT(tiles[temp]);
+		  temp++;
 	}
 	System.out.println("\nend of malus_view");
 	
@@ -100,38 +100,8 @@ public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
 
 	public void updateMalusView() {
 		for(Tile_View tile : tiles) {
-			if(tile != null) {
-				view_m.getPanel().removeT(tile);
-			}
+			System.out.println("FOUND TILE : " + tile);
+			if(tile != null) view_m.getPanel().removeT(tile);
 		}
 	}
-	
-	public void updateMalusView(LinkedList<Tile> to_send, int previous_index) {
-		int i = 0;
-		while(tiles[i] != null) i++;
-		for(Tile p: to_send) {
-			if(i < tiles.length) {
-				switch (p.getColorEnum()){
-			  case O: tiles[i] = new Orange(new Position(position.getX() + 5 + (int)(RECT_WIDTH *i), position.getY() + (int)(RECT_HEIGHT /2.5))); 
-			  	break;
-			  case M: tiles[i] = new Purple(new Position(position.getX() + 5 + (int)(RECT_WIDTH *i), position.getY() + (int)(RECT_HEIGHT /2.5)));
-			  	break;
-			  case B: tiles[i] = new Blue(new Position(position.getX() + 5 + (int)(RECT_WIDTH *i), position.getY() + (int)(RECT_HEIGHT /2.5)));
-			  	break;
-			  case Y: tiles[i] = new Yellow(new Position(position.getX() + 5 + (int)(RECT_WIDTH *i), position.getY() + (int)(RECT_HEIGHT /2.5)));
-			  	break;
-			  case G: tiles[i] = new Green(new Position(position.getX() + 5 + (int)(RECT_WIDTH *i), position.getY() + (int)(RECT_HEIGHT /2.5)));
-				  break;
-			  }
-			 view_m.getPanel().addT(tiles[i]);
-			 i++;
-			}
-			else {
-				return;
-			}
-			
-		}
-	}
-
-
 }
