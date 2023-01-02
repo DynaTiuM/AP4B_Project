@@ -114,12 +114,20 @@ public class Game {
 		controller.updatePatternView(playerID, to_send);
 	}
 	
-	public void updateMalus(int playerID) {
-		controller.updateMalus(playerID);
+	public void updateMalusToView(int playerID) {
+		controller.updateMalusView(playerID);
+	}
+	
+	public void updateMalusToView(int playerID, LinkedList<Tile> to_add, int previous_index) {
+		controller.updateMalusView(playerID, to_add, previous_index);
 	}
 	
 	public void sendCompleteMiddlePileToView(boolean bool) {
 		pot.sendCompleteMiddlePileToView(bool);
+	}
+	
+	public void updateMalusModel() {
+		players[current_player].updateMalus();
 	}
 	
 	public void getInformationForPopUp() {

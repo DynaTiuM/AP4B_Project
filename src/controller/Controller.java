@@ -56,8 +56,12 @@ public class Controller {
 		view_m.updatePattern(playerID, to_send);
 	}
 	
-	public void updateMalus(int playerID) {
+	public void updateMalusView(int playerID) {
 		view_m.updateMalus(playerID);
+	}
+	
+	public void updateMalusView(int current_player, LinkedList<Tile> to_send, int previous_index) {
+		view_m.updateMalus(current_player, to_send, previous_index);
 	}
 	
 	public void updatePopup(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
@@ -73,5 +77,9 @@ public class Controller {
 	
 	public ActionLine actionLine(int ID) {
 		return new ActionLine(game_m, ID, view_m);
+	}
+	
+	public ActionMalus actionMalus() {
+		return new ActionMalus(game_m, view_m);
 	}
 }

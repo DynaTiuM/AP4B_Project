@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 import javax.swing.*;
 
+import controller.ActionMalus;
 import model.Tile;
 
 public class Malus {
@@ -23,6 +24,7 @@ public class Malus {
 	tiles = new Tile_View[6];
     this.position = position;
     this.button = new JButton();
+    button.setBounds((int)(position.getX() + RECT_SIZE * 9.5), position.getY() + RECT_SIZE/2, RECT_SIZE, RECT_SIZE);
     
     this.RECT_SIZE = RECT_SIZE;
   }
@@ -78,12 +80,46 @@ public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
 	System.out.println("\nend of malus_view");
 	
 }
+	
+	public JButton getMalusButton() {
+		ActionMalus action = view_m.actionMalus();
+		button.addActionListener(action);
+		
+		return button;
+	}
 
 	public void updateMalusView() {
 		for(Tile_View tile : tiles) {
 			if(tile != null) {
 				view_m.getPanel().removeT(tile);
 			}
+		}
+	}
+	
+	public void updateMalusView(LinkedList<Tile> to_send, int previous_index) {
+		int i = 0;
+		while(tiles[i] != null) i++;
+		for(Tile p: to_send) {
+			if(i < tiles.length) {
+				switch (p.getColorEnum()){
+			  case O: tiles[i] = new Orange(new Position(position.getX() + (int)(RECT_SIZE *2*i), position.getY())); 
+			  	break;
+			  case M: tiles[i] = new Purple(new Position(position.getX() + (int)(RECT_SIZE *2*i), position.getY()));
+			  	break;
+			  case B: tiles[i] = new Blue(new Position(position.getX() + (int)(RECT_SIZE *2*i), position.getY()));
+			  	break;
+			  case Y: tiles[i] = new Yellow(new Position(position.getX() + (int)(RECT_SIZE *2*i), position.getY()));
+			  	break;
+			  case G: tiles[i] = new Green(new Position(position.getX() + (int)(RECT_SIZE *2*i), position.getY()));
+				  break;
+			  }
+			 view_m.getPanel().addT(tiles[i]);
+			 i++;
+			}
+			else {
+				return;
+			}
+			
 		}
 	}
 

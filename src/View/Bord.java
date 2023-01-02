@@ -72,5 +72,9 @@ public class Bord{
 	public void updateMalus() {
 		malus.updateMalusView();
 	}
+	
+	public void updateMalus(LinkedList<Tile> to_send, int previous_index) {
+		malus.updateMalusView(to_send, previous_index);
+	}
 }
 

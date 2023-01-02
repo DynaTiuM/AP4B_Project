@@ -200,8 +200,14 @@ public class Bord {
 		this.game_ref.updatePatternView(this.playerID, to_send);
 	}
 	
+	public void updateMalusToView() {
+		this.game_ref.updateMalusToView(playerID);
+	}
+	
 	public void updateMalus() {
-		this.game_ref.updateMalus(playerID);
+		this.malus_grid_m.addTile(hand_of_player);
+		this.game_ref.updateMalusToView(playerID, hand_of_player, malus_grid_m.getPrevious());
+		this.malus_grid_m.setPrevious(malus_grid_m.getPrevious() + hand_of_player.size());
 	}
 
 

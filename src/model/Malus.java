@@ -58,8 +58,7 @@ public class Malus {
 		}else {
 			System.out.println("Too many to possibly add, sending to top of the box");
 			bord_ref.sendToBag(tile_p);
-		
-	}
+		}
 		
 	}
 	

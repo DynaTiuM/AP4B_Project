@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import controller.ActionLine;
+import controller.ActionMalus;
 import controller.ActionSelectionMiddlePile;
 import controller.ActionSelectionPile;
 import controller.Controller;
@@ -119,6 +120,10 @@ public class View extends JFrame {
     	bords[playerID].updateMalus();
     }
     
+    public void updateMalus(int current_player, LinkedList<Tile> to_send, int previous_index) {
+    	bords[current_player].updateMalus(to_send, previous_index);
+    }
+    
     public void updatePopup(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
     	ContentPanel.updateBordPopUp(pattern, malus, grid, hand);
     }
@@ -141,6 +146,10 @@ public class View extends JFrame {
     
     public ActionLine actionLine(int ID) {
     	return controller_ref.actionLine(ID);
+    }
+    
+    public ActionMalus actionMalus() {
+    	return controller_ref.actionMalus();
     }
 }
 
@@ -243,6 +252,7 @@ class PopupPanel extends JPanel {
     private Pattern pattern;
     private Malus malus;
     private JButton[] buttons;
+    private JButton malusButton;
      
     private View view_m;
     
@@ -267,20 +277,13 @@ class PopupPanel extends JPanel {
         
         //Add the buttons of the Piles and middle pile
         buttons = playGrid.getPileButtons();
-        
-        int ID = 0;
-        
+        this.malusButton = this.malus.getMalusButton();
+        this.add(malusButton);
         // Ajout des boutons au JPanel
         for (JButton button : buttons) {
             if (button != null) {
                 this.add(button);
                 button.setVisible(true);
-                
-                // Adding an ActionListener for each button of this popup
-                // Every button possess an ID, which corresponds to the line of the grid
-                ActionLine action = view_m.actionLine(ID);
-                button.addActionListener(action);
-                ID++;
             }
         }
 
