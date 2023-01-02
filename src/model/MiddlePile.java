@@ -93,4 +93,12 @@ public class MiddlePile {
 		System.out.println();
 	}
 	
+	public int isEmpty() {
+		if(tiles.isEmpty()) {
+			return 1;
+		}else {
+			return 0;
+		}
+	}
+	
 }

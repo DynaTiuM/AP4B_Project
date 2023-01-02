@@ -85,6 +85,12 @@ public class Bag {
 		//Collections.shuffle(tiles);
 		System.out.println("\nnb of tiles : " + tiles.size());
 	}
+
+
+	public void getTilesBack(Tile p) {
+		tiles.add(p);
+		
+	}
 	
 	
 }

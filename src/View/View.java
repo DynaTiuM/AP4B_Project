@@ -304,7 +304,7 @@ class PopupPanel extends JPanel {
     	for(int y = 0; y < 5; y++) {
     		for(int x = 0; x < 5; x++) {
     			if(pattern[y][x].getOccupied())
-	    			switchEnum(pattern[y][x], offsetX, offsetY, 1, 1);
+	    			switchEnum(pattern[y][x], offsetX, offsetY, 1, 1, patternPosition);
     		}
     	}
     	
@@ -313,7 +313,7 @@ class PopupPanel extends JPanel {
     	
     	for(Tile t : malus) {
     		if(t != null) {
-    			switchEnum(t, offsetX, -TILE_SIZE + offsetY, 1, 1);
+    			switchEnum(t, offsetX, -TILE_SIZE + offsetY, 1, 1, malusPosition);
     			offsetX = 40;
     		}
     	}
@@ -321,31 +321,32 @@ class PopupPanel extends JPanel {
     	offsetX = 12;
     	offsetY = 12;
     	
-    	
     	for(Line line : grid) {
+        	int i = 1;
     		for(Tile t : line.getTiles()) {
     			if(t != null) {
-    				switchEnum(t, offsetX, offsetY, 5 - line.getLength(), line.getLength() - 1);
+    				switchEnum(t, offsetX, offsetY, 5 - i, line.getLength() - 1, gridPosition);
         		}
+    			i++;
     		}
     	}
     	
     	this.repaint();
     }
     
-    private void switchEnum(Tile t, int offsetX, int offsetY, int x, int y) {
+    private void switchEnum(Tile t, int offsetX, int offsetY, int x, int y, Position position) {
     	Tile_View tile = null;    	
 
     	switch (t.getColorEnum()){
-			case O: tile = new Orange(new Position(gridPosition.getX() + x * (TILE_SIZE + offsetX), gridPosition.getY() + y * (TILE_SIZE + offsetY)), true);
+			case O: tile = new Orange(new Position(position.getX() + x * (TILE_SIZE + offsetX), position.getY() + y * (TILE_SIZE + offsetY)), true);
 				break;
-			case M: tile = new Purple(new Position(gridPosition.getX() + x * (TILE_SIZE + offsetX), gridPosition.getY() + y * (TILE_SIZE + offsetY)), true);
+			case M: tile = new Purple(new Position(position.getX() + x * (TILE_SIZE + offsetX), position.getY() + y * (TILE_SIZE + offsetY)), true);
 				break;
-			case B: tile = new Blue(new Position(gridPosition.getX() + x * (TILE_SIZE + offsetX), gridPosition.getY() + y * (TILE_SIZE + offsetY)), true);
+			case B: tile = new Blue(new Position(position.getX() + x * (TILE_SIZE + offsetX), position.getY() + y * (TILE_SIZE + offsetY)), true);
 				break;
-			case Y: tile = new Yellow(new Position(gridPosition.getX() + x * (TILE_SIZE + offsetX), gridPosition.getY() + y * (TILE_SIZE + offsetY)), true);
+			case Y: tile = new Yellow(new Position(position.getX() + x * (TILE_SIZE + offsetX), position.getY() + y * (TILE_SIZE + offsetY)), true);
 				break;
-			case G: tile = new Green(new Position(gridPosition.getX() + x * (TILE_SIZE + offsetX), gridPosition.getY() + y * (TILE_SIZE + offsetY)), true);
+			case G: tile = new Green(new Position(position.getX() + x * (TILE_SIZE + offsetX), position.getY() + y * (TILE_SIZE + offsetY)), true);
 				break;
 		}
 		this.add(tile);

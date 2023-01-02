@@ -16,6 +16,9 @@ public class Bord {
 	private Malus malus_grid_m;
 	private Pattern pattern_grid_m;
 	
+	//TODO SUPPRESS
+	private int TEST_LINE;
+	
 	// Référence du "Game" auquel appartient le "Bord".
 	private Game game_ref;
 	
@@ -36,6 +39,8 @@ public class Bord {
 	// Initialise les différents éléments du plateau de jeu (lignes, grille de malus, grille de motifs).4
 	// Prends l'identifiant du joueur et la référence de "Game"
 	public Bord(int number, Game ref) {
+		
+		this.TEST_LINE = 0;
 		
 		current = 0;
 		
@@ -72,7 +77,8 @@ public class Bord {
 	public void test(LinkedList<Tile> tiles) {
 		setHand(tiles);
 		displayHand();
-		playHandIndex(0);
+		playHandIndex(TEST_LINE);
+		TEST_LINE++;
 		if(current + 1 >= 4) {
 	    	current = 0;
 	    } else current++;
@@ -82,7 +88,8 @@ public class Bord {
 	public void test(Tile tile) {
 		setHand(tile);
 		displayHand();
-		playHandIndex(0);
+		playHandIndex(TEST_LINE);
+		TEST_LINE++;
 		if(current+1>=4) {
 	    	current = 0;
 	    }else current++;
@@ -136,30 +143,40 @@ public class Bord {
 	// permet de poser les "Tile" de la main du joueur sur la ligne choisie
 	public void playHandIndex(int index) {
 		play_grid[index].addChoice(hand_of_player);
+		this.game_ref.nextPlayer();
+		
+	
+		
 	}
 	
 	
 	// fonction appelée en fin de manche 
 	public void endOfSet() {
-		
+		boolean update = false;
 		// vide toute les "Line" qui sont pleines 
 		for(Line line: play_grid) {
 			if(line.checkFull()) {
-				for(Tile tile : line.getTiles()) {
-					System.out.println("COLOR : "+ tile.getColor());
-					pattern_grid_m.determineSendingPlace(line.getLength() - 1, tile);
-				}
+				
+				
+				
 				game_ref.sendToBag(line.clear());
 				
 				System.out.println("CLEARING A LINE!");
+				update = true;
 			}
 		}
 		
 		// calcul le malus et remet les "Tile" de malus dans le "Bag"
-		pattern_grid_m.scoreMalus(malus_grid_m.computateMalus());
-		game_ref.sendToBag(malus_grid_m.clear());
+		if(!this.malus_grid_m.isEmpty()) {
+			pattern_grid_m.scoreMalus(malus_grid_m.computateMalus());
+			game_ref.sendToBag(malus_grid_m.clear());
+		}
 		
-		pattern_grid_m.sendPattern();
+		
+		if(update) {
+			pattern_grid_m.sendPattern();
+		}
+		
 		
 		System.out.println("END OF ROUND!");
 		
@@ -184,6 +201,12 @@ public class Bord {
 	
 	public void updateMalus() {
 		this.game_ref.updateMalus(playerID);
+	}
+
+
+	public void sendToBag(Tile p) {
+		game_ref.sendToBag(p);
+		
 	}
 	
 }

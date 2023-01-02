@@ -41,7 +41,7 @@ public class Malus {
 				previous_index = current_index;
 				current_index++;
 			}else {
-				System.out.println("Too many to possibly add, sending to top of the box");
+				bord_ref.sendToBag(p);
 			
 		}
 		
@@ -57,7 +57,7 @@ public class Malus {
 			current_index++;
 		}else {
 			System.out.println("Too many to possibly add, sending to top of the box");
-			//TODO 
+			bord_ref.sendToBag(tile_p);
 		
 	}
 		
@@ -155,6 +155,10 @@ public class Malus {
 	
 	public void setPrevious(int previous) {
 		this.previous_index = previous;
+	}
+	
+	public boolean isEmpty() {
+		return line[0]!=null;
 	}
 
 	

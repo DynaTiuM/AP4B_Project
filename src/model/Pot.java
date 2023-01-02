@@ -12,12 +12,14 @@ public class Pot {
 
 	private Game game_ref;
 	
+	private int numberOfPiles;
+	
 	public Pot(int numberOfPlayers, Game ref) {
 		
 		game_ref = ref;
 		
 		middlePile = new MiddlePile(this);
-		
+		numberOfPiles = 1 + numberOfPlayers *2;
 		possible_pile = new boolean[1 + numberOfPlayers * 2];
 		
 		instanciatePiles(numberOfPlayers);
@@ -37,7 +39,7 @@ public class Pot {
 	
 	public void test(int number) {
 		
-		piles[number].test(number);
+		piles[number].test(0);
 		/*for(Pile p: piles) {
 			p.test();
 		}*/
@@ -87,6 +89,21 @@ public class Pot {
 	
 	public void sendCompleteMiddlePileToView(boolean bool) {
 		middlePile.sendCompletePileToView(bool);
+	}
+
+	public void sendToBag(Tile p) {
+		bag.getTilesBack(p);
+		
+	}
+	
+	public boolean isPlayPossible() {
+		int empty = 0;
+		for(Pile p: piles) empty += p.isEmpty();
+		
+		empty+= middlePile.isEmpty();
+		
+		return empty != this.numberOfPiles + 1;
+		
 	}
 	
 	

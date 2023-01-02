@@ -70,12 +70,14 @@ public class Game {
 			p.endOfSet();
 		}
 
-		// passe au joueur suivant 
-		current_player++;
+	
+		
 	}
 	
 	public void test() {
-		pot.test(0);
+		for(int i = 0; i<9; i++) {
+			pot.test(i);
+		}
 		
 		//controller.setButtonsPot(pot.checkPossible());*/
 	}
@@ -92,8 +94,8 @@ public class Game {
 		return pot.modifyMiddlePile(index);
 	}
 	
-	public void sendSelectiontoBordTest(LinkedList<Tile> tiles_bord, int number) {
-		players[number].test(tiles_bord);
+	public void sendSelectiontoBordTest(LinkedList<Tile> tiles_bord) {
+		players[current_player].test(tiles_bord);
 	}
 	
 	public void sendContentList(LinkedList<Tile> to_send, int index) {
@@ -131,6 +133,27 @@ public class Game {
 	public void updatePopUp(Tile[][] pattern, Tile[] malus, Line[] grid) {
 		controller.updatePopup(pattern, malus, grid);
 	}
+
+	public void sendToBag(Tile p) {
+		pot.sendToBag(p);
+		
+	}
+
+	public void nextPlayer() {
+		
+		this.current_player++;
+		if(current_player ==4) {
+			current_player =0;
+		}
+		
+		System.out.println("NEXT PLAYER : " + current_player);
+		
+		if(!pot.isPlayPossible()) {
+			this.endOfSet();
+		}
+	}
+	
+	
 	
 	
 }
