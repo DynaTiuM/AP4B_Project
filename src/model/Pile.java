@@ -30,13 +30,13 @@ public class Pile {
 		game_ref = game;
 	}
 	
-	public Tile[] getTiles() {
-		return this.tiles;
+	
+	public void setTilesSelectedToHand(int index) {
+		getSelection(tiles[index]);
 	}
 	
-	
 	public boolean hasContent() {
-		return tiles[0]!=null;
+		return tiles[0] != null;
 	}
 	
 	public void setContent(Tile to_add, int index) {
@@ -44,9 +44,8 @@ public class Pile {
 	}
 	
 	public void sendContentList() {
-		
 		LinkedList<Tile> to_send = new LinkedList<Tile>();
-		if(tiles[0]!=null) {
+		if(tiles[0] != null) {
 			for(Tile p: tiles) {
 				to_send.add(p);
 				System.out.print(p.getColorEnum() + " - ");
@@ -58,7 +57,7 @@ public class Pile {
 		
 		System.out.println("Start of sendContentList : pile");
 		game_ref.sendContentList(to_send, index);
-		
+
 	}
 	
 	public Tile[] getContent(){
@@ -79,7 +78,7 @@ public class Pile {
 		
 		if (tiles_middle != null) sendToMiddle();
 		
-		sendToBordTest();
+		sendToBord();
 		sendContentList();
 		
 	}
@@ -101,7 +100,6 @@ public class Pile {
 		game_ref.sendSelectiontoBordTest(tiles_bord);
 		//System.out.println("sent");
 	}
-
 
 	public void display() {
 		
@@ -138,7 +136,7 @@ public class Pile {
 	}
 	
 	public int isEmpty() {
-		if(tiles[0]==null) {
+		if(tiles[0] == null) {
 			System.out.println("Pile number " + this.index + " empty");
 			return 1;
 		}else {

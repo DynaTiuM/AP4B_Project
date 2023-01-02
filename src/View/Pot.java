@@ -89,9 +89,9 @@ public class Pot {
     middlePile.draw(g);
   }
   
-  public void initiateButtons() {
+  	public void initiateButtons() {
 		for(Pile pile : piles) {
-			pile.initiateButton();
+			pile.initiateButtons();
 		}
 	}
 
@@ -124,10 +124,12 @@ public class Pot {
     	middlePile.updatePile(to_update);
     }
 
-    public JButton[] getPileButtons() {
-        JButton[] buttons = new JButton[piles.length];
+    public LinkedList<JButton> getTileButtons() {
+        LinkedList<JButton> buttons = new LinkedList<JButton>();
         for (int i = 0; i < piles.length; i++) {
-            buttons[i] = piles[i].getButton();
+        	JButton[] pile_buttons = piles[i].getButtons();
+        	for(JButton button : pile_buttons)
+        		buttons.add(button);
         }
         return buttons;
     }

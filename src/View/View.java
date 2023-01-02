@@ -10,7 +10,7 @@ import javax.swing.*;
 import controller.ActionLine;
 import controller.ActionMalus;
 import controller.ActionSelectionMiddlePile;
-import controller.ActionSelectionPile;
+import controller.ActionSelectionTile;
 import controller.Controller;
 import model.Line;
 import model.Tile;
@@ -91,8 +91,7 @@ public class View extends JFrame {
         pot_m.setTile(tiles, number);
     }
 
-    public void updtatePile(LinkedList<Tile> to_update,int index) {
-
+    public void updatePile(LinkedList<Tile> to_update, int index) {
         pot_m.updatePile(to_update, index);
     }
 
@@ -137,8 +136,8 @@ public class View extends JFrame {
     }
 
     
-    public ActionSelectionPile actionSelectionPile(int number) {
-    	return controller_ref.actionSelectionPile(number);
+    public ActionSelectionTile actionSelectionTile(int ID, int numberPile) {
+    	return controller_ref.actionSelectionTile(ID, numberPile);
     }
     public ActionSelectionMiddlePile actionSelectionMiddlePile(int ID) {
     	return controller_ref.actionSelectionMiddlePile(ID);
@@ -174,25 +173,26 @@ class ViewPanel extends JPanel {
         this.bords = bords;
         this.pot = pot;
         this.setLayout(null);
-        
+    }
 
-        //Add the buttons of the Piles and middle pile
-        JButton[] buttons = pot.getPileButtons();
+    public void closePopUp() {
+    	panel.closePopUp();
+	}
+    
+    public void addButtons() {
+    	//Add the buttons of the Piles and middle pile
+        System.out.print("Adding buttons!");
+        LinkedList<JButton> buttons = pot.getTileButtons();
 
         // Ajout des boutons au JPanel
         for (JButton button : buttons) {
             if (button != null) {
                 this.add(button);
             }
-
         }
 
         pot.setButtons(true);
     }
-
-    public void closePopUp() {
-    	panel.closePopUp();
-	}
 
 	public void addT(Tile_View tile) {
         this.add(tile);

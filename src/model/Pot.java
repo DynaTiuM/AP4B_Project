@@ -33,9 +33,10 @@ public class Pot {
 		this.game_ref.updateMiddlePileView(to_add, previous_index, delete);
 	}
 	
-	public Pile getPile(int ID) {
-		return piles[ID];
+	public void setTilesSelectedToHand(int numberOfPile, int ID) {
+		piles[numberOfPile].setTilesSelectedToHand(ID);
 	}
+
 	
 	public void test(int number) {
 		
@@ -49,7 +50,7 @@ public class Pot {
 	
 	private void instanciatePiles(int numberOfPlayers) {
 		piles = new Pile[1 + numberOfPlayers * 2];
-		for(int i = 0; i< 1 + numberOfPlayers * 2; i++) piles[i] = new Pile(game_ref, middlePile, this, i);
+		for(int i = 0; i < 1 + numberOfPlayers * 2; i++) piles[i] = new Pile(game_ref, middlePile, this, i);
 	}
 	
 	public Pile getPileIndex(int index) {
@@ -58,10 +59,6 @@ public class Pot {
 	
 	public LinkedList<Tile> modifyMiddlePile(int index) {
 		return middlePile.modifyMiddlePile(index);
-	}
-	
-	private void sendToMiddle() {
-		
 	}
 	
 	public void display() {

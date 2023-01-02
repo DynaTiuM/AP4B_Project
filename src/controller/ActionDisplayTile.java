@@ -9,13 +9,13 @@ import model.Game;
 import model.Pile;
 import model.Tile;
 
-public class ActionDisplayPile implements ActionListener {
+public class ActionDisplayTile implements ActionListener {
 	
 	private View view_m;
 	private LinkedList<Tile> tiles;
 	private int ID;
 	
-	public ActionDisplayPile(View ref, LinkedList<Tile> tiles, int ID) {
+	public ActionDisplayTile(View ref, LinkedList<Tile> tiles, int ID) {
 		this.view_m = ref;
 		this.tiles = tiles;
 		

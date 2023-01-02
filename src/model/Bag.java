@@ -63,7 +63,7 @@ public class Bag {
 		Tile last;
 		
 		for(Pile p: allPiles) {
-			for(int i =0; i<4; i++) {
+			for(int i = 0; i < 4; i++) {
 				last = tiles.getLast();
 				//System.out.println(tiles.getLast().getColorEnum());
 				p.setContent(last, i);

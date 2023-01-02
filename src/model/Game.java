@@ -86,8 +86,8 @@ public class Game {
 		pot.testShuffle();
 	}
 
-	public Pile getPile(int ID) {
-		return pot.getPileIndex(ID);
+	public void setTilesSelectedToHand(int numberOfPile, int ID) {
+		pot.setTilesSelectedToHand(numberOfPile, ID);
 	}
 	
 	public LinkedList<Tile> modifyMiddlePile(int index) {

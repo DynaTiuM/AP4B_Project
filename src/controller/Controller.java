@@ -26,8 +26,7 @@ public class Controller {
         	 e.printStackTrace();
         }
 		
-		game_m.test();
-		//game_m.endOfSet();
+		//game_m.test();
 
 	}
 	
@@ -41,7 +40,7 @@ public class Controller {
 	}
 
 	public void updatePile(LinkedList<Tile> to_update, int position) {
-		view_m.updtatePile(to_update, position);
+		view_m.updatePile(to_update, position);
 	}
 
 	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, int current_player, LinkedList<Tile> linkedList, int previous_index_2) {
@@ -68,8 +67,8 @@ public class Controller {
 		view_m.updatePopup(pattern, malus, grid, hand);
 	}
 	
-	public ActionSelectionPile actionSelectionPile(int number) {
-		return new ActionSelectionPile(game_m, number, view_m);
+	public ActionSelectionTile actionSelectionTile(int ID, int numberPile) {
+		return new ActionSelectionTile(game_m, ID, numberPile, view_m);
 	}
 	public ActionSelectionMiddlePile actionSelectionMiddlePile(int ID) {
 		return new ActionSelectionMiddlePile(game_m, ID, view_m);

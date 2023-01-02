@@ -25,11 +25,15 @@ public class ActionSelectionMiddlePile implements ActionListener {
 		this.model = ref_game;
 	}
 	
+	public void open() {
+		model.getInformationForPopUp();
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		toSend = model.modifyMiddlePile(index);
 		model.sendSelectionToBord(toSend);
 		model.sendCompleteMiddlePileToView(true);
-		model.getInformationForPopUp();
+		open();
 	}
 }
