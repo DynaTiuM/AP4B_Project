@@ -261,10 +261,10 @@ class PopupPanel extends JPanel {
     private Position malusPosition = new Position(18, POPUP_BORD_SIZE - POPUP_RECT_SIZE * 2 - 20);
     
     private final static int TILE_SIZE = 30;
-    
 
     // Timer to blink the buttons
     private Timer blinkTimer;
+    
     // Constructor that takes in image, bords array, and pot object
     public PopupPanel(View view_ref, Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
     	this.view_m = view_ref;
@@ -276,17 +276,39 @@ class PopupPanel extends JPanel {
         
         
         //Add the buttons of the Piles and middle pile
-        buttons = playGrid.getPileButtons();
         this.malusButton = this.malus.getMalusButton();
         this.add(malusButton);
+      //Add the buttons of the Piles and middle pile
+        this.buttons = playGrid.getPileButtons();
+        ImageIcon rolloverIcon = new ImageIcon("src\\Images\\rolloverButtonLines.png");
+        ImageIcon icon = new ImageIcon("src\\Images\\ButtonLines.png");
         // Ajout des boutons au JPanel
-        for (JButton button : buttons) {
+        for (JButton button : this.buttons) {
             if (button != null) {
                 this.add(button);
+                if (rolloverIcon.getImageLoadStatus() == MediaTracker.ERRORED) {
+                    // Erreur lors du chargement de l'image
+                	System.out.println("error");
+                  } else {
+                      button.setRolloverIcon(rolloverIcon);
+                  }
+
                 button.setVisible(true);
+                // Chargement de l'image de la tuile
+
+                // Vérifie si l'image a pu être chargée correctement
+                if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
+                  // Erreur lors du chargement de l'image
+                } else {
+                    button.setIcon(icon);
+                }
             }
+
         }
 
+
+
+        ImageIcon icon2 = new ImageIcon("src\\Images\\ButtonLines2.png");
 
         // Create the timer to blink the buttons
         blinkTimer = new Timer(500, new ActionListener() {
@@ -294,12 +316,16 @@ class PopupPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for (JButton button : buttons) {
-                    if (button.getBackground() == Color.blue) {
-                        button.setBackground(Color.red);
+                    if (button.getIcon() == icon2) {
+                        button.setIcon(icon);
                         repaint();
                     } else {
-                        button.setBackground(Color.blue);
-                        repaint();
+                        if (icon2.getImageLoadStatus() == MediaTracker.ERRORED) {
+                            // Erreur lors du chargement de l'image
+                          } else {
+                              button.setIcon(icon2);
+                              repaint();
+                          }
                     }
                 }
             }

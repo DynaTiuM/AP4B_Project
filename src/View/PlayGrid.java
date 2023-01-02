@@ -56,6 +56,7 @@ public class PlayGrid {
           buttons[count].addActionListener(action);
           count++;
           ID++;
+          System.out.println(count);
       }
       return buttons;
   }
