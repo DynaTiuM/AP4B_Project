@@ -101,4 +101,9 @@ public class MiddlePile {
 		}
 	}
 	
+	public boolean isEmptyView() {
+		return tiles.isEmpty();
+	}
+	
+	
 }

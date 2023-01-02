@@ -160,6 +160,24 @@ public class Game {
 		}
 	}
 	
+	public void endOfGame() {
+		//TODO
+		int winner = 0;
+		int winning_score = 0;
+		for(Bord p: players) {
+			p.calculateEndOfGameBonuses();
+			
+			if(p.getScore()>winning_score) {
+				winning_score = p.getScore();
+				winner = p.getID();
+			}
+			
+		}
+		
+		System.out.println("Winner : " + winner);
+		
+	}
+	
 	
 	
 	

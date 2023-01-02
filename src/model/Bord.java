@@ -216,4 +216,25 @@ public class Bord {
 		
 	}
 	
+	public void endOfGame() {
+		game_ref.endOfGame();
+		
+	}
+
+
+	public void calculateEndOfGameBonuses() {
+		pattern_grid_m.calculateEndOfGameBonuses();
+		
+	}
+	
+	public int getScore() {
+		return this.pattern_grid_m.getScore();
+	}
+
+
+	public int getID() {
+		// TODO Auto-generated method stub
+		return this.playerID;
+	}
+	
 }

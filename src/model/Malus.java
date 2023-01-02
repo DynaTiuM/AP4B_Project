@@ -25,10 +25,6 @@ public class Malus {
 	
 		line = new Tile[7];
 		
-		/*for(int i = 0; i<7; i++) {
-			line[i] = new Tile();
-		}*/
-		
 		bord_ref = bord_p;
 	}
 	
@@ -42,9 +38,7 @@ public class Malus {
 				current_index++;
 			}else {
 				bord_ref.sendToBag(p);
-			
-		}
-		
+			}
 		}
 	}
 	
@@ -59,11 +53,7 @@ public class Malus {
 			System.out.println("Too many to possibly add, sending to top of the box");
 			bord_ref.sendToBag(tile_p);
 		}
-		
 	}
-	
-
-	
 	
 	private void initPenalty() {
 		penalty[0]=1;
@@ -97,15 +87,10 @@ public class Malus {
 			i++;
 		}
 		
-	
-		
-		
 		while(i< 7) {
 			System.out.print("- ");
 			i++;
 		}
-		
-		
 		
 		System.out.println();
 	}
@@ -125,8 +110,6 @@ public class Malus {
 		
 		to_send.clear();
 		
-		
-		
 		for(int i =0; i<current_index; i++) {
 			to_send.add(line[i]);
 			line[i] = null;
@@ -138,8 +121,6 @@ public class Malus {
 		System.out.println();
 		
 		return to_send;
-		
-		
 	}
 	
 	public Tile[] getLine() {

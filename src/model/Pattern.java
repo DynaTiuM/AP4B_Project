@@ -146,8 +146,19 @@ public class Pattern {
 	
 	public void calculateEndOfGameBonuses() {
 		for(int i =0; i<5; i++) {
-			checkLineFull(i);
-			checkColumnFull(i);
+			if(checkLineFull(i)) score+=2;
+			if(checkColumnFull(i)) score +=7;
+			
+			System.out.println("End of Game bonuses updated score " + score);
+		}
+	}
+	
+	public void checkEndGame() {
+		for(int i =0; i <5; i++) {
+			if(checkLineFull(i)) {
+				this.bord_ref.endOfGame();
+				break;
+			}
 		}
 	}
 	
@@ -167,31 +178,24 @@ public class Pattern {
 		System.out.println("\nscore : " + score);
 	}
 	
-	public void checkLineFull(int index){
+	public boolean checkLineFull(int index){
 		int check = 0;
 		
 		for(int i =0; i<5; i++) {
 			if(grid[index][i].getOccupied()) check++;
 		}
-		
-		if(check ==5) {
-			score +=2;
-			end_trigger = true;
-			System.out.println("ENDGAME TRIGGER");
-			System.out.println("updated score : "+score);
-		}
+			
+		return check == 5;
 	}
 	
-	public void checkColumnFull(int index) {
+	public boolean checkColumnFull(int index) {
 		int check = 0;
 		
 		for(int i =0; i<5; i++) {
 			if(grid[i][index].getOccupied()) check++;
 		}
 		
-		if(check == 5) {
-			score +=7;
-		}
+		return check == 5;
 	}
 	
 	public Tile[][] getGrid() {
