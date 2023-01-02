@@ -8,7 +8,7 @@ import javax.swing.*;
 import model.Tile;
 
 public class Malus {
-	private static final int RECT_SIZE = Bord.RECT_SIZE;
+	private int RECT_SIZE;
   private Position position;
   private JButton button;
   
@@ -16,13 +16,15 @@ public class Malus {
   
   private View view_m;
 
-  public Malus(Position position, View view_ref) {
+  public Malus(Position position, View view_ref, int RECT_SIZE) {
 	
 	view_m = view_ref;  
 	
 	tiles = new Tile_View[6];
     this.position = position;
     this.button = new JButton();
+    
+    this.RECT_SIZE = RECT_SIZE;
   }
 
   public void draw(Graphics g) {
@@ -58,15 +60,15 @@ public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
 	System.out.println("malus_view");
 	for(Tile p: linkedList) {
 		switch (p.getColorEnum()){
-		  case O: tiles[temp] = new Orange(new Position(position.getX() + (int)(RECT_SIZE *1.5*temp), position.getY())); 
+		  case O: tiles[temp] = new Orange(new Position(position.getX() + (int)(RECT_SIZE *2*temp), position.getY())); 
 		  	break;
-		  case B: tiles[temp] = new Purple(new Position(position.getX() + (int)(RECT_SIZE *1.5*temp), position.getY()));
+		  case M: tiles[temp] = new Purple(new Position(position.getX() + (int)(RECT_SIZE *2*temp), position.getY()));
 		  	break;
-		  case Bl: tiles[temp] = new Blue(new Position(position.getX() + (int)(RECT_SIZE *1.5*temp), position.getY()));
+		  case B: tiles[temp] = new Blue(new Position(position.getX() + (int)(RECT_SIZE *2*temp), position.getY()));
 		  	break;
-		  case W: tiles[temp] = new Yellow(new Position(position.getX() + (int)(RECT_SIZE *1.5*temp), position.getY()));
+		  case Y: tiles[temp] = new Yellow(new Position(position.getX() + (int)(RECT_SIZE *2*temp), position.getY()));
 		  	break;
-		  case R: tiles[temp] = new Green(new Position(position.getX() + (int)(RECT_SIZE *1.5*temp), position.getY()));
+		  case G: tiles[temp] = new Green(new Position(position.getX() + (int)(RECT_SIZE *2*temp), position.getY()));
 			  break;
 		  }
 		  System.out.print(p.getColorEnum() + " / ");
@@ -76,6 +78,14 @@ public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
 	System.out.println("\nend of malus_view");
 	
 }
+
+	public void updateMalusView() {
+		for(Tile_View tile : tiles) {
+			if(tile != null) {
+				view_m.getPanel().removeT(tile);
+			}
+		}
+	}
 
 
 }

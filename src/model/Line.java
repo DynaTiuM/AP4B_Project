@@ -32,10 +32,11 @@ public class Line {
 	private LinkedList<Tile> to_send;
 	
 	private Bord bord_m;
+	private int length;
 	
 	
 	// Constructeur de la classe Line
-	public Line(Malus malus_p, Pattern pattern_ref ,int size, Bord ref) {
+	public Line(Malus malus_p, Pattern pattern_ref, int size, Bord ref) {
 		
 		bord_m = ref;
 		
@@ -43,12 +44,13 @@ public class Line {
 		
 		pattern_m = pattern_ref;
 		
-		current_index=0;
+		current_index = 0;
 		previous_index = 0;
 		
 		color_presence = new boolean[5];
 		
 		current_color = null;
+		this.length = size;
 		
 		to_send = new LinkedList<Tile>();
 		
@@ -61,8 +63,10 @@ public class Line {
 		
 	}
 	
-	
-
+	public int getLength() {
+		System.out.println("LENGTH : " + length);
+		return this.length;
+	}
 	
 	// initialise la "Line"
 	private void initArray(int index) {

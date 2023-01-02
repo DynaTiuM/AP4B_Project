@@ -42,7 +42,7 @@ public class Bag {
 		tiles = new LinkedList<Tile>();
 
 		// tableau des couleurs possibles pour les tuiles
-		Color[] colors = {Color.black, Color.ORANGE, Color.red, Color.BLUE, Color.WHITE};
+		Color[] colors = {Color.MAGENTA, Color.ORANGE, Color.GREEN, Color.BLUE, Color.YELLOW};
 		
 		for (int i = 0; i < 20; i++) {
 			// on ajoute une tuile de chaque couleur dans la liste chainée de tuiles
@@ -84,6 +84,12 @@ public class Bag {
 		
 		//Collections.shuffle(tiles);
 		System.out.println("\nnb of tiles : " + tiles.size());
+	}
+
+
+	public void getTilesBack(Tile p) {
+		tiles.add(p);
+		
 	}
 	
 	

@@ -1,6 +1,9 @@
 package model;
 
 import java.awt.Color;
+import java.util.HashMap;
+
+import View.Position;
 
 
 
@@ -8,22 +11,26 @@ public class Pattern {
 
 	private Tile[][] grid;
 	private Color[] new_colorpos;
+	private HashMap<Tile, Position> newTiles;
+	private Bord bord_ref;
 	
 	private boolean end_trigger;
 	
 	private int score;
 	
-	public Pattern() {
-		
+	public Pattern(Bord bord) {
+
+		newTiles = new HashMap<Tile, Position>();
+		this.bord_ref = bord;
 		grid = new Tile[5][5];
 		
 		new_colorpos = new Color[5];
 
-		grid[0][0] = new Tile(Color.blue);
-		grid[0][1] = new Tile(Color.orange);
-		grid[0][2] = new Tile(Color.red);
-		grid[0][3] = new Tile(Color.black);
-		grid[0][4] = new Tile(Color.white);
+		grid[0][0] = new Tile(Color.MAGENTA);
+		grid[0][1] = new Tile(Color.BLUE);
+		grid[0][2] = new Tile(Color.YELLOW);
+		grid[0][3] = new Tile(Color.GREEN);
+		grid[0][4] = new Tile(Color.ORANGE);
 		
 		for(int l = 0; l < 4; l++) {
 			for(int c = 0; c < 5; c++) {
@@ -38,21 +45,31 @@ public class Pattern {
 			}
 		}
 		
-		
 		end_trigger = false;
-		
 	}
 	
 	public void scoreMalus(int malus) {
 		score = score - malus;
-		if (score <0 ) score = 0;
+		if (score < 0) score = 0;
 	}
 	
 	public void determineSendingPlace(int index, Tile to_place) {
-		int i =0;
-		while(grid[index][i].getColorEnum()!=to_place.getColorEnum()) i++;
+		int i = 0;
+		while(i < 5) {
+			System.out.print("index : " + index + ", i : " + i);
+			if(grid[index][i].getColorEnum() != to_place.getColorEnum()) 
+				i++;
+			else {
+				if(!grid[index][i].getOccupied()) {
+					newTiles.put(to_place, new Position(i, index));
+					System.out.println("new Tiles : Pattern | " + newTiles + "Position : " + i + index);
+				}
+				calculateScore(index, i, to_place);
+				break;
+			}
+		}
+
 		
-		calculateScore(index, i, to_place);
 	}
 	
 	private void calculateScore(int index, int indexy, Tile to_add) {
@@ -142,8 +159,6 @@ public class Pattern {
 				}else {
 					System.out.print("_ ");
 				}
-				
-				
 			}
 			
 			System.out.println();
@@ -174,7 +189,7 @@ public class Pattern {
 			if(grid[i][index].getOccupied()) check++;
 		}
 		
-		if(check ==5) {
+		if(check == 5) {
 			score +=7;
 		}
 	}
@@ -185,6 +200,10 @@ public class Pattern {
 	
 	public int getScore() {
 		return this.score;
+	}
+	
+	public void sendPattern() {
+		bord_ref.updatePatternView(this.newTiles);
 	}
 	
 	

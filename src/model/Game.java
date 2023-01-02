@@ -1,7 +1,9 @@
 package model;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
+import View.Position;
 import controller.Controller;
 
 // ATTENTION : dans game on crée toujours 4 bord est-ce normal ?
@@ -38,6 +40,10 @@ public class Game {
 		
 	}
 	
+	public int getCurrentPlayer() {
+		return current_player;
+	}
+	
 	
 	// Envoie une liste de tuiles à la main du joueur actuel
 	public void sendSelectiontoBord(LinkedList<Tile> tiles) {
@@ -49,9 +55,6 @@ public class Game {
 	public void sendSelectiontoBord(Tile tile) {
 		players[current_player].setHand(tile);
 	}
-	
-	
-	
 	
 	// Envoie une liste de tuiles au Bag
 	public void sendToBag(LinkedList<Tile> tiles) {
@@ -67,54 +70,88 @@ public class Game {
 			p.endOfSet();
 		}
 
-		// passe au joueur suivant 
-		current_player++;
 	
+		
 	}
 	
-	
-	
 	public void test() {
-		pot.test();
-		/*players[0].endOfSet();
+		for(int i = 0; i<9; i++) {
+			pot.test(i);
+		}
 		
-		controller.setButtonsPot(pot.checkPossible());*/
-		
+		//controller.setButtonsPot(pot.checkPossible());*/
 	}
 	
 	public void testShuffle() {
 		pot.testShuffle();
 	}
 
+	public Pile getPile(int ID) {
+		return pot.getPileIndex(ID);
+	}
 	
+	public LinkedList<Tile> modifyMiddlePile(int index) {
+		return pot.modifyMiddlePile(index);
+	}
 	
 	public void sendSelectiontoBordTest(LinkedList<Tile> tiles_bord) {
 		players[current_player].test(tiles_bord);
-		
 	}
 	
-	
-	
-	
-
-
-	public Tile[][] getPatternToView() {
-		// TODO Auto-generated method stub
-		return players[current_player].getPatternToView();
-	}
-
-
 	public void sendContentList(LinkedList<Tile> to_send, int index) {
 		controller.updatePile(to_send, index);
-		
 	}
-
 
 	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, LinkedList<Tile> linkedList, int previous_index_2) {
 		controller.updateViewLine(to_send, previous_index, i, current_player, linkedList, previous_index_2);
-		
 	}
 	
+	public void updateMiddlePileView(LinkedList<Tile> to_add, int previous_index, boolean delete) {
+		controller.updateMiddlePileView(to_add, previous_index, delete);
+	}
+	
+	public void updatePatternView(int playerID, HashMap<Tile, Position> to_send) {
+		controller.updatePatternView(playerID, to_send);
+	}
+	
+	public void updateMalus(int playerID) {
+		controller.updateMalus(playerID);
+	}
+	
+	public void sendCompleteMiddlePileToView(boolean bool) {
+		pot.sendCompleteMiddlePileToView(bool);
+	}
+	
+	public void getInformationForPopUp() {
+		Tile[][] pattern = players[current_player].getPatternToView();
+		
+		Line[] grid = players[current_player].getLines();
+		Tile[] malus = players[current_player].getMalus();
+		updatePopUp(pattern, malus, grid);
+	}
+	
+	public void updatePopUp(Tile[][] pattern, Tile[] malus, Line[] grid) {
+		controller.updatePopup(pattern, malus, grid);
+	}
+
+	public void sendToBag(Tile p) {
+		pot.sendToBag(p);
+		
+	}
+
+	public void nextPlayer() {
+		
+		this.current_player++;
+		if(current_player ==4) {
+			current_player =0;
+		}
+		
+		System.out.println("NEXT PLAYER : " + current_player);
+		
+		if(!pot.isPlayPossible()) {
+			this.endOfSet();
+		}
+	}
 	
 	
 	

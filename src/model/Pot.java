@@ -5,19 +5,21 @@ import java.util.LinkedList;
 public class Pot {
 
 	private Pile[] piles;
-	private MiddlePile middle_pile;
+	private MiddlePile middlePile;
 	private Bag bag;
 	
 	 private boolean[] possible_pile;
 
 	private Game game_ref;
 	
+	private int numberOfPiles;
+	
 	public Pot(int numberOfPlayers, Game ref) {
 		
 		game_ref = ref;
 		
-		middle_pile = new MiddlePile(this);
-		
+		middlePile = new MiddlePile(this);
+		numberOfPiles = 1 + numberOfPlayers *2;
 		possible_pile = new boolean[1 + numberOfPlayers * 2];
 		
 		instanciatePiles(numberOfPlayers);
@@ -25,18 +27,19 @@ public class Pot {
 		bag = new Bag(piles, this);
 		
 		display();
-		
-		
-		
-		
-		
-		
-		
 	}
 	
-	public void test() {
+	public void sendAddedTilesToView(LinkedList<Tile> to_add, int previous_index, boolean delete) {
+		this.game_ref.updateMiddlePileView(to_add, previous_index, delete);
+	}
+	
+	public Pile getPile(int ID) {
+		return piles[ID];
+	}
+	
+	public void test(int number) {
 		
-		piles[0].test();
+		piles[number].test(0);
 		/*for(Pile p: piles) {
 			p.test();
 		}*/
@@ -46,11 +49,15 @@ public class Pot {
 	
 	private void instanciatePiles(int numberOfPlayers) {
 		piles = new Pile[1 + numberOfPlayers * 2];
-		for(int i = 0; i< 1 + numberOfPlayers * 2; i++) piles[i] = new Pile(game_ref, middle_pile, this, i);
+		for(int i = 0; i< 1 + numberOfPlayers * 2; i++) piles[i] = new Pile(game_ref, middlePile, this, i);
 	}
 	
 	public Pile getPileIndex(int index) {
 		return piles[index];
+	}
+	
+	public LinkedList<Tile> modifyMiddlePile(int index) {
+		return middlePile.modifyMiddlePile(index);
 	}
 	
 	private void sendToMiddle() {
@@ -59,7 +66,7 @@ public class Pot {
 	
 	public void display() {
 		for(Pile p: piles) p.display();
-		middle_pile.display();
+		middlePile.display();
 	}
 	
 	public void sendToBag(LinkedList<Tile> tiles) {
@@ -67,7 +74,7 @@ public class Pot {
 	}
 	
 	public boolean[] checkPossible() {
-		  for(int i =0; i< possible_pile.length; i++) {
+		  for(int i = 0; i < possible_pile.length; i++) {
 			  possible_pile[i] = piles[i].checkPossible();
 		  }
 		  
@@ -79,7 +86,25 @@ public class Pot {
 		bag.distributeContents();
 		
 	}
+	
+	public void sendCompleteMiddlePileToView(boolean bool) {
+		middlePile.sendCompletePileToView(bool);
+	}
 
+	public void sendToBag(Tile p) {
+		bag.getTilesBack(p);
+		
+	}
+	
+	public boolean isPlayPossible() {
+		int empty = 0;
+		for(Pile p: piles) empty += p.isEmpty();
+		
+		empty+= middlePile.isEmpty();
+		
+		return empty != this.numberOfPiles + 1;
+		
+	}
 	
 	
 

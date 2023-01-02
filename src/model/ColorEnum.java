@@ -7,10 +7,10 @@ public enum ColorEnum {
   B, 
   // Orange color
   O, 
-  // White color
-  W, 
-  // Red color
-  R, 
-  // Black color
-  Bl
+  // Yellow color
+  Y, 
+  // Green color
+  G, 
+  // Magenta color
+  M
 }

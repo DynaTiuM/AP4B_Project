@@ -30,19 +30,19 @@ public class Pile {
 		game_ref = game;
 	}
 	
+	public Tile[] getTiles() {
+		return this.tiles;
+	}
 	
-	// indique si la pile contient des tuiles
+	
 	public boolean hasContent() {
 		return tiles[0]!=null;
 	}
 	
-	
-	// ajoute une tuile à la pile à l'index spécifié
 	public void setContent(Tile to_add, int index) {
 		tiles[index] = to_add;
 	}
 	
-	// envoie la liste des tuiles de la pile au jeu
 	public void sendContentList() {
 		
 		LinkedList<Tile> to_send = new LinkedList<Tile>();
@@ -61,60 +61,52 @@ public class Pile {
 		
 	}
 	
-	
-	// renvoie le tableau de tuiles de la pile
 	public Tile[] getContent(){
 		return this.tiles;
 	}
 	
-	
-	// sélectionne les tuiles de la pile de la même couleur que la tuile choisie, et envoie les autres tuiles au milieu de la table
 	public void getSelection(Tile chosen) {
-		for(int i =0; i<4; i++) {
+		tiles_middle.clear();
+		tiles_bord.clear();
+		
+		for(int i = 0; i < 4; i++) {
 			if(tiles[i].getColor() == chosen.getColor()) {
 				tiles_bord.add(tiles[i]);
 			} else tiles_middle.add(tiles[i]);
 			
 			tiles[i] = null;
 		}
-		sendToMiddle();
+		
+		if (tiles_middle != null) sendToMiddle();
+		
 		sendToBordTest();
 		sendContentList();
+		
 	}
 	
-	
-	// envoie les tuiles sélectionnées au milieu de la table
 	private void sendToMiddle() {
 		this.middle_ref.addContent(tiles_middle);
 	}
 	
-	
-	// envoie les tuiles sélectionnées au bord de la table 
 	private void sendToBord() {
 		game_ref.sendSelectiontoBord(tiles_bord);
 	}
 	
-	
-	// exécute le scénario de sélection de tuiles pour tester le fonctionnement de la pile
-	public void test() {
-		//creer un scenar
-		getSelection(tiles[0]);
-		
+	public void test(int number) {
+		//creer un sc�nar
+		getSelection(tiles[number]);
 	}
 	
-	
-	// envoie les tuiles sélectionnées au bord de la table pour les tests
 	private void sendToBordTest() {
 		game_ref.sendSelectiontoBordTest(tiles_bord);
 		//System.out.println("sent");
 	}
 
 
-	// affiche les tuiles de la pile
 	public void display() {
 		
 		int i = 0;
-		while(i <2) {
+		while(i < 2) {
 			if(tiles[i]!=null) {
 				System.out.print(tiles[i].getColorEnum() + " ");
 			} else {
@@ -143,6 +135,15 @@ public class Pile {
 	
 	public boolean checkPossible() {
 	  return tiles[0]!=null;
+	}
+	
+	public int isEmpty() {
+		if(tiles[0]==null) {
+			System.out.println("Pile number " + this.index + " empty");
+			return 1;
+		}else {
+			return 0;
+		}
 	}
 	
 }
