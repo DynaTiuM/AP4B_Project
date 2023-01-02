@@ -28,10 +28,8 @@ public class ActionSelectionMiddlePile implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		toSend = model.modifyMiddlePile(index);
-		
-		view_m.updateMiddlePile(toSend);
+		model.sendSelectionToBord(toSend);
 		model.sendCompleteMiddlePileToView(true);
 		model.getInformationForPopUp();
-		//view_m.showBordInPopUp();
 	}
 }

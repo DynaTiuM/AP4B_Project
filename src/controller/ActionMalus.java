@@ -12,7 +12,6 @@ public class ActionMalus implements ActionListener {
 	
 	public ActionMalus(Game ref) {
 		this.model = ref;
-		this.current_player = this.model.getCurrentPlayer();
 	}
 
 	@Override

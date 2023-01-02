@@ -20,21 +20,10 @@ public class ActionDisplayPile implements ActionListener {
 		this.tiles = tiles;
 		
 		this.ID = ID;
-		open();
 	}
-	
-	private void open() {
-		view_m.displayPilePopup(tiles, ID);
-	}
-	
-	private void close() {
-		
-	}
-	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 	}
 
 }

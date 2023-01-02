@@ -66,6 +66,10 @@ public class Bord {
 		hand_of_player = tiles;
 	}
 	
+	public LinkedList<Tile> getHand() {
+		return hand_of_player;
+	}
+	
 	public Line[] getLines() {
 		return play_grid;
 	}
@@ -144,9 +148,6 @@ public class Bord {
 	public void playHandIndex(int index) {
 		play_grid[index].addChoice(hand_of_player);
 		this.game_ref.nextPlayer();
-		
-	
-		
 	}
 	
 	

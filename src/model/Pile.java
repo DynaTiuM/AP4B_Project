@@ -89,7 +89,7 @@ public class Pile {
 	}
 	
 	private void sendToBord() {
-		game_ref.sendSelectiontoBord(tiles_bord);
+		game_ref.sendSelectionToBord(tiles_bord);
 	}
 	
 	public void test(int number) {

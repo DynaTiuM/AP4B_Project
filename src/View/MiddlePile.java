@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -49,6 +50,7 @@ public class MiddlePile {
   			for (HashMap.Entry<Tile_View, JButton> entry : this.tiles.entrySet()) {
   				pot_m.removeB(entry.getValue());
   				pot_m.removeT(entry.getKey());
+  				this.offsetY = 0;
   			}
   		  		
   			tiles.clear();
@@ -70,13 +72,17 @@ public class MiddlePile {
   				case G: tile = new Green(new Position(position.getX() + offsetX, position.getY() + this.offsetY));
   					break;
   			}
+  			
+  			// For every tile, we associate it a button
   			JButton button_tile = new JButton();
-  			button_tile.setBounds(position.getX() + offsetX, position.getY() + this.offsetY, 20, 20);
+  			button_tile.setBounds(position.getX() + offsetX, position.getY() + this.offsetY, 25, 25);
   			
   			int ID = tiles.size();
   			
+  			// Initiation of every button, with their ID and an ActionListener
   			initiateButton(button_tile, ID);
   			
+  			// We add the couple Tile_View/JButton into a HashMap
   			tiles.put(tile, button_tile);
   			pot_m.addT(tile);
   			pot_m.addB(button_tile);

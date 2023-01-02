@@ -40,25 +40,25 @@ public class Game {
 		
 	}
 	
-	public int getCurrentPlayer() {
-		return current_player;
-	}
-	
-	
 	// Envoie une liste de tuiles à la main du joueur actuel
-	public void sendSelectiontoBord(LinkedList<Tile> tiles) {
+	public void sendSelectionToBord(LinkedList<Tile> tiles) {
 		players[current_player].setHand(tiles);
 	}
-	
-	
+
 	// Envoie une tuile à la main du joueur actuel
-	public void sendSelectiontoBord(Tile tile) {
+	public void sendSelectionToBord(Tile tile) {
 		players[current_player].setHand(tile);
 	}
 	
 	// Envoie une liste de tuiles au Bag
 	public void sendToBag(LinkedList<Tile> tiles) {
 		pot.sendToBag(tiles);
+	}
+	
+	// The player clicked on a line on the popup :
+	public void lineSelected(int lineNumber) {
+		players[current_player].playHandIndex(lineNumber);
+		System.out.println("Played on line : " + lineNumber);
 	}
 	
 	
@@ -124,23 +124,22 @@ public class Game {
 	
 	public void getInformationForPopUp() {
 		Tile[][] pattern = players[current_player].getPatternToView();
-		
 		Line[] grid = players[current_player].getLines();
 		Tile[] malus = players[current_player].getMalus();
-		updatePopUp(pattern, malus, grid);
+		Tile hand = players[current_player].getHand().get(0);
+		
+		updatePopUp(pattern, malus, grid, hand);
 	}
 	
-	public void updatePopUp(Tile[][] pattern, Tile[] malus, Line[] grid) {
-		controller.updatePopup(pattern, malus, grid);
+	private void updatePopUp(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
+		controller.updatePopup(pattern, malus, grid, hand);
 	}
 
 	public void sendToBag(Tile p) {
 		pot.sendToBag(p);
-		
 	}
 
 	public void nextPlayer() {
-		
 		this.current_player++;
 		if(current_player ==4) {
 			current_player =0;

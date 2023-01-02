@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+import controller.ActionLine;
 import controller.ActionSelectionMiddlePile;
 import controller.ActionSelectionPile;
 import controller.Controller;
@@ -118,26 +119,28 @@ public class View extends JFrame {
     	bords[playerID].updateMalus();
     }
     
-    public void updatePopup(Tile[][] pattern, Tile[] malus, Line[] grid) {
-    	ContentPanel.updateBordPopUp(pattern, malus, grid);
+    public void updatePopup(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
+    	ContentPanel.updateBordPopUp(pattern, malus, grid, hand);
     }
-
+    
+    public void closePopup() {
+    	ContentPanel.closePopUp();
+    }
     
     public void initiateButtons() {
     	pot_m.initiateButtons();
     }
-    
-    public void displayPilePopup(LinkedList<Tile> tiles, int ID) {
-    	
-    	System.out.println("ID : " + ID);
-    	System.out.println(tiles);
-    }
+
     
     public ActionSelectionPile actionSelectionPile(int number) {
     	return controller_ref.actionSelectionPile(number);
     }
     public ActionSelectionMiddlePile actionSelectionMiddlePile(int ID) {
     	return controller_ref.actionSelectionMiddlePile(ID);
+    }
+    
+    public ActionLine actionLine(int ID) {
+    	return controller_ref.actionLine(ID);
     }
 }
 
@@ -178,7 +181,11 @@ class ViewPanel extends JPanel {
         pot.setButtons(true);
     }
 
-    public void addT(Tile_View tile) {
+    public void closePopUp() {
+    	panel.closePopUp();
+	}
+
+	public void addT(Tile_View tile) {
         this.add(tile);
         this.repaint();
     }
@@ -198,9 +205,9 @@ class ViewPanel extends JPanel {
     	this.repaint();
     }
   //Cette fonction est appelée pour afficher en grand le Bord du joueur actif avec des boutons
-    public void updateBordPopUp(Tile[][] pattern, Tile[] malus, Line[] grid) {
+    public void updateBordPopUp(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
     	// Créer un panel pour afficher le bord en grand
-        panel = new PopupPanel(view_ref, pattern, malus, grid);
+        panel = new PopupPanel(view_ref, pattern, malus, grid, hand);
         panel.setLayout(new BorderLayout());
 
         // Afficher la fenêtre pop-up avec le panel contenant le bord en grand
@@ -235,12 +242,9 @@ class PopupPanel extends JPanel {
     private PlayGrid playGrid;
     private Pattern pattern;
     private Malus malus;
-    
-    private HashMap<Tile_View, Position> tiles_pattern;
-    private Tile_View[] tiles_malus;
-    private Tile_View[][] tiles_playGrid;
-    
-    private View view_ref;
+    private JButton[] buttons;
+     
+    private View view_m;
     
     private Position patternPosition = new Position(10 + POPUP_BORD_SIZE / 2, POPUP_RECT_SIZE*4);
     private Position gridPosition = new Position(POPUP_RECT_SIZE, POPUP_RECT_SIZE*4);
@@ -252,22 +256,31 @@ class PopupPanel extends JPanel {
     // Timer to blink the buttons
     private Timer blinkTimer;
     // Constructor that takes in image, bords array, and pot object
-    public PopupPanel(View view_ref, Tile[][] pattern, Tile[] malus, Line[] grid) {
-    	this.view_ref = view_ref;
+    public PopupPanel(View view_ref, Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
+    	this.view_m = view_ref;
         setLayout(null);
         setPreferredSize(new Dimension(500, 500));
         this.playGrid = new PlayGrid(gridPosition, view_ref, POPUP_RECT_SIZE);
         this.pattern = new Pattern(patternPosition, view_ref,  POPUP_RECT_SIZE);
         this.malus = new Malus(malusPosition, view_ref, POPUP_RECT_SIZE);
         
+        
         //Add the buttons of the Piles and middle pile
-        JButton[] buttons = playGrid.getPileButtons();
-     
+        buttons = playGrid.getPileButtons();
+        
+        int ID = 0;
+        
         // Ajout des boutons au JPanel
         for (JButton button : buttons) {
             if (button != null) {
                 this.add(button);
                 button.setVisible(true);
+                
+                // Adding an ActionListener for each button of this popup
+                // Every button possess an ID, which corresponds to the line of the grid
+                ActionLine action = view_m.actionLine(ID);
+                button.addActionListener(action);
+                ID++;
             }
         }
 
@@ -292,15 +305,21 @@ class PopupPanel extends JPanel {
         // Start the timer
         blinkTimer.start();
         
-        updateBord(pattern, malus, grid);
+        updateBord(pattern, malus, grid, hand);
         
     }
     
-    public void updateBord(Tile[][] pattern, Tile[] malus, Line[] grid) {
+    // Closing the popup after the player clicked on the button
+    public void closePopUp() {
+ 	   SwingUtilities.getWindowAncestor(this).dispose();
+	}
+
+	public void updateBord(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
     	
     	int offsetX = 12;
     	int offsetY = 12;
     	
+    	// Printing tiles of pattern
     	for(int y = 0; y < 5; y++) {
     		for(int x = 0; x < 5; x++) {
     			if(pattern[y][x].getOccupied())
@@ -311,6 +330,7 @@ class PopupPanel extends JPanel {
     	offsetX = -18;
     	offsetY = 35;
     	
+    	// Printing tiles of malus
     	for(Tile t : malus) {
     		if(t != null) {
     			switchEnum(t, offsetX, -TILE_SIZE + offsetY, 1, 1, malusPosition);
@@ -321,17 +341,23 @@ class PopupPanel extends JPanel {
     	offsetX = 12;
     	offsetY = 12;
     	
+    	// Printing tiles of grid
     	for(Line line : grid) {
         	int i = 1;
     		for(Tile t : line.getTiles()) {
     			if(t != null) {
     				switchEnum(t, offsetX, offsetY, 5 - i, line.getLength() - 1, gridPosition);
+    				
+    				// The color of the tile selected is different from the color of tiles on the line
+    				// Or the line is already full :
+    				// We need to disable the button of this line
+    				if(hand.getColor() != t.getColor() || line.checkFull()) {
+    					buttons[line.getLength() - 1].setVisible(false);
+    				}
         		}
     			i++;
     		}
     	}
-    	
-    	this.repaint();
     }
     
     private void switchEnum(Tile t, int offsetX, int offsetY, int x, int y, Position position) {

@@ -60,8 +60,8 @@ public class Controller {
 		view_m.updateMalus(playerID);
 	}
 	
-	public void updatePopup(Tile[][] pattern, Tile[] malus, Line[] grid) {
-		view_m.updatePopup(pattern, malus, grid);
+	public void updatePopup(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
+		view_m.updatePopup(pattern, malus, grid, hand);
 	}
 	
 	public ActionSelectionPile actionSelectionPile(int number) {
@@ -69,5 +69,9 @@ public class Controller {
 	}
 	public ActionSelectionMiddlePile actionSelectionMiddlePile(int ID) {
 		return new ActionSelectionMiddlePile(game_m, ID, view_m);
+	}
+	
+	public ActionLine actionLine(int ID) {
+		return new ActionLine(game_m, ID, view_m);
 	}
 }
