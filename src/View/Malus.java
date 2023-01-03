@@ -103,5 +103,8 @@ public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
 			System.out.println("FOUND TILE : " + tile);
 			if(tile != null) view_m.getPanel().removeT(tile);
 		}
+		for(Tile_View tile : tiles) {
+			tile = null;
+		}
 	}
 }

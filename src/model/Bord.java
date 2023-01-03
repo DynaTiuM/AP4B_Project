@@ -168,8 +168,9 @@ public class Bord {
 		if(!this.malus_grid_m.isEmpty()) {
 			pattern_grid_m.scoreMalus(malus_grid_m.computateMalus());
 			game_ref.sendToBag(malus_grid_m.clear());
-			game_ref.updateMalusToView(playerID);
 		}
+
+		game_ref.updateMalusToView(playerID);
 		
 		if(update) {
 			pattern_grid_m.sendPattern();

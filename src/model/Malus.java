@@ -138,7 +138,7 @@ public class Malus {
 	}
 	
 	public boolean isEmpty() {
-		return line[0]!=null;
+		return line[0] == null;
 	}
 
 	
