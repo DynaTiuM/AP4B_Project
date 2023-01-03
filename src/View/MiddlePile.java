@@ -75,7 +75,7 @@ public class MiddlePile {
   			
   			// For every tile, we associate it a button
   			JButton button_tile = new JButton();
-  			button_tile.setBounds(position.getX() + offsetX, position.getY() + this.offsetY, 25, 25);
+  			button_tile.setBounds(position.getX() + offsetX, position.getY() + this.offsetY, (int)(RECT_SIZE/1.5), (int)(RECT_SIZE/1.5));
   			
   			int ID = tiles.size();
   			
