@@ -18,10 +18,12 @@ public class Bord{
 	  private View view_ref;
 	  private Pattern pattern;
 	  private Malus malus;
+	  private int playerID;
 
-	  public Bord(Position position, View view_ref) {
+	  public Bord(Position position, View view_ref, int playerID) {
 	    this.position = position;
 	    this.view_ref = view_ref;
+		this.playerID = playerID;
 	    this.playGrid = new PlayGrid(new Position(position.getX() + RECT_SIZE, position.getY() + RECT_SIZE*4), view_ref,  RECT_SIZE);
 	    this.pattern = new Pattern(new Position(position.getX() + 10 + BORD_SIZE / 2, position.getY()+ RECT_SIZE*4), view_ref, RECT_SIZE);
 	    this.malus = new Malus(new Position(position.getX() + 10, position.getY() + BORD_SIZE - RECT_SIZE * 2 - 10 ), view_ref, RECT_SIZE);
@@ -41,6 +43,14 @@ public class Bord{
 	    malus.draw(g);
 	    playGrid.draw(g);
 	    pattern.draw(g);
+		try{
+			int score = view_ref.getScore(playerID);
+			Font font = new Font("Arial", Font.PLAIN, 50);
+			g.setFont(font);
+			g.drawString(String.valueOf(score), position.getX(), position.getY());
+		}catch (Exception e) {
+			System.out.println("Game not initialized !");
+		}
 	  }
 	  
 	  public void addT(Tile_View tile) {
@@ -62,16 +72,16 @@ public class Bord{
 	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, LinkedList<Tile> linkedList, int previous_index_2) {
 		playGrid.updateViewLine(to_send, previous_index, i);
 		malus.updateViewLine(linkedList, previous_index_2);
-		
 	}
-	
+
 	public void updatePattern(HashMap<Tile, Position> to_send) {
 		pattern.updatePattern(to_send, this.playGrid);
 	}
-	
+
 	public void updateMalus() {
 		malus.updateMalusView();
 	}
+
 	
 }
 

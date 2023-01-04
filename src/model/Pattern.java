@@ -13,10 +13,10 @@ public class Pattern {
 	private Color[] new_colorpos;
 	private HashMap<Tile, Position> newTiles;
 	private Bord bord_ref;
-	
-	private boolean end_trigger;
-	
 	private int score;
+
+	private boolean end_trigger;
+
 	
 	public Pattern(Bord bord) {
 
@@ -68,8 +68,6 @@ public class Pattern {
 				break;
 			}
 		}
-
-		
 	}
 	
 	private void calculateScore(int index, int indexy, Tile to_add) {
@@ -209,6 +207,4 @@ public class Pattern {
 	public void sendPattern() {
 		bord_ref.updatePatternView(this.newTiles);
 	}
-	
-	
 }

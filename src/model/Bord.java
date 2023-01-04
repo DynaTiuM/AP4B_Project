@@ -202,27 +202,21 @@ public class Bord {
 		this.malus_grid_m.setPrevious(malus_grid_m.getPrevious() + hand_of_player.size());
 	}
 
-
 	public void sendToBag(Tile p) {
 		game_ref.sendToBag(p);
-		
 	}
 	
 	public void endOfGame() {
 		game_ref.endOfGame();
-		
 	}
-
 
 	public void calculateEndOfGameBonuses() {
 		pattern_grid_m.calculateEndOfGameBonuses();
-		
 	}
 	
 	public int getScore() {
 		return this.pattern_grid_m.getScore();
 	}
-
 
 	public int getID() {
 		// TODO Auto-generated method stub

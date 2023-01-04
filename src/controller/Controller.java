@@ -33,15 +33,6 @@ public class Controller {
 	public void initialiseButtonsPiles() {
 		view_m.initiateButtons();
 	}
-	
-	public void setButtonsPot(boolean possible[]) {
-		view_m.setButtonsPot(possible);
-	}
-	
-	public void drawTile(LinkedList<Tile> tiles, int position) {
-		view_m.setTile(tiles, position);
-		
-	}
 
 	public void updatePile(LinkedList<Tile> to_update, int position) {
 		view_m.updatePile(to_update, position);
@@ -65,6 +56,10 @@ public class Controller {
 	
 	public void updatePopup(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
 		view_m.updatePopup(pattern, malus, grid, hand);
+	}
+
+	public int getScore(int playerID){
+		return game_m.getScore(playerID);
 	}
 	
 	public ActionSelectionTile actionSelectionTile(int ID, int numberPile) {

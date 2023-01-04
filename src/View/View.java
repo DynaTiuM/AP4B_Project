@@ -33,7 +33,7 @@ public class View extends JFrame {
     /**
      * Create the frame.
      */
-    public View(Controller controller, int numberOfPlayers) {	 //View(Controller ref, int numberOfPlayers) 
+    public View(Controller controller, int numberOfPlayers) {	 //View(Controller ref, int numberOfPlayers)
         this.numberOfPlayers = numberOfPlayers;
         this.controller_ref = controller;
         //controller_m = ref;
@@ -54,14 +54,14 @@ public class View extends JFrame {
         // Set the frame's icon
         setIconImage(icon);
         bords = new Bord[numberOfPlayers];
-        bords[0] = new Bord(new Position(30, 20), this);
-        bords[1] = new Bord(new Position(WIDTH - Bord.BORD_SIZE - 50, 20), this);
+        bords[0] = new Bord(new Position(30, 20), this, 0);
+        bords[1] = new Bord(new Position(WIDTH - Bord.BORD_SIZE - 50, 20), this, 1);
 
         if (numberOfPlayers > 2) {
-            bords[2] = new Bord(new Position(30, HEIGHT -Bord.BORD_SIZE - 50), this);
+            bords[2] = new Bord(new Position(30, HEIGHT -Bord.BORD_SIZE - 50), this, 2);
         }
         if (numberOfPlayers > 3) {
-            bords[3] = new Bord(new Position(WIDTH - Bord.BORD_SIZE - 50, HEIGHT -Bord.BORD_SIZE - 50), this);
+            bords[3] = new Bord(new Position(WIDTH - Bord.BORD_SIZE - 50, HEIGHT -Bord.BORD_SIZE - 50), this, 3);
         }
         //getContentPane().add(center);
         bords[0].setButtons(true);
@@ -94,7 +94,6 @@ public class View extends JFrame {
     public void updatePile(LinkedList<Tile> to_update, int index) {
         pot_m.updatePile(to_update, index);
     }
-
     public ViewPanel getPanel() {
         return this.ContentPanel;
     }
@@ -130,7 +129,9 @@ public class View extends JFrame {
     public void initiateButtons() {
     	pot_m.initiateButtons();
     }
-
+    public int getScore(int playerID) {
+        return controller_ref.getScore(playerID);
+    }
     
     public ActionSelectionTile actionSelectionTile(int ID, int numberPile) {
     	return controller_ref.actionSelectionTile(ID, numberPile);
@@ -209,14 +210,23 @@ class ViewPanel extends JPanel {
     	this.remove(button);
     	this.repaint();
     }
-  //Cette fonction est appelée pour afficher en grand le Bord du joueur actif avec des boutons
+
+    //Cette fonction est appelée pour afficher en grand le Bord du joueur actif avec des boutons
     public void updateBordPopUp(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
-    	// Créer un panel pour afficher le bord en grand
+        // Créer un panel pour afficher le bord en grand
         panel = new PopupPanel(view_ref, pattern, malus, grid, hand);
+        JDialog dialog = new JDialog((JFrame)null, "Bord en grand", true);
+        dialog.setUndecorated(true);
+        dialog.add(panel);
+        dialog.pack();
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
         panel.setLayout(new BorderLayout());
 
         // Afficher la fenêtre pop-up avec le panel contenant le bord en grand
-        JOptionPane.showMessageDialog(null, panel, "Bord en grand", JOptionPane.PLAIN_MESSAGE);
+
+        //JOptionPane.showMessageDialog(null, panel, "Bord en grand", JOptionPane.PLAIN_MESSAGE);
+
     }
 
 
@@ -376,7 +386,7 @@ class PopupPanel extends JPanel {
     				// The color of the tile selected is different from the color of tiles on the line
     				// Or the line is already full :
     				// We need to disable the button of this line
-    				if(hand.getColor() != t.getColor() || line.checkFull()) {
+    				if(!line.isPossible(hand) || line.checkFull()) {
     					buttons[line.getLength() - 1].setVisible(false);
     				}
         		}

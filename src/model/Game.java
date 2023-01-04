@@ -112,9 +112,13 @@ public class Game {
 	public void sendCompleteMiddlePileToView(boolean bool) {
 		pot.sendCompleteMiddlePileToView(bool);
 	}
-	
+
 	public void updateMalusModel() {
 		players[current_player].updateMalus();
+	}
+
+	public int getScore(int playerID) {
+		return players[playerID].getScore();
 	}
 	
 	public void getInformationForPopUp() {

@@ -76,8 +76,7 @@ public class Line {
 		}*/
 		size = index;
 	}
-	
-	
+
 	// permet d'ajouter une liste de "Tile" à la "Line"
 	public void addChoice(LinkedList<Tile> tiles) {
 		
@@ -85,7 +84,7 @@ public class Line {
 		
 		int i = current_index;
 		for(Tile p: tiles) {
-			if(i<size) {
+			if(i < size) {
 					//addColor(p);
 				System.out.println("added to line");
 				setTileIndex(i, p);
@@ -96,8 +95,6 @@ public class Line {
 				malus_m.addTile(p);
 				
 			}
-			
-				
 		}
 		
 		previous_index = current_index;
@@ -118,8 +115,7 @@ public class Line {
 		}
 		this.bord_m.updateViewLine(to_send, previous_index, this.size - 1);
 	}
-	
-	
+
 	// permet d'ajouter une "Tile" à la "Line"
 	public void addChoice(Tile tile) {
 		System.out.println("Add choice weird");
@@ -129,7 +125,6 @@ public class Line {
 			updateViewLine();
 	}
 	
-	
 	// check si la ligne est pleine
 	public boolean checkFull() {
 		return current_index == size;
@@ -138,7 +133,6 @@ public class Line {
 	
 	// ajoute la couleur dans les couleurs qui ont déjà été présente
 	public void addColor(Tile tile_p) {
-		
 		color_presence[tile_p.getColorEnum().ordinal()] = true;
 	}
 	
