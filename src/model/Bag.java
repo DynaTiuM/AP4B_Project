@@ -89,7 +89,8 @@ public class Bag {
 
 	public void getTilesBack(Tile p) {
 		tiles.add(p);
-		
+		System.out.print(p.getColorEnum() + " ");
+		System.out.println("\nnb of tiles : " + tiles.size());
 	}
 	
 	

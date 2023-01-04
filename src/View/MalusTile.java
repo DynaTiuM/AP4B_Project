@@ -2,9 +2,17 @@ package View;
 
 import javax.swing.ImageIcon;
 
-public class MalusTile extends Tile {
+import model.ColorEnum;
+
+public class MalusTile extends Tile_View {
 	public MalusTile(Position position) {
-		super(position);
-		this.texture = new ImageIcon("src\\Images\\MalusTile.png").getImage();
+		super(position, new ImageIcon("src\\Images\\MalusTile.png"), ColorEnum.MALUS, false);
+		
   	}
+	
+	
+	public MalusTile(Position position, boolean PopUp) {
+		super(position, new ImageIcon("src\\Images\\MalusTile.png"), ColorEnum.Y, PopUp);
+		//this.texture = new ImageIcon("src\\Images\\Database.jpg");
+	}
 }

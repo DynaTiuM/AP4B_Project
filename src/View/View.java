@@ -73,7 +73,7 @@ public class View extends JFrame {
             System.out.println("ERRO LOADING IMAGE BACKGROUND " + MediaTracker.ERRORED);
         } else {
             // The image was successfully loaded
-            System.out.println("hop");
+            
             Image image = Toolkit.getDefaultToolkit().getImage("src\\Images\\Table.png");
             ContentPanel = new ViewPanel(controller_ref, image, bords, pot_m, this);
             setContentPane(ContentPanel);
@@ -215,9 +215,10 @@ class ViewPanel extends JPanel {
     	this.repaint();
     }
 
-    //Cette fonction est appelée pour afficher en grand le Bord du joueur actif avec des boutons
+  //Cette fonction est appelï¿½e pour afficher en grand le Bord du joueur actif avec des boutons
     public void updateBordPopUp(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
-        // Créer un panel pour afficher le bord en grand
+    	// Crï¿½er un panel pour afficher le bord en grand
+
         panel = new PopupPanel(view_ref, pattern, malus, grid, hand);
         JDialog dialog = new JDialog((JFrame)null, "Bord en grand", true);
         dialog.setUndecorated(true);
@@ -227,9 +228,10 @@ class ViewPanel extends JPanel {
         dialog.setVisible(true);
         panel.setLayout(new BorderLayout());
 
-        // Afficher la fenêtre pop-up avec le panel contenant le bord en grand
+        // Afficher la fenï¿½tre pop-up avec le panel contenant le bord en grand
 
         //JOptionPane.showMessageDialog(null, panel, "Bord en grand", JOptionPane.PLAIN_MESSAGE);
+
 
     }
 
@@ -316,7 +318,7 @@ class PopupPanel extends JPanel {
                 button.setVisible(true);
                 // Chargement de l'image de la tuile
 
-                // Vérifie si l'image a pu être chargée correctement
+                // Vï¿½rifie si l'image a pu ï¿½tre chargï¿½e correctement
                 if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
                   // Erreur lors du chargement de l'image
                 } else {
@@ -423,6 +425,7 @@ class PopupPanel extends JPanel {
 				break;
 			case G: tile = new Green(new Position(position.getX() + x * (TILE_SIZE + offsetX), position.getY() + y * (TILE_SIZE + offsetY)), true);
 				break;
+			case MALUS: tile = new MalusTile(new Position(position.getX() + x * (TILE_SIZE + offsetX), position.getY() + y * (TILE_SIZE + offsetY)), true);
 		}
 		this.add(tile);
     }

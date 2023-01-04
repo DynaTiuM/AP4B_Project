@@ -54,6 +54,9 @@ public class Tile {
 			setColorEnum(ColorEnum.Y);
 		}else if (color_p == Color.GREEN) {
 			setColorEnum(ColorEnum.G);
+		}else {
+			setColorEnum(ColorEnum.MALUS);
+			//System.out.println("Malus added");
 		}
 	}
 

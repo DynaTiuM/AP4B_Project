@@ -68,6 +68,8 @@ public class Malus {
   }
 
 public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
+	
+	
 	int temp = previous_index_2;
 	System.out.println("malus_view");
 	for(Tile p: linkedList) {
@@ -82,12 +84,15 @@ public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
 		  	break;
 		  case G: tiles[temp] = new Green(new Position(position.getX() + 5 + (int)(RECT_WIDTH *temp), position.getY() + (int)(RECT_HEIGHT /2.5)));
 			  break;
+		  case MALUS: tiles[temp] = new MalusTile(new Position(position.getX() + 5 + (int)(RECT_WIDTH *temp), position.getY() + (int)(RECT_HEIGHT /2.5)));
+		  	  break;
 		  }
-		  System.out.print(p.getColorEnum() + " / ");
+		System.out.println("TEMP " + temp);
+		//System.out.print(p.getColorEnum() + " / ");
 		  if(tiles[temp] != null) view_m.getPanel().addT(tiles[temp]);
 		  temp++;
 	}
-	System.out.println("\nend of malus_view");
+	//System.out.println("\nend of malus_view");
 	
 }
 	

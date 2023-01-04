@@ -117,8 +117,8 @@ public class Malus {
 		
 		current_index = 0;
 		
-		for(Tile p: to_send) System.out.print(p.getColorEnum() + " ");
-		System.out.println();
+		/*for(Tile p: to_send) System.out.print(p.getColorEnum() + " ");
+		System.out.println();*/
 		
 		return to_send;
 	}
@@ -130,6 +130,8 @@ public class Malus {
 	public int getPrevious() {
 		// TODO Auto-generated method stub
 		System.out.println("previous " + previous_index);
+	
+		
 		return previous_index;
 	}
 	

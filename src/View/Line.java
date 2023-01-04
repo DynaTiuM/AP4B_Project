@@ -7,7 +7,7 @@ import javax.swing.*;
 
 import model.Tile;
 
-// Classe représentant une ligne de Tiles dans l'interface graphique
+// Classe reprï¿½sentant une ligne de Tiles dans l'interface graphique
 public class Line {
   // Taille d'une tuile en pixels
 	private int RECT_SIZE;
@@ -24,7 +24,7 @@ public class Line {
 		  this.position = position;
 	    tiles = new Tile_View[length];
 	    this.length = length;
-	    // Création d'un nouveau bouton
+	    // Crï¿½ation d'un nouveau bouton
 	    this.button = new JButton();
 	    button.setBounds(position.getX() - RECT_SIZE, position.getY(), RECT_SIZE, RECT_SIZE);
 	    button.setActionCommand("buttonPile" + Integer.toString(buttonIdCounter));
@@ -40,25 +40,25 @@ public class Line {
 	    buttonIdCounter++;
   }
   
-  // Méthode qui retourne le tableau de tuiles de la ligne
+  // Mï¿½thode qui retourne le tableau de tuiles de la ligne
   public Tile_View[] getTiles() {
     return tiles;
   }
   
-  // Méthode qui retourne la longueur de la ligne
+  // Mï¿½thode qui retourne la longueur de la ligne
   public int getLength() {
     return this.length;
   }
 
-  // Méthode qui dessine la ligne sur l'interface graphique
+  // Mï¿½thode qui dessine la ligne sur l'interface graphique
   public void draw(Graphics g) {
     // Chargement de l'image de la tuile
     ImageIcon icon = new ImageIcon("src\\Images\\Cube.png");
-    // Vérifie si l'image a pu être chargée correctement
+    // Vï¿½rifie si l'image a pu ï¿½tre chargï¿½e correctement
     if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
       // Erreur lors du chargement de l'image
     } else {
-      // Image chargée correctement
+      // Image chargï¿½e correctement
       Image rect = icon.getImage();
       // Dessine chaque tuile de la ligne sur l'interface graphique
       for (int i = 0; i < length; i++) {
@@ -67,18 +67,18 @@ public class Line {
     }
   }
 
-  // Méthode qui modifie la visibilité du bouton associé à la ligne
+  // Mï¿½thode qui modifie la visibilitï¿½ du bouton associï¿½ ï¿½ la ligne
   public void setButton(boolean value) {
     button.setVisible(value);
   }
 
   public void updateViewLine(LinkedList<Tile> to_send, int previous_index,  View view_ref) {
-	  // Index de la prochaine tuile à ajouter dans le tableau de tuiles de la ligne
+	  // Index de la prochaine tuile ï¿½ ajouter dans le tableau de tuiles de la ligne
 	  int temp = previous_index;
 	  
-	  // Pour chaque tuile à ajouter à la ligne
+	  // Pour chaque tuile ï¿½ ajouter ï¿½ la ligne
 	  for(Tile p: to_send) {
-	    // Création de la tuile de vue en fonction de sa couleur
+	    // Crï¿½ation de la tuile de vue en fonction de sa couleur
 	    switch (p.getColorEnum()) {
 	      case O: tiles[temp] = new Orange(new Position(position.getX() + (4 - temp) * (RECT_SIZE ), position.getY())); 
 	        break;
@@ -93,12 +93,12 @@ public class Line {
 	    }
 	    
 	    // Affichage de la couleur de la tuile dans la console
-	    System.out.print(p.getColorEnum() + " / ");
+	    //System.out.print(p.getColorEnum() + " / ");
 	    
 	    // Ajout de la tuile de vue au panel de la vue principale
 	    view_ref.getPanel().addT(tiles[temp]);
 	 
-	    // Incrémentation de l'index de la prochaine tuile à ajouter
+	    // Incrï¿½mentation de l'index de la prochaine tuile ï¿½ ajouter
 	    temp++;
 	  }
 	

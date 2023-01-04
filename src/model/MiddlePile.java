@@ -30,7 +30,7 @@ public class MiddlePile {
 		
 		pot_ref = ref;
 		
-		first = false;
+		setFirst();
 		
 	}
 	
@@ -57,6 +57,15 @@ public class MiddlePile {
 		Tile tile_ref = tiles.get(index);
 		LinkedList<Tile> toSend = new LinkedList<>();
 		LinkedList<Tile> tmp = new LinkedList<>();
+		
+		if(first) {
+			first = false;
+			pot_ref.sendMalusFirst(tiles.getFirst());
+			tiles.removeFirst();
+			System.out.println("SENT MALUS TILE");
+		}
+		
+		
 		for(Tile tile : this.tiles) {
 			if(tile.getColor() == tile_ref.getColor()) {
 				toSend.add(tile);
@@ -73,8 +82,12 @@ public class MiddlePile {
 	
 	// Renvoie une sélection de tuiles de la pile en fonction de leur couleur
 	public LinkedList<Tile> getSelection(Color color) {
+		System.out.println("FIRST HIHIUHIUHIUHIUHIUHUHIUHIUHIUHIUHIUHIUHIUHIUHIUHIUHIUHIUHIUHIUHIUHIUHIU " + false);
+		
 		selection.clear();
 		for(Tile p: tiles) if(p.getColor() == color) selection.add(p);
+		
+		
 		
 		return selection;
 	}
@@ -105,5 +118,10 @@ public class MiddlePile {
 		return tiles.isEmpty();
 	}
 	
+	public void setFirst() {
+		first = true;
+		tiles.addFirst(new Tile(Color.gray));
+		this.sendCompletePileToView(false);
+	}
 	
 }

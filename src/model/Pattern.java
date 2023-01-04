@@ -62,7 +62,7 @@ public class Pattern {
 			else {
 				if(!grid[index][i].getOccupied()) {
 					newTiles.put(to_place, new Position(i, index));
-					System.out.println("new Tiles : Pattern | " + newTiles + "Position : " + i + index);
+					//System.out.println("new Tiles : Pattern | " + newTiles + "Position : " + i + index);
 				}
 				calculateScore(index, i, to_place);
 				break;
@@ -75,15 +75,18 @@ public class Pattern {
 		//let's suppose we won't encounter any segmenation fault
 		grid[index][indexy].setOccupiedTrue();
 		
+		boolean first = false;
+		
 		int x = index;
 		int y = indexy;
 		
-		int total = 1;
+		int total = 0;
 		
 		x = index-1;
 		
 		while(x > -1) {
 			if(grid[x][indexy].getOccupied()) {
+				first = true;
 				total++;
 				x = x-1;
 				//System.out.print(x + " ");
@@ -96,6 +99,7 @@ public class Pattern {
 		
 		while(x <5) {
 			if(grid[x][indexy].getOccupied()) {
+				first = true;
 				total++;
 				x++;
 				//System.out.print(x + " ");
@@ -104,10 +108,18 @@ public class Pattern {
 			}
 		}
 		
+		if(first) {
+			total++;
+			first = false;
+		}
+		
+		first = false;
+		
 		y = indexy-1;
 		
 		while(y > -1) {
 			if(grid[index][y].getOccupied()) {
+				first = true;
 				total++;
 				y = y - 1;
 				//System.out.print(y + " ");
@@ -120,12 +132,17 @@ public class Pattern {
 		
 		while(y <5) {
 			if(grid[index][y].getOccupied()) {
+				first = true;
 				total++;
 				y++;
 				//System.out.print(y + " ");
 			}else {
 				break;
 			}
+		}
+		
+		if(first) {
+			total++;
 		}
 		
 		score +=total;

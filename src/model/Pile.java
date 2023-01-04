@@ -48,14 +48,14 @@ public class Pile {
 		if(tiles[0] != null) {
 			for(Tile p: tiles) {
 				to_send.add(p);
-				System.out.print(p.getColorEnum() + " - ");
+				//System.out.print(p.getColorEnum() + " - ");
 			}
 		} else {
 			to_send.add(null);
-			System.out.print("nothing");
+			//System.out.print("nothing");
 		}
 		
-		System.out.println("Start of sendContentList : pile");
+		//System.out.println("Start of sendContentList : pile");
 		game_ref.sendContentList(to_send, index);
 
 	}
@@ -92,7 +92,7 @@ public class Pile {
 	}
 	
 	public void test(int number) {
-		//creer un scénar
+		//creer un scï¿½nar
 		getSelection(tiles[number]);
 	}
 	

@@ -222,5 +222,11 @@ public class Bord {
 		// TODO Auto-generated method stub
 		return this.playerID;
 	}
+
+
+	public void sendMalusFirst(Tile first) {
+		malus_grid_m.addTile(first);
+		
+	}
 	
 }

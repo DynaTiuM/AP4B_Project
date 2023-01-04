@@ -95,6 +95,15 @@ public class Pot {
 		return empty != this.numberOfPiles + 1;
 		
 	}
+
+	public void sendMalusFirst(Tile first) {
+		game_ref.sendMalusFirst(first);
+		
+	}
+	
+	public void setFirst() {
+		middlePile.setFirst();
+	}
 	
 	
 

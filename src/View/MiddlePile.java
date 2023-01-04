@@ -71,6 +71,8 @@ public class MiddlePile {
   					break;
   				case G: tile = new Green(new Position(position.getX() + offsetX, position.getY() + this.offsetY));
   					break;
+  				case MALUS: tile = new MalusTile(new Position(position.getX() + offsetX, position.getY() + this.offsetY));
+  		  	  		break;
   			}
   			
   			// For every tile, we associate it a button

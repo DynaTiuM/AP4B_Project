@@ -199,15 +199,18 @@ public class Line {
 	
 	// permet de clear la "Line" pour être prêt à acceuillir d'autres "Tile"
 	public LinkedList<Tile> clear() {
+		
 		to_send.clear();
+		
 		pattern_m.determineSendingPlace(size - 1, linearray[0]);
+		
 		linearray[0] = null;
+		
 		for(int i =1; i<size; i++) {
 			to_send.add(linearray[i]);
 			linearray[i] = null;
 		}
 		
-			
 		current_color = null;
 		current_index = 0;
 		

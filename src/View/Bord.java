@@ -71,7 +71,10 @@ public class Bord{
 
 	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, LinkedList<Tile> linkedList, int previous_index_2) {
 		playGrid.updateViewLine(to_send, previous_index, i);
-		malus.updateViewLine(linkedList, previous_index_2);
+
+		if(previous_index_2 < 7) malus.updateViewLine(linkedList, previous_index_2);
+		
+
 	}
 
 	public void updatePattern(HashMap<Tile, Position> to_send) {

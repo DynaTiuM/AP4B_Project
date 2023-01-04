@@ -70,6 +70,7 @@ public class Game {
 		}
 		pot.distributeContents();
 		controller.initialiseButtonsPiles();
+		pot.setFirst();
 	}
 	
 	
@@ -171,6 +172,11 @@ public class Game {
 		}
 		
 		System.out.println("Winner : " + winner);
+		
+	}
+
+	public void sendMalusFirst(Tile first) {
+		players[current_player].sendMalusFirst(first);
 		
 	}
 	
