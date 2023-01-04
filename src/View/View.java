@@ -75,7 +75,7 @@ public class View extends JFrame {
             // The image was successfully loaded
             System.out.println("hop");
             Image image = Toolkit.getDefaultToolkit().getImage("src\\Images\\Table.png");
-            ContentPanel = new ViewPanel(image, bords, pot_m, this);
+            ContentPanel = new ViewPanel(controller_ref, image, bords, pot_m, this);
             setContentPane(ContentPanel);
         }
 
@@ -162,14 +162,18 @@ class ViewPanel extends JPanel {
     private Bord[] bords;
     private Pot pot;
     private PopupPanel panel;
+    private Controller controller_ref;
+    private Font font;    
 
-    // Constructor that takes in image, bords array, and pot object
-    public ViewPanel(Image image, Bord[] bords, Pot pot, View view_ref) {
+// Constructor that takes in image, bords array, and pot object
+    public ViewPanel(Controller controller, Image image, Bord[] bords, Pot pot, View view_ref) {
         this.view_ref = view_ref;
         this.image = image;
         this.bords = bords;
         this.pot = pot;
         this.setLayout(null);
+        this.controller_ref= controller;
+        font = new Font("Arial", Font.BOLD, 30);    
     }
 
     public void closePopUp() {
@@ -236,12 +240,22 @@ class ViewPanel extends JPanel {
         ref = g;
         // Draw image 
         g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-
         // Draw bords 
         for (Bord bord : bords) {
             bord.draw(g);
         }
         pot.draw(g);
+        
+        //Modification de la couleur et de la police de g
+        g.setFont(font);
+        g.setColor(Color.RED);
+        try{
+        	g.drawString("Tour du joueur " + controller_ref.getCurrentPlayer(), 400, 650);
+        }catch (Exception e) {
+			System.out.println("Game not initialized !");
+		}
+        //On remet g a le couleur de base;
+        g.setColor(Color.BLACK);
     }
 }
 

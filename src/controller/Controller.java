@@ -73,6 +73,10 @@ public class Controller {
 		return new ActionLine(game_m, ID, view_m);
 	}
 	
+	public int getCurrentPlayer() {
+		return game_m.getCurrentPlayer();
+	}
+	
 	public ActionMalus actionMalus() {
 		return new ActionMalus(game_m, view_m);
 	}

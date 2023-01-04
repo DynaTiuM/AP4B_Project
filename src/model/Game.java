@@ -152,6 +152,10 @@ public class Game {
 		}
 	}
 	
+	public int getCurrentPlayer() {
+		return current_player;
+	}
+	
 	public void endOfGame() {
 		//TODO
 		int winner = 0;
