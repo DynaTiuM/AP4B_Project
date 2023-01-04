@@ -23,7 +23,7 @@ public class Malus {
 	
 	view_m = view_ref;  
 	
-	tiles = new Tile_View[6];
+	tiles = new Tile_View[7];
     this.position = position;
     this.button = new JButton();
     
@@ -48,18 +48,18 @@ public class Malus {
     //Modification de la couleur et de la police de g
     g.setFont(font);
     g.setColor(Color.RED);
-    // Afficher les cases numérotées -1
+    // Afficher les cases numï¿½rotï¿½es -1
     g.drawString("-1", position.getX() + (int)(RECT_WIDTH*0.35), position.getY() + RECT_HEIGHT/3);
     g.drawString("-1", position.getX() + (int)(RECT_WIDTH*1.35), position.getY() + RECT_HEIGHT/3);
-    // Afficher les cases numérotées -2
+    // Afficher les cases numï¿½rotï¿½es -2
     g.drawString("-2", position.getX() + (int)(RECT_WIDTH * 2.35), position.getY() + RECT_HEIGHT/3);
     g.drawString("-2", position.getX() + (int)(RECT_WIDTH * 3.35), position.getY() + RECT_HEIGHT/3);
     g.drawString("-2", position.getX() + (int)(RECT_WIDTH * 4.35), position.getY() + RECT_HEIGHT/3);
-    // Afficher les cases numérotées -3
+    // Afficher les cases numï¿½rotï¿½es -3
     g.drawString("-3", position.getX() + (int)(RECT_WIDTH * 5.35), position.getY() + RECT_HEIGHT/3);
     g.drawString("-3", position.getX() + (int)(RECT_WIDTH * 6.35), position.getY() + RECT_HEIGHT/3);
     
-    //On remet g à le couleur de base;
+    //On remet g ï¿½ le couleur de base;
     g.setColor(Color.BLACK);
     }
 

@@ -1,1 +1,10 @@
 /module-info.class
+/.classpath
+/.gitignore
+/.project
+/Images/
+/View/
+/controller/
+/main/
+/menu/
+/model/
