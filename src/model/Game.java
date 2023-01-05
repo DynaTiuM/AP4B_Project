@@ -182,9 +182,6 @@ public class Game {
 		}
 		
 		System.out.println("Winner : " + winner);
-
-
-		controller.displayEndOfGame(players);
 	}
 
 	public void sendMalusFirst(Tile first) {

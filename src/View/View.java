@@ -255,9 +255,9 @@ class ViewPanel extends JPanel {
 
         //Modification de la couleur et de la police de g
         g.setFont(font);
-        g.setColor(Color.RED);
+        g.setColor(Color.WHITE);
         try{
-            g.drawString("Tour du joueur " + (controller_ref.getCurrentPlayer() + 1), 400, 650);
+            g.drawString("Tour du joueur " + (controller_ref.getCurrentPlayer() + 1), 413, 35);
         }catch (Exception e) {
             System.out.println("Game not initialized !");
         }
@@ -290,8 +290,8 @@ class PopupEnd extends JPanel {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
         JButton quit = new JButton();
-        quit.setBounds(WIDTH/2, HEIGHT - HEIGHT/5, WIDTH/5, HEIGHT/10);
-        quit.setText("Quit the Game!");
+        quit.setBounds((int)(WIDTH / 1.8), HEIGHT - HEIGHT/5, WIDTH/4, HEIGHT/10);
+        quit.setText("Quitter");
 
         quit.addActionListener(new ActionListener() {
             @Override
@@ -303,30 +303,44 @@ class PopupEnd extends JPanel {
         this.add(quit);
 
         JButton playAgain = new JButton();
-        playAgain.setBounds(WIDTH/4, HEIGHT - HEIGHT/5, WIDTH/5, HEIGHT/10);
-        playAgain.setText("Play again!");
+        playAgain.setBounds((int)(WIDTH / 5.2), HEIGHT - HEIGHT/5, WIDTH/4, HEIGHT/10);
+        playAgain.setText("Rejouer");
 
         HashMap<Integer, Integer> scores = new HashMap<>();
 
         for(model.Bord b : bords){
             scores.put(b.getID(), b.getScore());
         }
-        System.out.println("Avant le tri: "+ scores);
-
         scores = triAvecValeur(scores);
-        System.out.println("Après le tri: "+ scores);
+        int x = WIDTH - 110;
 
-        int x = WIDTH - 20 - 80;
+        if(scores.size() == 3) {
+            x = WIDTH - 230;
+        }
+        else if(scores.size() == 2) {
+            x = WIDTH - 350;
+        }
 
         int i = 0;
         for(Map.Entry<Integer, Integer> entry : scores.entrySet()) {
             int ID = entry.getKey();
             int score = entry.getValue();
 
-            createLabel(x, 40, "src\\Images\\UVs\\"+ (scores.size() - i) + ".jpg", ID, score);
+            createLabel(x, 160, "src\\Images\\UVs\\"+ (scores.size() - i) + ".jpg", ID, score);
             i++;
             x -= 120;
         }
+
+
+        JLabel end = new JLabel();
+        end.setText("FIN DU JEU !");
+
+        end.setFont(new Font("Serif", Font.BOLD, 40));
+
+        end.setBounds(124, 40, 400, 60);
+
+        this.add(end);
+        end.setVisible(true);
 
 
         playAgain.addActionListener(new ActionListener() {
@@ -362,12 +376,17 @@ class PopupEnd extends JPanel {
 
         JLabel text = new JLabel();
         JLabel text2 = new JLabel();
-        text.setText("Player " + (ID + 1));
+
+        text.setText("Joueur " + (ID + 1));
         text2.setText("Score : " + score);
-        text.setFont(new Font("Serif", Font.BOLD, 12));
-        text2.setFont(new Font("Serif", Font.BOLD, 12));
-        text.setBounds(posX, posY + 60, 80, 60);
-        text2.setBounds(posX, posY + 80, 80, 60);
+
+
+        text.setFont(new Font("Serif", Font.BOLD, 20));
+        text2.setFont(new Font("Serif", Font.BOLD, 17));
+
+
+        text.setBounds(posX, posY + 80, 80, 60);
+        text2.setBounds(posX, posY + 110, 80, 60);
 
         if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
             // There was an error loading the image
@@ -380,7 +399,6 @@ class PopupEnd extends JPanel {
         this.add(uv);
         this.add(text);
         this.add(text2);
-        System.out.println("LABELLLL");
         uv.setVisible(true);
         text.setVisible(true);
     }

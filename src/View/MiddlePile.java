@@ -90,8 +90,8 @@ public class MiddlePile {
   			
   			// We add the couple Tile_View/JButton into a HashMap
   			tiles.put(tile, button_tile);
-  			pot_m.addT(tile);
   			pot_m.addB(button_tile);
+			pot_m.addT(tile);
   			
   			
   			offsetX += RECT_SIZE;
