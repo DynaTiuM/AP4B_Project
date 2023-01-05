@@ -26,6 +26,7 @@ public class Malus {
 	tiles = new Tile_View[7];
     this.position = position;
     this.button = new JButton();
+	this.button.setBounds(400, 40, 50, 50);
     
     RECT_WIDTH = (int)(RECT_SIZE*1.5);
     RECT_HEIGHT = (int)(RECT_SIZE*2);
@@ -33,7 +34,6 @@ public class Malus {
   }
 
   public void draw(Graphics g) {
-
 
     ImageIcon icon = new ImageIcon("src\\Images\\Malus.png");
     if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
@@ -44,7 +44,7 @@ public class Malus {
       for(int i = 0; i <= 6; i++) {
         g.drawImage(malus, position.getX() + (int)(RECT_WIDTH *i), position.getY(), RECT_WIDTH, RECT_HEIGHT, null);
       }
-      }
+	}
     //Modification de la couleur et de la police de g
     g.setFont(font);
     g.setColor(Color.RED);
@@ -68,8 +68,6 @@ public class Malus {
   }
 
 public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
-	
-	
 	int temp = previous_index_2;
 	System.out.println("malus_view");
 	for(Tile p: linkedList) {
@@ -91,6 +89,9 @@ public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
 		//System.out.print(p.getColorEnum() + " / ");
 		  if(tiles[temp] != null) view_m.getPanel().addT(tiles[temp]);
 		  temp++;
+		  if(temp >= 7) {
+			  return;
+		  }
 	}
 	//System.out.println("\nend of malus_view");
 	
@@ -103,7 +104,7 @@ public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
 		return button;
 	}
 
-	public void updateMalusView() {
+	public void clearMalus() {
 		for(Tile_View tile : tiles) {
 			System.out.println("FOUND TILE : " + tile);
 			if(tile != null) view_m.getPanel().removeT(tile);

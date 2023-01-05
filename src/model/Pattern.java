@@ -20,7 +20,7 @@ public class Pattern {
 	
 	public Pattern(Bord bord) {
 
-		newTiles = new HashMap<Tile, Position>();
+		newTiles = new HashMap<>();
 		this.bord_ref = bord;
 		grid = new Tile[5][5];
 		

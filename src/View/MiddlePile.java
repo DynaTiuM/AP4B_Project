@@ -37,7 +37,6 @@ public class MiddlePile {
 			yPosition += RECT_SIZE;
 		}
 		
-		g.drawRect(position.getX() + RECT_SIZE * (i % 7), position.getY() + yPosition, RECT_SIZE, RECT_SIZE);
 	}
 }
 

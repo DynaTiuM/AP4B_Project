@@ -113,9 +113,13 @@ public class View extends JFrame {
     public void updatePattern(int playerID, HashMap<Tile, Position> to_send) {
         bords[playerID].updatePattern(to_send);
     }
-    
-    public void updateMalus(int playerID) {
-    	bords[playerID].updateMalus();
+
+    public void updateMalus(LinkedList<Tile> to_send, int previous_index, int current_player) {
+        bords[current_player].updateMalus(to_send, previous_index);
+    }
+
+    public void clearMalus(int playerID){
+        bords[playerID].clearMalus();
     }
     
     public void updatePopup(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
@@ -252,7 +256,7 @@ class ViewPanel extends JPanel {
         g.setFont(font);
         g.setColor(Color.RED);
         try{
-        	g.drawString("Tour du joueur " + controller_ref.getCurrentPlayer(), 400, 650);
+        	g.drawString("Tour du joueur " + controller_ref.getCurrentPlayer() + 1, 400, 650);
         }catch (Exception e) {
 			System.out.println("Game not initialized !");
 		}

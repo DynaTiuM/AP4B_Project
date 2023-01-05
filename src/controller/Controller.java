@@ -13,9 +13,9 @@ public class Controller {
 	private Game game_m;
 	private View view_m;
 	
-	public Controller()  {
-		view_m = new View(this, 4);
-		game_m = new Game(this, 4);
+	public Controller(int numPlayers)  {
+		view_m = new View(this, numPlayers);
+		game_m = new Game(this, numPlayers);
 		
 		initialiseButtonsPiles();
 		
@@ -50,8 +50,12 @@ public class Controller {
 		view_m.updatePattern(playerID, to_send);
 	}
 	
-	public void updateMalusView(int playerID) {
-		view_m.updateMalus(playerID);
+	public void updateMalusView(LinkedList<Tile> to_send, int previous_index, int current_player) {
+		view_m.updateMalus(to_send, previous_index, current_player);
+	}
+
+	public void clearMalusView(int playerID){
+		view_m.clearMalus(playerID);
 	}
 	
 	public void updatePopup(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {

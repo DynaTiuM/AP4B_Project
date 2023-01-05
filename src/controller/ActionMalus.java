@@ -1,15 +1,15 @@
 package controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import View.View;
 import model.Game;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class ActionMalus implements ActionListener {
 	
-	private Game model;
-	private View view_m;
+	private final Game model;
+	private final View view_m;
 	
 	public ActionMalus(Game ref, View view) {
 		this.model = ref;

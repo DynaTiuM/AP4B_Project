@@ -19,10 +19,10 @@ public class Pot {
 		game_ref = ref;
 		
 		middlePile = new MiddlePile(this);
-		numberOfPiles = 1 + numberOfPlayers *2;
-		possible_pile = new boolean[1 + numberOfPlayers * 2];
+		numberOfPiles = 1 + numberOfPlayers * 2;
+		possible_pile = new boolean[numberOfPiles];
 		
-		instanciatePiles(numberOfPlayers);
+		instanciatePiles();
 		
 		bag = new Bag(piles, this);
 		
@@ -41,9 +41,13 @@ public class Pot {
 		piles[numberOfPile].setTilesSelectedToHand(ID);
 	}
 	
-	private void instanciatePiles(int numberOfPlayers) {
-		piles = new Pile[1 + numberOfPlayers * 2];
-		for(int i = 0; i < 1 + numberOfPlayers * 2; i++) piles[i] = new Pile(game_ref, middlePile, this, i);
+	private void instanciatePiles() {
+		piles = new Pile[numberOfPiles];
+		System.out.println(piles.length);
+		for(int i = 0; i < numberOfPiles; i++){
+			piles[i] = new Pile(game_ref, middlePile, this, i);
+			System.out.println(i);
+		}
 	}
 	
 	public Pile getPileIndex(int index) {

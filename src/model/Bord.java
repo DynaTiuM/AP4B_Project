@@ -170,7 +170,7 @@ public class Bord {
 			game_ref.sendToBag(malus_grid_m.clear());
 		}
 
-		game_ref.updateMalusToView(playerID);
+		//game_ref.updateMalusToView(playerID);
 		
 		if(update) {
 			pattern_grid_m.sendPattern();
@@ -192,14 +192,20 @@ public class Bord {
 		// TODO Auto-generated method stub
 		this.game_ref.updateViewLine(to_send, previous_index, i, malus_grid_m.getContent(), malus_grid_m.getPrevious());
 	}
-	
+
 	public void updatePatternView(HashMap<Tile, Position> to_send) {
 		this.game_ref.updatePatternView(this.playerID, to_send);
 	}
 	
 	public void updateMalus() {
 		this.malus_grid_m.addTile(hand_of_player);
-		this.malus_grid_m.setPrevious(malus_grid_m.getPrevious() + hand_of_player.size());
+		//this.malus_grid_m.setPrevious(malus_grid_m.getPrevious() - hand_of_player.size());
+		this.game_ref.updateMalusToView(malus_grid_m.getContent(), malus_grid_m.getPrevious());
+		this.game_ref.nextPlayer();
+	}
+
+	public void clearMalusView(){
+		this.game_ref.clearMalusView(playerID);
 	}
 
 	public void sendToBag(Tile p) {
@@ -215,6 +221,8 @@ public class Bord {
 	}
 	
 	public int getScore() {
+		System.out.println("Score of player " + playerID + " , score : " + pattern_grid_m.getScore());
+
 		return this.pattern_grid_m.getScore();
 	}
 

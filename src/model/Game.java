@@ -23,11 +23,12 @@ public class Game {
 	
 	// L'indice du joueur actuellement actif
 	private int current_player;
+	private int nbPlayers;
 	
 	
 	// Constructeur qui prend en paramètre un contrôleur et le nombre de joueurs
 	public Game(Controller ref, int nb_player) {
-		
+		nbPlayers = nb_player;
 		current_player = 0;
 		controller = ref;
 		
@@ -36,7 +37,7 @@ public class Game {
 		for(int i = 0; i<4; i++) players[i] = new Bord(i, this);
 		
 		// initialise le Pot en fonction du nombre de joueurs 
-		pot = new Pot(4, this);
+		pot = new Pot(nb_player, this);
 		
 	}
 	
@@ -86,10 +87,10 @@ public class Game {
 		return pot.modifyMiddlePile(index);
 	}
 	
-	public void sendSelectiontoBordTest(LinkedList<Tile> tiles_bord) {
+	public void sendSelectionToBordTest(LinkedList<Tile> tiles_bord) {
 		players[current_player].test(tiles_bord);
 	}
-	
+
 	public void sendContentList(LinkedList<Tile> to_send, int index) {
 		controller.updatePile(to_send, index);
 	}
@@ -106,8 +107,12 @@ public class Game {
 		controller.updatePatternView(playerID, to_send);
 	}
 	
-	public void updateMalusToView(int playerID) {
-		controller.updateMalusView(playerID);
+	public void updateMalusToView(LinkedList<Tile> to_send, int previous_index) {
+		controller.updateMalusView(to_send, previous_index, current_player);
+	}
+
+	public void clearMalusView(int playerID){
+		controller.clearMalusView(playerID);
 	}
 	
 	public void sendCompleteMiddlePileToView(boolean bool) {
@@ -142,7 +147,7 @@ public class Game {
 	public void nextPlayer() {
 		this.current_player++;
 		
-		if(current_player == 4) {
+		if(current_player == nbPlayers) {
 			current_player = 0;
 		}
 		

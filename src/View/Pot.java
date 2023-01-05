@@ -46,7 +46,7 @@ public class Pot {
     int yPosition = pileSize / 2;
     
     // Création des piles
-    for (int i=0; i < numberOfPiles; i++) {
+    for (int i = 0; i < numberOfPiles; i++) {
     	
         if (i % 2 == 0 && i != 0) {
             yPosition += pileSize;

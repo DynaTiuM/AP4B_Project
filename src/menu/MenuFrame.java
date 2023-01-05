@@ -1,5 +1,7 @@
 package menu;
 
+import controller.Controller;
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -74,7 +76,7 @@ public class MenuFrame implements WindowProperties {
 	    	// and dispose of the current frame
 	    	
 	    	if(clicked) {
-	    		//new GameFrame(numPlayers);
+	    		new Controller(numPlayers);
 	    		frame.dispose();
 	    	}
 	    });

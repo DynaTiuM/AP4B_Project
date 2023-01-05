@@ -8,8 +8,7 @@ public class Pile {
 	
 	private LinkedList<Tile> tiles_bord;
 	private LinkedList<Tile> tiles_middle;
-	
-	private Pot pot_ref;
+
 	private MiddlePile middle_ref;
 	private Game game_ref;
 	
@@ -19,13 +18,13 @@ public class Pile {
 	
 	public Pile(Game game, MiddlePile middle, Pot pot, int index) {
 		this.index = index;
+		System.out.println("INDEX : " + index);
 		tiles = new Tile[4];
 		//for(int i =0; i<4; i++) tiles[i] = new Tile();
 		
 		tiles_bord = new LinkedList<Tile>();
 		tiles_middle = new LinkedList<Tile>();
-		
-		pot_ref = pot;
+
 		middle_ref = middle;
 		game_ref = game;
 	}
@@ -92,12 +91,12 @@ public class Pile {
 	}
 	
 	public void test(int number) {
-		//creer un sc�nar
+		//creer un scenario
 		getSelection(tiles[number]);
 	}
 	
 	private void sendToBordTest() {
-		game_ref.sendSelectiontoBordTest(tiles_bord);
+		game_ref.sendSelectionToBordTest(tiles_bord);
 		//System.out.println("sent");
 	}
 

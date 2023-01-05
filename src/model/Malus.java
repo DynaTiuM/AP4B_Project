@@ -29,22 +29,22 @@ public class Malus {
 	}
 	
 	public void addTile(LinkedList<Tile> tiles) {
-		
+
 		for(Tile p: tiles) {
-			if(current_index<7) {
+			if(current_index < 7) {
 				line[current_index] = p;
-				
+
 				previous_index = current_index;
 				current_index++;
 			}else {
 				bord_ref.sendToBag(p);
 			}
 		}
+
 	}
 	
 	public void addTile(Tile tile_p) {
-		
-		if(current_index<7) {
+		if(current_index < 7) {
 			line[current_index] = tile_p;
 			
 			previous_index = current_index;
@@ -72,7 +72,7 @@ public class Malus {
 			badpoints += penalty[i];
 		}
 		
-		this.bord_ref.updateMalus();
+		this.bord_ref.clearMalusView();
 		
 		return badpoints;
 	}
