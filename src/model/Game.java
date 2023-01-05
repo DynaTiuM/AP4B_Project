@@ -181,10 +181,21 @@ public class Game {
 	public void sendMalusFirst(Tile first) {
 		players[current_player].sendMalusFirst(first);
 		
+		
 	}
 
 	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i) {
 		controller.updateViewLine(to_send, previous_index, i, current_player);
+		
+	}
+
+	public void sendSelectionToBordMiddle(LinkedList<Tile> toSend) {
+		players[current_player].setHandMiddle(toSend);
+		
+	}
+
+	public void sendMalusFirstToView(int previous) {
+		controller.sendMalusFirstToView(previous, current_player);
 		
 	}
 	

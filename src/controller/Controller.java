@@ -89,4 +89,10 @@ public class Controller {
 		view_m.updateViewLine(to_send, previous_index, i, current_player);
 		
 	}
+
+	public void sendMalusFirstToView(int previous, int current_player) {
+		view_m.sendMalusFirstToView(previous, current_player);
+		System.out.println("££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££");
+		
+	}
 }

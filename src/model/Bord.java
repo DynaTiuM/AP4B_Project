@@ -240,6 +240,14 @@ public class Bord {
 
 	public void sendMalusFirst(Tile first) {
 		malus_grid_m.addTile(first);
+		game_ref.sendMalusFirstToView(malus_grid_m.getPrevious());
+	}
+
+
+	public void setHandMiddle(LinkedList<Tile> toSend) {
+		hand_of_player.clear();
+		hand_of_player = toSend;
+		
 		
 	}
 	

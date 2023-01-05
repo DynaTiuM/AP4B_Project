@@ -39,6 +39,9 @@ public class MiddlePile {
 		tiles.addAll(to_add);
 		this.pot_ref.sendAddedTilesToView(to_add, previous_index, false);
 		previous_index += to_add.size();
+		
+		for(Tile p: to_add) System.out.println(" | : " + p.getColorEnum());
+		
 		to_add.clear();
 	}
 	
@@ -119,6 +122,7 @@ public class MiddlePile {
 	}
 	
 	public void setFirst() {
+		System.out.println("ииииииииииииииииииииииииииииииииииииииииииииииииииии%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 		first = true;
 		tiles.addFirst(new Tile(Color.gray));
 		this.sendCompletePileToView(false);

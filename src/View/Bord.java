@@ -92,6 +92,11 @@ public class Bord{
 		
 	}
 
+	public void sendMalusFirstToView(int previous) {
+		malus.addMalusFirst(previous);
+		
+	}
+
 	
 }
 

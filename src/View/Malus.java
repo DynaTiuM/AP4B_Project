@@ -83,22 +83,10 @@ public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
 		  	break;
 		  case G: tiles[temp] = new Green(new Position(position.getX() + 5 + (int)(RECT_WIDTH *temp), position.getY() + (int)(RECT_HEIGHT /2.5)));
 			  break;
-		  case MALUS: tiles[temp] = new MalusTile(new Position(position.getX() + 5 + (int)(RECT_WIDTH *temp), position.getY() + (int)(RECT_HEIGHT /2.5)));
-		  System.out.println("Dame dame, dame yo, dame damo yo, baka mitai");
-		  System.out.println("______________________________________________");
-		  System.out.println("______________________________________________");
-		  System.out.println("______________________________________________");
-		  System.out.println("______________________________________________");
-		  System.out.println("______________________________________________");
-		  System.out.println("______________________________________________");
-		  System.out.println("______________________________________________");
-		  System.out.println("______________________________________________");
-		  System.out.println("______________________________________________");
-		  System.out.println("______________________________________________");
-		  	  break;
+
 		  }
 		System.out.println("TEMP " + temp);
-		//System.out.print(p.getColorEnum() + " / ");
+		System.out.print(p.getColorEnum() + " / ");
 		  if(tiles[temp] != null) view_m.getPanel().addT(tiles[temp]);
 		  temp++;
 		  if(temp >= 7) {
@@ -128,5 +116,10 @@ public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
 		}
 		
 		view_m.getPanel().repaint();
+	}
+
+	public void addMalusFirst(int previous) {
+		tiles[previous] = new MalusTile(new Position(position.getX() + 5 + (int)(RECT_WIDTH *previous), position.getY() + (int)(RECT_HEIGHT /2.5)));
+		view_m.getPanel().addT(tiles[previous]);
 	}
 }

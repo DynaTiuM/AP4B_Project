@@ -153,6 +153,11 @@ public class View extends JFrame {
 		bords[current_player].updateViewLine(to_send, previous_index, i);
 		
 	}
+
+	public void sendMalusFirstToView(int previous, int current_player) {
+		bords[current_player].sendMalusFirstToView(previous);
+		
+	}
 }
 
 

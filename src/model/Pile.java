@@ -75,7 +75,7 @@ public class Pile {
 			tiles[i] = null;
 		}
 		
-		if (tiles_middle != null) sendToMiddle();
+		if (tiles_middle != null)  sendToMiddle();
 		
 		sendToBord();
 		sendContentList();
@@ -83,7 +83,12 @@ public class Pile {
 	}
 	
 	private void sendToMiddle() {
+		
+		for(Tile p: tiles_middle) System.out.println(" | | _ : " + p.getColorEnum());
 		this.middle_ref.addContent(tiles_middle);
+		
+		
+		
 	}
 	
 	private void sendToBord() {

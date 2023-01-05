@@ -40,6 +40,7 @@ public class Malus {
 				current_index++;
 			}else {
 				bord_ref.sendToBag(p);
+				previous_index=7;
 			}
 		}
 
@@ -53,7 +54,7 @@ public class Malus {
 			current_index++;
 		}else {
 			System.out.println("Too many to possibly add, sending to top of the box");
-			bord_ref.sendToBag(tile_p);
+			if(!(tile_p.getColorEnum()==ColorEnum.MALUS)) bord_ref.sendToBag(tile_p);
 		}
 	}
 	
@@ -117,7 +118,7 @@ public class Malus {
 		to_send.clear();
 		
 		for(int i =0; i<current_index; i++) {
-			to_send.add(line[i]);
+			if(line[i].getColorEnum()!=ColorEnum.MALUS) to_send.add(line[i]);
 			line[i] = null;
 		}
 		
