@@ -12,6 +12,7 @@ import controller.ActionMalus;
 import controller.ActionSelectionMiddlePile;
 import controller.ActionSelectionTile;
 import controller.Controller;
+import menu.MenuFrame;
 import model.Line;
 import model.Tile;
 
@@ -91,6 +92,11 @@ public class View extends JFrame {
     public void updatePile(LinkedList<Tile> to_update, int index) {
         pot_m.updatePile(to_update, index);
     }
+
+    public void displayEndOfGame(int winner, int[] scores){
+        this.getPanel().displayEndOfGame(winner, scores);
+    }
+
     public ViewPanel getPanel() {
         return this.ContentPanel;
     }
@@ -226,12 +232,13 @@ class ViewPanel extends JPanel {
     	this.repaint();
     }
 
+
   //Cette fonction est appelï¿½e pour afficher en grand le Bord du joueur actif avec des boutons
     public void updateBordPopUp(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
     	// Crï¿½er un panel pour afficher le bord en grand
 
         panel = new PopupPanel(view_ref, pattern, malus, grid, hand);
-        JDialog dialog = new JDialog((JFrame)null, "Bord en grand", true);
+        JDialog dialog = new JDialog((JFrame)null, "", true);
         dialog.setUndecorated(true);
         dialog.add(panel);
         dialog.pack();
@@ -250,24 +257,93 @@ class ViewPanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // Draw image 
+        draw(g);
+    }
+
+    private void draw(Graphics g) {
+        // Draw image
         g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-        // Draw bords 
+        // Draw bords
         for (Bord bord : bords) {
             bord.draw(g);
         }
         pot.draw(g);
-        
+
         //Modification de la couleur et de la police de g
         g.setFont(font);
         g.setColor(Color.RED);
         try{
-        	g.drawString("Tour du joueur " + (controller_ref.getCurrentPlayer() + 1), 400, 650);
+            g.drawString("Tour du joueur " + (controller_ref.getCurrentPlayer() + 1), 400, 650);
         }catch (Exception e) {
-			System.out.println("Game not initialized !");
-		}
+            System.out.println("Game not initialized !");
+        }
         //On remet g a le couleur de base;
         g.setColor(Color.BLACK);
+    }
+
+    public void displayEndOfGame(int winner, int[] scores) {
+        JPanel panel = new PopupEnd(view_ref, winner, scores);
+        JDialog dialog = new JDialog((JFrame)null, "", true);
+        dialog.setUndecorated(true);
+        dialog.add(panel);
+        dialog.pack();
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+        panel.setLayout(new BorderLayout());
+    }
+}
+
+class PopupEnd extends JPanel {
+
+    private int winnerID;
+    private int[] scores;
+    private View view;
+    private final int WIDTH = 500;
+    private final int HEIGHT = 500;
+
+    public PopupEnd(View view, int winner, int[] scores) {
+        this.view = view;
+        this.winnerID = winner;
+        this.scores = scores;
+
+        setLayout(null);
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
+
+        JButton quit = new JButton();
+        quit.setBounds(WIDTH/2, HEIGHT - HEIGHT/5, WIDTH/5, HEIGHT/10);
+        quit.setText("Quit the Game!");
+
+        quit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                quit();
+            }
+        });
+
+        this.add(quit);
+
+        JButton playAgain = new JButton();
+        playAgain.setBounds(WIDTH/4, HEIGHT - HEIGHT/5, WIDTH/5, HEIGHT/10);
+        playAgain.setText("Play again!");
+
+        playAgain.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                newGame();
+            }
+        });
+        this.add(playAgain);
+    }
+
+    private void newGame() {
+        SwingUtilities.getWindowAncestor(this).dispose();
+        view.dispose();
+        new MenuFrame();
+    }
+
+    private void quit(){
+        SwingUtilities.getWindowAncestor(this).dispose();
+        view.dispose();
     }
 }
 
@@ -296,8 +372,7 @@ class PopupPanel extends JPanel {
         this.playGrid = new PlayGrid(gridPosition, view_ref, POPUP_RECT_SIZE);
         this.pattern = new Pattern(patternPosition, view_ref,  POPUP_RECT_SIZE);
         this.malus = new Malus(malusPosition, view_ref, POPUP_RECT_SIZE);
-        
-        
+
         //Add the buttons of the Piles and middle pile
         JButton malusButton = this.malus.getMalusButton();
         this.add(malusButton);
@@ -408,13 +483,22 @@ class PopupPanel extends JPanel {
     				// The color of the tile selected is different from the color of tiles on the line
     				// Or the line is already full :
     				// We need to disable the button of this line
-    				if(!line.isPossible(hand) || line.checkFull()) {
+
+                    System.out.println("!!!!!!!!!!!!!!!!!!!!");
+
+
+                    if((!line.isPossible(hand) || line.checkFull())) {
     					buttons[line.getLength() - 1].setVisible(false);
     				}
         		}
     			i++;
     		}
     	}
+        for(Line line : grid){
+            if(line.isAlreadyOnPattern(hand)) {
+                buttons[line.getLength() - 1].setVisible(false);
+            }
+        }
     }
     
     private void switchEnum(Tile t, int offsetX, int offsetY, int x, int y, Position position) {

@@ -68,9 +68,10 @@ public class Malus {
   }
 
 public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
-	//int temp = previous_index_2;
+
 	int temp = previous_index_2;
 	System.out.println("PREVIOUS INDEX GYIGIYGIIYHUIHIGIYGIYGYIGYIGIYGYIGYIGYIGIYGIYGIYGIYGIYGYIGYIGY\n " + previous_index_2);
+
 	for(Tile p: linkedList) {
 		switch (p.getColorEnum()){
 		  case O: tiles[temp] = new Orange(new Position(position.getX() + 5 + (int)(RECT_WIDTH *temp), position.getY() + (int)(RECT_HEIGHT /2.5))); 
@@ -105,6 +106,7 @@ public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
 	}
 
 	public void clearMalus() {
+	  System.out.println("CLEARING MALUS !");
 		for(Tile_View tile : tiles) {
 			if(tile != null) {
 				System.out.println("FOUND TILE : " + tile);

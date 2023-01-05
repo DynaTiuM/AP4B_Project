@@ -24,7 +24,8 @@ public class Game {
 	// L'indice du joueur actuellement actif
 	private int current_player;
 	private final int nbPlayers;
-	
+
+	private int winner = -1;
 	
 	// Constructeur qui prend en paramètre un contrôleur et le nombre de joueurs
 	public Game(Controller ref, int nb_player) {
@@ -71,6 +72,8 @@ public class Game {
 		pot.distributeContents();
 		controller.initialiseButtonsPiles();
 		pot.setFirst();
+
+		controller.displayEndOfGame(2, new int[]{0, 0, 0, 0});
 	}
 
 	public void testShuffle() {
@@ -162,26 +165,31 @@ public class Game {
 	
 	public void endOfGame() {
 		//TODO
-		int winner = 0;
 		int winning_score = 0;
 		for(Bord p: players) {
 			p.calculateEndOfGameBonuses();
 			
 			if(p.getScore()>winning_score) {
 				winning_score = p.getScore();
-				winner = p.getID();
+				this.winner = p.getID();
 			}
 			
 		}
 		
 		System.out.println("Winner : " + winner);
-		
+		int[] scores = new int[4];
+
+		int i = 0;
+		for(Bord bord : players) {
+			scores[i] = bord.getScore();
+			i++;
+		}
+
+		controller.displayEndOfGame(winner, scores);
 	}
 
 	public void sendMalusFirst(Tile first) {
 		players[current_player].sendMalusFirst(first);
-		
-		
 	}
 
 	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i) {

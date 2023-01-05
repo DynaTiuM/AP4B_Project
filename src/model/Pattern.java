@@ -207,6 +207,16 @@ public class Pattern {
 		
 		return check == 5;
 	}
+
+	// Check if the tile's color is already on the pattern, in order to disable the Button of this line
+	public boolean isAlreadyOnPattern(int size, Tile tile){
+		for(int i = 0; i < 5; i++) {
+			if(grid[size - 1][i].getColorEnum() == tile.getColorEnum() && grid[size - 1][i].getOccupied()) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	public Tile[][] getGrid() {
 		return this.grid;

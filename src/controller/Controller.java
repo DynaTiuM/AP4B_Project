@@ -90,9 +90,14 @@ public class Controller {
 		
 	}
 
+
 	public void sendMalusFirstToView(int previous, int current_player) {
 		view_m.sendMalusFirstToView(previous, current_player);
-		System.out.println("££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££");
+	}
 		
+
+	public void displayEndOfGame(int winner, int[] scores) {
+		view_m.displayEndOfGame(winner, scores);
+
 	}
 }
