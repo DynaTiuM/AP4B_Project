@@ -91,8 +91,8 @@ public class Controller {
 		view_m.sendMalusFirstToView(previous, current_player);
 	}
 
-	public void displayEndOfGame(int winner, model.Bord[] bords) {
-		view_m.displayEndOfGame(winner, bords);
+	public void displayEndOfGame(model.Bord[] bords) {
+		view_m.displayEndOfGame(bords);
 
 	}
 

@@ -79,6 +79,7 @@ public class Game {
 			}
 		}
 
+		controller.displayEndOfGame(players);
 	}
 
 	public void testShuffle() {
@@ -184,7 +185,7 @@ public class Game {
 		System.out.println("Winner : " + winner);
 
 
-		controller.displayEndOfGame(winner, players);
+		controller.displayEndOfGame(players);
 	}
 
 	public void sendMalusFirst(Tile first) {
@@ -196,10 +197,6 @@ public class Game {
 		
 	}
 
-	public void sendSelectionToBordMiddle(LinkedList<Tile> toSend) {
-		players[current_player].setHandMiddle(toSend);
-		
-	}
 
 	public void sendMalusFirstToView(int previous) {
 		controller.sendMalusFirstToView(previous, current_player);

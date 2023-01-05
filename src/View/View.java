@@ -1,12 +1,12 @@
 package View;
 
 import java.awt.*;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.*;
+import javax.swing.Timer;
 
 import controller.ActionLine;
 import controller.ActionMalus;
@@ -94,8 +94,8 @@ public class View extends JFrame {
         pot_m.updatePile(to_update, index);
     }
 
-    public void displayEndOfGame(int winner, model.Bord[] bords){
-        this.getPanel().displayEndOfGame(winner, bords);
+    public void displayEndOfGame(model.Bord[] bords){
+        this.getPanel().displayEndOfGame(bords);
     }
 
     public ViewPanel getPanel() {
@@ -109,11 +109,6 @@ public class View extends JFrame {
     public void updateMiddlePile(LinkedList<Tile> to_send, int previous_index, boolean delete) {
         pot_m.updateMiddlePile(to_send, previous_index, delete);
     }
-    
-    public void updateMiddlePile(LinkedList<Tile> to_send) {
-    	pot_m.updateMiddlePile(to_send);
-    }
-
     public void updatePattern(int playerID, HashMap<Tile, Position> to_send) {
         bords[playerID].updatePattern(to_send);
     }
@@ -199,21 +194,6 @@ class ViewPanel extends JPanel {
     public void closePopUp() {
     	panel.closePopUp();
 	}
-    
-    public void addButtons() {
-    	//Add the buttons of the Piles and middle pile
-        System.out.print("Adding buttons!");
-        LinkedList<JButton> buttons = pot.getTileButtons();
-
-        // Ajout des boutons au JPanel
-        for (JButton button : buttons) {
-            if (button != null) {
-                this.add(button);
-            }
-        }
-
-        pot.setButtons(true);
-    }
 
 	public void addT(Tile_View tile) {
         this.add(tile);
@@ -285,8 +265,8 @@ class ViewPanel extends JPanel {
         g.setColor(Color.BLACK);
     }
 
-    public void displayEndOfGame(int winner, model.Bord[] bords) {
-        JPanel panel = new PopupEnd(view_ref, winner, bords);
+    public void displayEndOfGame(model.Bord[] bords) {
+        JPanel panel = new PopupEnd(view_ref, bords);
         JDialog dialog = new JDialog((JFrame)null, "", true);
         dialog.setUndecorated(true);
         dialog.add(panel);
@@ -299,16 +279,12 @@ class ViewPanel extends JPanel {
 
 class PopupEnd extends JPanel {
 
-    private int winnerID;
-    private model.Bord[] bords;
     private View view;
     private final int WIDTH = 500;
     private final int HEIGHT = 500;
 
-    public PopupEnd(View view, int winner, model.Bord[] bords) {
+    public PopupEnd(View view, model.Bord[] bords) {
         this.view = view;
-        this.winnerID = winner;
-        this.bords = bords;
 
         setLayout(null);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -330,27 +306,26 @@ class PopupEnd extends JPanel {
         playAgain.setBounds(WIDTH/4, HEIGHT - HEIGHT/5, WIDTH/5, HEIGHT/10);
         playAgain.setText("Play again!");
 
-        LinkedList<Integer> scores = new LinkedList<>();
-        LinkedList<Duo> duos = new LinkedList<>();
+        HashMap<Integer, Integer> scores = new HashMap<>();
 
         for(model.Bord b : bords){
-            scores.add(b.getScore());
+            scores.put(b.getID(), b.getScore());
         }
+        System.out.println("Avant le tri: "+ scores);
 
-        Collections.sort(scores);
+        scores = triAvecValeur(scores);
+        System.out.println("Après le tri: "+ scores);
 
-        scores.forEach(s ->{
-            for(model.Bord b : bords){
-                if(s == b.getScore()) {
-                    duos.add(new Duo(b.getID(), b.getScore()));
-                }
-            }
-        });
+        int x = WIDTH - 20 - 80;
 
-        int x = WIDTH - 20 - 60;
-        for(int i = 0; i < scores.size(); i++){
-            createLabel(x, 20, "src\\Images\\UVs\\"+ (scores.size() - i) + ".jpg", duos.get(i));
-            x -= 100;
+        int i = 0;
+        for(Map.Entry<Integer, Integer> entry : scores.entrySet()) {
+            int ID = entry.getKey();
+            int score = entry.getValue();
+
+            createLabel(x, 40, "src\\Images\\UVs\\"+ (scores.size() - i) + ".jpg", ID, score);
+            i++;
+            x -= 120;
         }
 
 
@@ -362,38 +337,36 @@ class PopupEnd extends JPanel {
         });
         this.add(playAgain);
     }
+    public static HashMap<Integer, Integer> triAvecValeur( HashMap<Integer, Integer> map ){
+        List<Map.Entry<Integer, Integer>> list = new LinkedList<Map.Entry<Integer, Integer>>( map.entrySet() );
+        Collections.sort( list, new Comparator<Map.Entry<Integer, Integer>>(){
+            public int compare( Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2 ){
+                return (o1.getValue()).compareTo( o2.getValue());
+            }
+        });
 
-    class Duo {
-        private int ID;
-        private int score;
-        private Duo(int ID, int score) {
-            this.ID = ID;
-            this.score = score;
-        }
+        HashMap<Integer, Integer> map_apres = new LinkedHashMap<Integer, Integer>();
+        for(Map.Entry<Integer, Integer> entry : list)
+            map_apres.put( entry.getKey(), entry.getValue() );
 
-        public int getID(){
-            return this.ID;
-        }
-        public int getScore(){
-            return this.score;
-        }
+        return map_apres;
     }
 
-    public void createLabel(int posX, int posY, String texture, Duo duo) {
+    public void createLabel(int posX, int posY, String texture, int ID, int score) {
         JLabel uv = new JLabel();
-        uv.setBounds(posX, posY, 60, 60);
+        uv.setBounds(posX, posY, 80, 80);
         ImageIcon icon = new ImageIcon(texture);
         Image image = icon.getImage();
-        Image newimg = image.getScaledInstance(60, 60,  java.awt.Image.SCALE_SMOOTH);
+        Image newimg = image.getScaledInstance(80, 80,  java.awt.Image.SCALE_SMOOTH);
         icon = new ImageIcon(newimg);
 
         JLabel text = new JLabel();
         JLabel text2 = new JLabel();
-        text.setText("Player " + (duo.getID() + 1));
-        text2.setText("Score : " + duo.getScore());
-        text.setFont(new Font("Serif", Font.BOLD, 10));
-        text2.setFont(new Font("Serif", Font.BOLD, 10));
-        text.setBounds(posX, posY + 40, 80, 60);
+        text.setText("Player " + (ID + 1));
+        text2.setText("Score : " + score);
+        text.setFont(new Font("Serif", Font.BOLD, 12));
+        text2.setFont(new Font("Serif", Font.BOLD, 12));
+        text.setBounds(posX, posY + 60, 80, 60);
         text2.setBounds(posX, posY + 80, 80, 60);
 
         if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {

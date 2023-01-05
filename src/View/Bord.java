@@ -53,17 +53,6 @@ public class Bord{
 				System.out.println("Game not initialized !");
 			}
 		  }
-	  
-	  public void addT(Tile_View tile) {
-		  view_ref.getPanel().addT(tile);
-	  }
-	  public void removeT(Tile_View tile) {
-		  view_ref.getPanel().removeT(tile);
-	  }
-	  
-	  public PlayGrid getPlayGrid() {
-		  return playGrid;
-	  }
 
 	  public void setButtons(boolean visible) {
 	    malus.setButton(visible);
