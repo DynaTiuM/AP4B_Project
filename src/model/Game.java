@@ -79,7 +79,6 @@ public class Game {
 			}
 		}
 
-		controller.displayEndOfGame(players);
 	}
 
 	public void testShuffle() {
