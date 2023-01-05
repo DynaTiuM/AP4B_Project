@@ -41,7 +41,7 @@ public class Malus {
 				current_index++;
 			}else {
 				bord_ref.sendToBag(p);
-				previous_index=7;
+				//previous_index=7;
 			}
 		}
 	}

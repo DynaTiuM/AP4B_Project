@@ -163,13 +163,14 @@ public class Pattern {
 		}
 	}
 	
-	public void checkEndGame() {
+	public boolean checkEndGame() {
 		for(int i =0; i <5; i++) {
 			if(checkLineFull(i)) {
-				this.bord_ref.endOfGame();
-				break;
+				return true;
 			}
 		}
+
+		return false;
 	}
 	
 	public void display() {

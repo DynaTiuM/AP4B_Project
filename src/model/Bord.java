@@ -250,5 +250,9 @@ public class Bord {
 		
 		
 	}
+
+	public boolean checkEnd(){
+		return pattern_grid_m.checkEndGame();
+	}
 	
 }

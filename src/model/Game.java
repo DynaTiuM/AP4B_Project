@@ -73,11 +73,13 @@ public class Game {
 		controller.initialiseButtonsPiles();
 		pot.setFirst();
 
-<<<<<<< HEAD
-		//controller.displayEndOfGame(2, players);
-=======
-		//controller.displayEndOfGame(2, new int[]{0, 0, 0, 0});
->>>>>>> eb1fccebbd6c3b475f3055c0da89e387d9cc94fc
+		for(Bord p: players){
+			if(p.checkEnd()){
+				this.endOfGame();
+				break;
+			}
+		}
+
 	}
 
 	public void testShuffle() {
