@@ -86,12 +86,11 @@ public class Line {
 		int i = current_index;
 		for(Tile p: tiles) {
 			if(i < size) {
-					//addColor(p);
-				//System.out.println("added to line");
+	;
 				setTileIndex(i, p);
 				i++;
 			}else { // les "Tile" en trop sont mise dans le malus 
-				//System.out.println("added to malus");
+			
 				
 				malus_m.addTile(p);
 				modified = true;
@@ -100,16 +99,16 @@ public class Line {
 		}
 		
 		previous_index = current_index;
-		//System.out.println("Previous index " + previous_index);
+
 		current_index = i;
-		//System.out.println("Current index " + current_index);
+
 		malus_m.setPrevious(previous_malus);
 		
 		updateViewLine(modified);
 	}
 	
 	private void updateViewLine(boolean modified) {
-		//System.out.println("Start of updateViewLine : Line");
+
 		LinkedList<Tile> to_send = new LinkedList<Tile>();
 		
 		for(int i = previous_index; i<current_index; i++) {
@@ -165,7 +164,7 @@ public class Line {
 		if(index<size) {
 			current_color = tile_p.getColorEnum();
 			linearray[index] = tile_p;
-			//System.out.print("added ");
+
 	
 		} else {
 			malus_m.addTile(tile_p);

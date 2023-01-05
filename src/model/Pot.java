@@ -43,10 +43,8 @@ public class Pot {
 	
 	private void instanciatePiles() {
 		piles = new Pile[numberOfPiles];
-		System.out.println(piles.length);
 		for(int i = 0; i < numberOfPiles; i++){
 			piles[i] = new Pile(game_ref, middlePile, this, i);
-			System.out.println(i);
 		}
 	}
 	

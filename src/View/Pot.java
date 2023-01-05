@@ -63,7 +63,6 @@ public class Pot {
   
   // Méthode ajoutant une tuile à la vue principale
   public void addT(Tile_View tile) {
-	  System.out.println("CALLING addT : Pot");
 	  view_m.getPanel().addT(tile);
   }
   

@@ -18,9 +18,9 @@ public class Pile {
 	
 	public Pile(Game game, MiddlePile middle, Pot pot, int index) {
 		this.index = index;
-		System.out.println("INDEX : " + index);
+
 		tiles = new Tile[4];
-		//for(int i =0; i<4; i++) tiles[i] = new Tile();
+
 		
 		tiles_bord = new LinkedList<Tile>();
 		tiles_middle = new LinkedList<Tile>();
@@ -47,14 +47,10 @@ public class Pile {
 		if(tiles[0] != null) {
 			for(Tile p: tiles) {
 				to_send.add(p);
-				//System.out.print(p.getColorEnum() + " - ");
 			}
 		} else {
 			to_send.add(null);
-			//System.out.print("nothing");
 		}
-		
-		//System.out.println("Start of sendContentList : pile");
 		game_ref.sendContentList(to_send, index);
 
 	}
@@ -83,12 +79,7 @@ public class Pile {
 	}
 	
 	private void sendToMiddle() {
-		
-		for(Tile p: tiles_middle) System.out.println(" | | _ : " + p.getColorEnum());
 		this.middle_ref.addContent(tiles_middle);
-		
-		
-		
 	}
 	
 	private void sendToBord() {
@@ -102,7 +93,6 @@ public class Pile {
 	
 	private void sendToBordTest() {
 		game_ref.sendSelectionToBordTest(tiles_bord);
-		//System.out.println("sent");
 	}
 
 	public void display() {
@@ -141,7 +131,6 @@ public class Pile {
 	
 	public int isEmpty() {
 		if(tiles[0] == null) {
-			System.out.println("Pile number " + this.index + " empty");
 			return 1;
 		}else {
 			return 0;

@@ -45,7 +45,7 @@ public class Bord{
 		    pattern.draw(g);
 			try{
 				int score = view_ref.getScore(playerID);
-			    //g.setColor(Color.getHSBColor(45, 65, 41));
+
 				Font font = new Font("Arial", Font.PLAIN, 25);
 				g.setFont(font);
 				g.drawString("ECTS: " +String.valueOf(score), position.getX() + BORD_SIZE/2 + 15, position.getY() + 50);

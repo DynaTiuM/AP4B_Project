@@ -86,8 +86,7 @@ public void updateViewLine(Tile[] malus) {
 					break;
 
 			}
-			System.out.println("TEMP " + temp);
-			System.out.print(p.getColorEnum() + " / ");
+
 			if(tiles[temp] != null) view_m.getPanel().addT(tiles[temp]);
 
 		}
@@ -97,7 +96,7 @@ public void updateViewLine(Tile[] malus) {
 		}
 
 	}
-	//System.out.println("\nend of malus_view");
+
 	
 }
 	
@@ -109,10 +108,10 @@ public void updateViewLine(Tile[] malus) {
 	}
 
 	public void clearMalus() {
-	  System.out.println("CLEARING MALUS !");
+
 		for(Tile_View tile : tiles) {
 			if(tile != null) {
-				System.out.println("FOUND TILE : " + tile);
+
 				view_m.getPanel().removeT(tile);
 			}
 		}

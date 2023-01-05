@@ -158,8 +158,7 @@ public class Bord {
 		for(Line line: play_grid) {
 			if(line.checkFull()) {
 				game_ref.sendToBag(line.clear());
-				
-				System.out.println("CLEARING A LINE!");
+
 				update = true;
 			}
 		}
@@ -175,15 +174,14 @@ public class Bord {
 			pattern_grid_m.sendPattern();
 		}
 		
-		System.out.println("END OF ROUND!");
 		
 		this.game_ref.clearMalusView(playerID);
-		//display();
+
 	}
 	
 	// envoie le pattern à la view
 	public Tile[][] getPatternToView() {
-		// TODO Auto-generated method stub
+
 		return pattern_grid_m.getGrid();
 	}
 
@@ -204,13 +202,11 @@ public class Bord {
 	
 	public void updateMalus() {
 		this.malus_grid_m.addTile(hand_of_player);
-		//this.malus_grid_m.setPrevious(malus_grid_m.getPrevious() - hand_of_player.size());
 		this.game_ref.updateMalusToView(malus_grid_m.getLine());
 		this.game_ref.nextPlayer();
 	}
 
 	public void clearMalusView(){
-		System.out.print("PLAYERD ID : Malus " + playerID);
 		this.game_ref.clearMalusView(playerID);
 	}
 
@@ -227,13 +223,13 @@ public class Bord {
 	}
 	
 	public int getScore() {
-		System.out.println("Score of player " + playerID + " , score : " + pattern_grid_m.getScore());
+		//System.out.println("Score of player " + playerID + " , score : " + pattern_grid_m.getScore());
 
 		return this.pattern_grid_m.getScore();
 	}
 
 	public int getID() {
-		// TODO Auto-generated method stub
+
 		return this.playerID;
 	}
 

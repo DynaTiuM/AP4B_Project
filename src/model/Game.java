@@ -60,7 +60,6 @@ public class Game {
 	// The player clicked on a line on the popup :
 	public void lineSelected(int lineNumber) {
 		players[current_player].playHandIndex(lineNumber);
-		System.out.println("Played on line : " + lineNumber);
 	}
 	
 	// Indique la fin d'un tour de jeu et passe au joueur suivant
@@ -158,10 +157,10 @@ public class Game {
 			current_player = 0;
 		}
 		
-		System.out.println("NEXT PLAYER : " + current_player);
-		
+
 		if(!pot.isPlayPossible()) {
 			this.endOfSet();
+			if(!pot.isPlayPossible()) this.endOfGame();
 		}
 	}
 	

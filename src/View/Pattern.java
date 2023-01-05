@@ -38,7 +38,7 @@ public class Pattern {
       for (HashMap.Entry<Tile, Position> entry : to_add.entrySet()) {
           Tile key = entry.getKey();
           Position value = entry.getValue();
-          System.out.println("Clé: " + key.getColorEnum() + ", Valeur: " + value.getX() + " ; " + value.getY());
+
   
           // Afficher les pairs clé-valeur
           switch (key.getColorEnum()){

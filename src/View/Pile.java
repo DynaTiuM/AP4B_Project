@@ -120,14 +120,14 @@ public class Pile {
         ViewPanel temp = this.view_m.getPanel();
 
         if (!updateTile(to_update)) {
-            //System.out.println("\n" +number + "test bari");
+
         	for(JButton button : buttons) {
         		temp.removeB(button);
         	}
             for (Tile_View tile : tiles) {
                 temp.removeT(tile);
             }
-            //temp.revalidate();
+
             temp.repaint();
         }
     }

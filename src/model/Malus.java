@@ -53,8 +53,7 @@ public class Malus {
 			previous_index = current_index;
 			current_index++;
 		}else {
-			System.out.println("Too many to possibly add, sending to top of the box");
-			if(!(tile_p.getColorEnum()==ColorEnum.MALUS)) bord_ref.sendToBag(tile_p);
+			if(tile_p.getColorEnum()!=ColorEnum.MALUS) bord_ref.sendToBag(tile_p);
 		}
 	}
 	
@@ -99,9 +98,7 @@ public class Malus {
 	
 	public LinkedList<Tile> getContent(){
 		to_send.clear();
-		// Improved form
-		//to_send.addAll(Arrays.asList(line).subList(previous_index, current_index));
-		
+			
 		 
 		 for(int i = previous_index; i< current_index; i++)
 		 	to_send.add(line[i]);
@@ -113,11 +110,8 @@ public class Malus {
 	
 	public LinkedList<Tile> clear() {
 		
-		System.out.println("clear malus");
-		
 		to_send.clear();
 		
-
 		for(int i =0; i<current_index; i++) {
 			if(line[i].getColorEnum()!=ColorEnum.MALUS) to_send.add(line[i]);
 
@@ -125,11 +119,6 @@ public class Malus {
 		}
 		
 		current_index = 0;
-		
-		/*
-		for(Tile p: to_send) System.out.print(p.getColorEnum() + " ");
-		System.out.println();
-		*/
 		
 		return to_send;
 	}
@@ -139,9 +128,8 @@ public class Malus {
 	}
 
 	public int getPrevious() {
-		// TODO Auto-generated method stub
+
 		System.out.println("previous " + previous_index);
-	
 		
 		return previous_index;
 	}

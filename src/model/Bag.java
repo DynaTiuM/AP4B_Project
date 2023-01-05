@@ -56,17 +56,21 @@ public class Bag {
 	
 	// remplit les "Pile" en prenant les dernières "Tile"
 	public void distributeContents() {
-		System.out.println("distribution");
+		Collections.shuffle(tiles);
 		Tile last;
 		
 		for(Pile p: allPiles) {
-			for(int i = 0; i < 4; i++) {
-				last = tiles.getLast();
-				//System.out.println(tiles.getLast().getColorEnum());
-				p.setContent(last, i);
-				tiles.remove(last);
+			if(tiles.size()>=4) {
+				for(int i = 0; i < 4; i++) {
+					last = tiles.getLast();
+					p.setContent(last, i);
+					tiles.remove(last);
+				}
+				p.sendContentList();
+			}else {
+				break;
 			}
-			p.sendContentList();
+			
 		}
 	}
 	
@@ -75,19 +79,18 @@ public class Bag {
 	public void getTilesBack(LinkedList<Tile> tiles_toadd) {
 		
 		for(Tile p: tiles_toadd) {
-			System.out.print(p.getColorEnum() + " ");
 			tiles.add(p);
 		}
 		
-		//Collections.shuffle(tiles);
-		System.out.println("\nnb of tiles : " + tiles.size());
 	}
 
 
 	public void getTilesBack(Tile p) {
 		tiles.add(p);
-		System.out.print(p.getColorEnum() + " ");
-		System.out.println("\nnb of tiles : " + tiles.size());
+	}
+	
+	public void displayReceived() {
+		System.out.println("Current Size : " + tiles.size());
 	}
 	
 	
