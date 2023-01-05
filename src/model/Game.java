@@ -72,6 +72,8 @@ public class Game {
 		pot.distributeContents();
 		controller.initialiseButtonsPiles();
 		pot.setFirst();
+
+		controller.displayEndOfGame(2, new int[]{0, 0, 0, 0});
 	}
 
 	public void testShuffle() {
@@ -175,8 +177,15 @@ public class Game {
 		}
 		
 		System.out.println("Winner : " + winner);
+		int[] scores = new int[4];
 
-		controller.displayEndOfGame(winner);
+		int i = 0;
+		for(Bord bord : players) {
+			scores[i] = bord.getScore();
+			i++;
+		}
+
+		controller.displayEndOfGame(winner, scores);
 	}
 
 	public void sendMalusFirst(Tile first) {

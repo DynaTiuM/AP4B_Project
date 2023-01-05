@@ -90,7 +90,7 @@ public class Controller {
 		
 	}
 
-	public void displayEndOfGame(int winner) {
-		view_m.displayEndOfGame(winner);
+	public void displayEndOfGame(int winner, int[] scores) {
+		view_m.displayEndOfGame(winner, scores);
 	}
 }
