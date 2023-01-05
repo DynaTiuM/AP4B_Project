@@ -64,7 +64,7 @@ public class MiddlePile {
 			first = false;
 			pot_ref.sendMalusFirst(tiles.getFirst());
 			tiles.removeFirst();
-			System.out.println("SENT MALUS TILE");
+			
 		}
 		
 		
