@@ -84,4 +84,9 @@ public class Controller {
 	public ActionMalus actionMalus() {
 		return new ActionMalus(game_m, view_m);
 	}
+
+	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, int current_player) {
+		view_m.updateViewLine(to_send, previous_index, i, current_player);
+		
+	}
 }

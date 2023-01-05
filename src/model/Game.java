@@ -33,8 +33,8 @@ public class Game {
 		controller = ref;
 		
 		// initialise les Bord avec le nombre de joueurs
-		players = new Bord[4];
-		for(int i = 0; i < 4; i++) players[i] = new Bord(i, this);
+		players = new Bord[nb_player];
+		for(int i = 0; i < nb_player; i++) players[i] = new Bord(i, this);
 		
 		// initialise le Pot en fonction du nombre de joueurs 
 		pot = new Pot(nb_player, this);
@@ -64,7 +64,6 @@ public class Game {
 	
 	// Indique la fin d'un tour de jeu et passe au joueur suivant
 	public void endOfSet() {
-		
 		// Appelle la méthode endOfSet() de chaque joueur
 		for(Bord p: players) {
 			p.endOfSet();
@@ -181,6 +180,11 @@ public class Game {
 
 	public void sendMalusFirst(Tile first) {
 		players[current_player].sendMalusFirst(first);
+		
+	}
+
+	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i) {
+		controller.updateViewLine(to_send, previous_index, i, current_player);
 		
 	}
 	

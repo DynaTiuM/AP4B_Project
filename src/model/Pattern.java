@@ -56,7 +56,7 @@ public class Pattern {
 	public void determineSendingPlace(int index, Tile to_place) {
 		int i = 0;
 		while(i < 5) {
-			System.out.print("index : " + index + ", i : " + i);
+			//System.out.print("index : " + index + ", i : " + i);
 			if(grid[index][i].getColorEnum() != to_place.getColorEnum()) 
 				i++;
 			else {
@@ -75,18 +75,19 @@ public class Pattern {
 		//let's suppose we won't encounter any segmenation fault
 		grid[index][indexy].setOccupiedTrue();
 		
-		boolean first = false;
+		boolean first_line = false;
+		boolean first_column = false;
 		
 		int x = index;
 		int y = indexy;
 		
-		int total = 0;
+		int total = 1;
 		
 		x = index-1;
 		
 		while(x > -1) {
 			if(grid[x][indexy].getOccupied()) {
-				first = true;
+				first_line = true;
 				total++;
 				x = x-1;
 				//System.out.print(x + " ");
@@ -99,7 +100,7 @@ public class Pattern {
 		
 		while(x <5) {
 			if(grid[x][indexy].getOccupied()) {
-				first = true;
+				first_line = true;
 				total++;
 				x++;
 				//System.out.print(x + " ");
@@ -108,18 +109,13 @@ public class Pattern {
 			}
 		}
 		
-		if(first) {
-			total++;
-			first = false;
-		}
 		
-		first = false;
 		
 		y = indexy-1;
 		
 		while(y > -1) {
 			if(grid[index][y].getOccupied()) {
-				first = true;
+				first_column = true;
 				total++;
 				y = y - 1;
 				//System.out.print(y + " ");
@@ -132,7 +128,7 @@ public class Pattern {
 		
 		while(y <5) {
 			if(grid[index][y].getOccupied()) {
-				first = true;
+				first_column = true;
 				total++;
 				y++;
 				//System.out.print(y + " ");
@@ -141,12 +137,11 @@ public class Pattern {
 			}
 		}
 		
-		if(first) {
-			total++;
-		}
+		if(first_column && first_line) total++;
 		
 		score +=total;
-		System.out.println("updated score : " + score);
+		//System.out.println("\nupdated score : " + score);
+	
 		
 		
 		//this.display();
@@ -156,7 +151,7 @@ public class Pattern {
 	public void substract(int malus) {
 		score -= malus;
 		if(score<0) score = 0;
-		System.out.println("Score with malus : " + score);
+		//System.out.println("Score with malus : " + score);
 	}
 	
 	public void calculateEndOfGameBonuses() {

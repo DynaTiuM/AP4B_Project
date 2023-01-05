@@ -10,7 +10,7 @@ import javax.swing.JButton;
 
 import controller.ActionSelectionMiddlePile;
 import model.Tile;
-
+import model.ColorEnum;
 public class MiddlePile {
 	private static final int RECT_SIZE = Bord.RECT_SIZE;
 	private int offsetY = 0;
@@ -75,18 +75,24 @@ public class MiddlePile {
   			}
   			
   			// For every tile, we associate it a button
+  			
   			JButton button_tile = new JButton();
   			button_tile.setBounds(position.getX() + offsetX, position.getY() + this.offsetY, (int)(RECT_SIZE/1.5), (int)(RECT_SIZE/1.5));
-  			
   			int ID = tiles.size();
   			
   			// Initiation of every button, with their ID and an ActionListener
   			initiateButton(button_tile, ID);
   			
+  			if(p.getColorEnum() == ColorEnum.MALUS) {
+  				button_tile.setVisible(false);
+  				button_tile.setEnabled(false);
+  			}
+  			
   			// We add the couple Tile_View/JButton into a HashMap
   			tiles.put(tile, button_tile);
   			pot_m.addT(tile);
   			pot_m.addB(button_tile);
+  			
   			
   			offsetX += RECT_SIZE;
   			if (offsetX >= 7* RECT_SIZE) {

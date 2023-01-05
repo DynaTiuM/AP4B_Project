@@ -30,12 +30,13 @@ public class Malus {
 	}
 	
 	public void addTile(LinkedList<Tile> tiles) {
-
+		previous_index = current_index;
 		for(Tile p: tiles) {
 			if(current_index < 7) {
 				line[current_index] = p;
 
-				previous_index = current_index;
+				
+				
 				current_index++;
 			}else {
 				bord_ref.sendToBag(p);
@@ -73,7 +74,6 @@ public class Malus {
 			badpoints += penalty[i];
 		}
 		
-		this.bord_ref.clearMalusView();
 		
 		return badpoints;
 	}
@@ -99,13 +99,13 @@ public class Malus {
 	public LinkedList<Tile> getContent(){
 		to_send.clear();
 		// Improved form
-		to_send.addAll(Arrays.asList(line).subList(0, current_index));
-		/*
-		 Version before :
-		 for(int i = 0; i< current_index; i++)
+		//to_send.addAll(Arrays.asList(line).subList(previous_index, current_index));
+		
+		 
+		 for(int i = previous_index; i< current_index; i++)
 		 	to_send.add(line[i]);
 
-		*/
+		
 		return to_send;
 	}
 		

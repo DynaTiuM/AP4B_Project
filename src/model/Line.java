@@ -81,39 +81,41 @@ public class Line {
 	public void addChoice(LinkedList<Tile> tiles) {
 		
 		int previous_malus = malus_m.getPrevious();
+		boolean modified = false;
 		
 		int i = current_index;
 		for(Tile p: tiles) {
 			if(i < size) {
 					//addColor(p);
-				System.out.println("added to line");
+				//System.out.println("added to line");
 				setTileIndex(i, p);
 				i++;
 			}else { // les "Tile" en trop sont mise dans le malus 
-				System.out.println("added to malus");
+				//System.out.println("added to malus");
 				
 				malus_m.addTile(p);
+				modified = true;
 				
 			}
 		}
 		
 		previous_index = current_index;
-		System.out.println("Previous index " + previous_index);
+		//System.out.println("Previous index " + previous_index);
 		current_index = i;
-		System.out.println("Current index " + current_index);
+		//System.out.println("Current index " + current_index);
 		malus_m.setPrevious(previous_malus);
 		
-		updateViewLine();
+		updateViewLine(modified);
 	}
 	
-	private void updateViewLine() {
-		System.out.println("Start of updateViewLine : Line");
+	private void updateViewLine(boolean modified) {
+		//System.out.println("Start of updateViewLine : Line");
 		LinkedList<Tile> to_send = new LinkedList<Tile>();
 		
 		for(int i = previous_index; i<current_index; i++) {
 			to_send.add(linearray[i]);
 		}
-		this.bord_m.updateViewLine(to_send, previous_index, this.size - 1);
+		this.bord_m.updateViewLine(to_send, previous_index, this.size - 1, modified);
 	}
 
 	// permet d'ajouter une "Tile" à la "Line"
@@ -122,7 +124,7 @@ public class Line {
 			setTileIndex(current_index, tile);
 			previous_index = current_index;
 			current_index++;
-			updateViewLine();
+			//updateViewLine();
 	}
 	
 	// check si la ligne est pleine

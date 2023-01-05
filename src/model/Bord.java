@@ -170,7 +170,6 @@ public class Bord {
 			game_ref.sendToBag(malus_grid_m.clear());
 		}
 
-		//game_ref.updateMalusToView(playerID);
 		
 		if(update) {
 			pattern_grid_m.sendPattern();
@@ -178,6 +177,7 @@ public class Bord {
 		
 		System.out.println("END OF ROUND!");
 		
+		this.game_ref.clearMalusView(playerID);
 		//display();
 	}
 	
@@ -188,9 +188,14 @@ public class Bord {
 	}
 
 
-	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i) {
+	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, boolean modified) {
 		// TODO Auto-generated method stub
-		this.game_ref.updateViewLine(to_send, previous_index, i, malus_grid_m.getContent(), malus_grid_m.getPrevious());
+		if(modified) {
+			this.game_ref.updateViewLine(to_send, previous_index, i, malus_grid_m.getContent(), malus_grid_m.getPrevious());
+		}else {
+			this.game_ref.updateViewLine(to_send, previous_index, i);
+		}
+		
 	}
 
 	public void updatePatternView(HashMap<Tile, Position> to_send) {
@@ -205,6 +210,7 @@ public class Bord {
 	}
 
 	public void clearMalusView(){
+		System.out.print("PLAYERD ID : Malus " + playerID);
 		this.game_ref.clearMalusView(playerID);
 	}
 

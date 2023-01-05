@@ -68,8 +68,9 @@ public class Malus {
   }
 
 public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
+	//int temp = previous_index_2;
 	int temp = previous_index_2;
-	System.out.println("malus_view");
+	System.out.println("PREVIOUS INDEX GYIGIYGIIYHUIHIGIYGIYGYIGYIGIYGYIGYIGYIGIYGIYGIYGIYGIYGYIGYIGY\n " + previous_index_2);
 	for(Tile p: linkedList) {
 		switch (p.getColorEnum()){
 		  case O: tiles[temp] = new Orange(new Position(position.getX() + 5 + (int)(RECT_WIDTH *temp), position.getY() + (int)(RECT_HEIGHT /2.5))); 
@@ -83,6 +84,17 @@ public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
 		  case G: tiles[temp] = new Green(new Position(position.getX() + 5 + (int)(RECT_WIDTH *temp), position.getY() + (int)(RECT_HEIGHT /2.5)));
 			  break;
 		  case MALUS: tiles[temp] = new MalusTile(new Position(position.getX() + 5 + (int)(RECT_WIDTH *temp), position.getY() + (int)(RECT_HEIGHT /2.5)));
+		  System.out.println("Dame dame, dame yo, dame damo yo, baka mitai");
+		  System.out.println("______________________________________________");
+		  System.out.println("______________________________________________");
+		  System.out.println("______________________________________________");
+		  System.out.println("______________________________________________");
+		  System.out.println("______________________________________________");
+		  System.out.println("______________________________________________");
+		  System.out.println("______________________________________________");
+		  System.out.println("______________________________________________");
+		  System.out.println("______________________________________________");
+		  System.out.println("______________________________________________");
 		  	  break;
 		  }
 		System.out.println("TEMP " + temp);
@@ -90,7 +102,7 @@ public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
 		  if(tiles[temp] != null) view_m.getPanel().addT(tiles[temp]);
 		  temp++;
 		  if(temp >= 7) {
-			  return;
+			  break;
 		  }
 	}
 	//System.out.println("\nend of malus_view");
@@ -106,11 +118,15 @@ public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
 
 	public void clearMalus() {
 		for(Tile_View tile : tiles) {
-			System.out.println("FOUND TILE : " + tile);
-			if(tile != null) view_m.getPanel().removeT(tile);
+			if(tile != null) {
+				System.out.println("FOUND TILE : " + tile);
+				view_m.getPanel().removeT(tile);
+			}
 		}
 		for(Tile_View tile : tiles) {
 			tile = null;
 		}
+		
+		view_m.getPanel().repaint();
 	}
 }

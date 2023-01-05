@@ -42,7 +42,7 @@ public class View extends JFrame {
 
         //Empecher l'utilisateur de redimensioner la fenetre
         setResizable(false);
-        //Afficher la fenetre au centre de l'�crant
+        //Afficher la fenetre au centre de l'ï¿½crant
         setLocationRelativeTo(null);
 
         setTitle("Azul");
@@ -62,7 +62,6 @@ public class View extends JFrame {
             bords[3] = new Bord(new Position(WIDTH - Bord.BORD_SIZE - 50, HEIGHT -Bord.BORD_SIZE - 50), this, 3);
         }
         //getContentPane().add(center);
-        bords[0].setButtons(true);
 
         // Create the Pot object
         pot_m = new Pot(new Position(WIDTH/2, HEIGHT/2), (numberOfPlayers * 2) + 1, this);
@@ -149,6 +148,11 @@ public class View extends JFrame {
     public ActionMalus actionMalus() {
     	return controller_ref.actionMalus();
     }
+
+	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, int current_player) {
+		bords[current_player].updateViewLine(to_send, previous_index, i);
+		
+	}
 }
 
 
@@ -207,6 +211,7 @@ class ViewPanel extends JPanel {
     }
 
     public void removeT(Tile_View tile) {
+    	
         this.remove(tile);
         this.repaint();
     }
@@ -216,9 +221,9 @@ class ViewPanel extends JPanel {
     	this.repaint();
     }
 
-  //Cette fonction est appel�e pour afficher en grand le Bord du joueur actif avec des boutons
+  //Cette fonction est appelï¿½e pour afficher en grand le Bord du joueur actif avec des boutons
     public void updateBordPopUp(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
-    	// Cr�er un panel pour afficher le bord en grand
+    	// Crï¿½er un panel pour afficher le bord en grand
 
         panel = new PopupPanel(view_ref, pattern, malus, grid, hand);
         JDialog dialog = new JDialog((JFrame)null, "Bord en grand", true);
@@ -229,7 +234,7 @@ class ViewPanel extends JPanel {
         dialog.setVisible(true);
         panel.setLayout(new BorderLayout());
 
-        // Afficher la fen�tre pop-up avec le panel contenant le bord en grand
+        // Afficher la fenï¿½tre pop-up avec le panel contenant le bord en grand
 
         //JOptionPane.showMessageDialog(null, panel, "Bord en grand", JOptionPane.PLAIN_MESSAGE);
 
@@ -275,11 +280,9 @@ class PopupPanel extends JPanel {
     private final Malus malus;
     private final JButton[] buttons;
 
-    private final Position patternPosition = new Position(10 + POPUP_BORD_SIZE / 2, POPUP_RECT_SIZE*4);
-    private final Position gridPosition = new Position(POPUP_RECT_SIZE, POPUP_RECT_SIZE*4);
-    private final Position malusPosition = new Position(18, POPUP_BORD_SIZE - POPUP_RECT_SIZE * 2 - 20);
-    
-    private final static int TILE_SIZE = 30;
+    private final Position patternPosition = new Position(10 + POPUP_BORD_SIZE / 2, POPUP_BORD_SIZE / 3);
+    private final Position gridPosition = new Position(POPUP_RECT_SIZE, POPUP_BORD_SIZE / 3);
+    private final Position malusPosition = new Position(18, POPUP_BORD_SIZE - POPUP_BORD_SIZE / 6 - 20);
 
     // Constructor that takes in image, bords array, and pot object
     public PopupPanel(View view_ref, Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
@@ -321,8 +324,6 @@ class PopupPanel extends JPanel {
 
         }
 
-
-
         ImageIcon icon2 = new ImageIcon("src\\Images\\ButtonLines2.png");
 
         // Create the timer to blink the buttons
@@ -351,7 +352,7 @@ class PopupPanel extends JPanel {
 
         // Start the timer
         blinkTimer.start();
-        
+
         updateBord(pattern, malus, grid, hand);
         
     }
@@ -363,30 +364,34 @@ class PopupPanel extends JPanel {
 
 	public void updateBord(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
     	
-    	int offsetX = 12;
-    	int offsetY = 12;
+    	int offsetX = -POPUP_RECT_SIZE;
+    	int offsetY = -POPUP_RECT_SIZE;
     	
     	// Printing tiles of pattern
     	for(int y = 0; y < 5; y++) {
     		for(int x = 0; x < 5; x++) {
-    			if(pattern[y][x].getOccupied())
-	    			switchEnum(pattern[y][x], offsetX, offsetY, 1, 1, patternPosition);
+    			if(pattern[y][x].getOccupied()){
+                    switchEnum(pattern[y][x], offsetX, offsetY, 1, 1, patternPosition);
+                }
+                offsetX += POPUP_RECT_SIZE;
     		}
+            offsetX = -POPUP_RECT_SIZE;
+            offsetY += POPUP_RECT_SIZE;
     	}
     	
-    	offsetX = -18;
-    	offsetY = 35;
+    	offsetX = - POPUP_RECT_SIZE + 12;
+    	offsetY = 35 - POPUP_RECT_SIZE ;
     	
     	// Printing tiles of malus
     	for(Tile t : malus) {
     		if(t != null) {
-    			switchEnum(t, offsetX, -TILE_SIZE + offsetY, 1, 1, malusPosition);
-    			offsetX = 40;
+    			switchEnum(t, offsetX, offsetY, 1, 1, malusPosition);
+    			offsetX += 63;
     		}
     	}
     	
-    	offsetX = 12;
-    	offsetY = 12;
+    	offsetX = 0;
+    	offsetY = 0;
     	
     	// Printing tiles of grid
     	for(Line line : grid) {
@@ -411,17 +416,17 @@ class PopupPanel extends JPanel {
     	Tile_View tile = null;    	
 
     	switch (t.getColorEnum()){
-			case O: tile = new Orange(new Position(position.getX() + x * (TILE_SIZE + offsetX), position.getY() + y * (TILE_SIZE + offsetY)), true);
+			case O: tile = new Orange(new Position(position.getX() + x * (POPUP_RECT_SIZE + offsetX), position.getY() + y * (POPUP_RECT_SIZE + offsetY)), true);
 				break;
-			case M: tile = new Purple(new Position(position.getX() + x * (TILE_SIZE + offsetX), position.getY() + y * (TILE_SIZE + offsetY)), true);
+			case M: tile = new Purple(new Position(position.getX() + x * (POPUP_RECT_SIZE + offsetX), position.getY() + y * (POPUP_RECT_SIZE + offsetY)), true);
 				break;
-			case B: tile = new Blue(new Position(position.getX() + x * (TILE_SIZE + offsetX), position.getY() + y * (TILE_SIZE + offsetY)), true);
+			case B: tile = new Blue(new Position(position.getX() + x * (POPUP_RECT_SIZE + offsetX), position.getY() + y * (POPUP_RECT_SIZE + offsetY)), true);
 				break;
-			case Y: tile = new Yellow(new Position(position.getX() + x * (TILE_SIZE + offsetX), position.getY() + y * (TILE_SIZE + offsetY)), true);
+			case Y: tile = new Yellow(new Position(position.getX() + x * (POPUP_RECT_SIZE + offsetX), position.getY() + y * (POPUP_RECT_SIZE + offsetY)), true);
 				break;
-			case G: tile = new Green(new Position(position.getX() + x * (TILE_SIZE + offsetX), position.getY() + y * (TILE_SIZE + offsetY)), true);
+			case G: tile = new Green(new Position(position.getX() + x * (POPUP_RECT_SIZE + offsetX), position.getY() + y * (POPUP_RECT_SIZE + offsetY)), true);
 				break;
-			case MALUS: tile = new MalusTile(new Position(position.getX() + x * (TILE_SIZE + offsetX), position.getY() + y * (TILE_SIZE + offsetY)), true);
+			case MALUS: tile = new MalusTile(new Position(position.getX() + x * (POPUP_RECT_SIZE + offsetX), position.getY() + y * (POPUP_RECT_SIZE + offsetY)), true);
 		}
 		this.add(tile);
     }

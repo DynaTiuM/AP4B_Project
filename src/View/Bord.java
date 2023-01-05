@@ -31,27 +31,28 @@ public class Bord{
 	  }
 
 	  public void draw(Graphics g) {
-	    ImageIcon icon = new ImageIcon("src\\Images\\Bord.png");
-	    if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
-	      // There was an error loading the image
-	    } else {
-	      // The image was successfully loaded
-	      Image bord = icon.getImage();
-	      g.drawImage(bord, position.getX(), position.getY(), BORD_SIZE, BORD_SIZE, null);
-	      
-	    }
-	    malus.draw(g);
-	    playGrid.draw(g);
-	    pattern.draw(g);
-		try{
-			int score = view_ref.getScore(playerID);
-			Font font = new Font("Arial", Font.PLAIN, 50);
-			g.setFont(font);
-			g.drawString(String.valueOf(score), position.getX(), position.getY());
-		}catch (Exception e) {
-			System.out.println("Game not initialized !");
-		}
-	  }
+		    ImageIcon icon = new ImageIcon("src\\Images\\Bord.png");
+		    if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
+		      // There was an error loading the image
+		    } else {
+		      // The image was successfully loaded
+		      Image bord = icon.getImage();
+		      g.drawImage(bord, position.getX(), position.getY(), BORD_SIZE, BORD_SIZE, null);
+		      
+		    }
+		    malus.draw(g);
+		    playGrid.draw(g);
+		    pattern.draw(g);
+			try{
+				int score = view_ref.getScore(playerID);
+			    //g.setColor(Color.getHSBColor(45, 65, 41));
+				Font font = new Font("Arial", Font.PLAIN, 25);
+				g.setFont(font);
+				g.drawString("Score: " +String.valueOf(score), position.getX() + BORD_SIZE/2 + 15, position.getY() + 50);
+			}catch (Exception e) {
+				System.out.println("Game not initialized !");
+			}
+		  }
 	  
 	  public void addT(Tile_View tile) {
 		  view_ref.getPanel().addT(tile);
@@ -79,12 +80,16 @@ public class Bord{
 	}
 
 	public void updateMalus(LinkedList<Tile> to_send, int previous_index) {
-
 		if(previous_index < 7) malus.updateViewLine(to_send, previous_index);
 	}
 
 	public void clearMalus(){
 		  malus.clearMalus();
+	}
+
+	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i) {
+		playGrid.updateViewLine(to_send, previous_index, i);
+		
 	}
 
 	

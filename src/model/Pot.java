@@ -26,7 +26,7 @@ public class Pot {
 		
 		bag = new Bag(piles);
 		
-		display();
+		//display();
 	}
 	
 	public void sendAddedTilesToView(LinkedList<Tile> to_add, int previous_index, boolean delete) {
