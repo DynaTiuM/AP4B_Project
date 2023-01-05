@@ -28,7 +28,6 @@ public class ActionSelectionTile implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("TILE : " + ID + ", PILE : " + numberPile);
 		model.setTilesSelectedToHand(numberPile, ID);
 		open();
 	}
