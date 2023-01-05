@@ -119,7 +119,6 @@ public void updateViewLine(Tile[] malus) {
 		for(Tile_View tile : tiles) {
 			tile = null;
 		}
-		
 		view_m.getPanel().repaint();
 	}
 
