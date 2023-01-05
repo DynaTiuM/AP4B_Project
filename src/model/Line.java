@@ -64,7 +64,6 @@ public class Line {
 	}
 	
 	public int getLength() {
-		System.out.println("LENGTH : " + length);
 		return this.length;
 	}
 	
