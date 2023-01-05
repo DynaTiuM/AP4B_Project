@@ -89,4 +89,8 @@ public class Controller {
 		view_m.updateViewLine(to_send, previous_index, i, current_player);
 		
 	}
+
+	public void displayEndOfGame(int winner) {
+		view_m.displayEndOfGame(winner);
+	}
 }

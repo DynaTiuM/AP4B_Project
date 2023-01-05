@@ -91,6 +91,11 @@ public class View extends JFrame {
     public void updatePile(LinkedList<Tile> to_update, int index) {
         pot_m.updatePile(to_update, index);
     }
+
+    public void displayEndOfGame(int winner){
+        this.getPanel().displayEndOfGame(winner);
+    }
+
     public ViewPanel getPanel() {
         return this.ContentPanel;
     }
@@ -245,24 +250,32 @@ class ViewPanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // Draw image 
+        draw(g);
+    }
+
+    private void draw(Graphics g) {
+        // Draw image
         g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-        // Draw bords 
+        // Draw bords
         for (Bord bord : bords) {
             bord.draw(g);
         }
         pot.draw(g);
-        
+
         //Modification de la couleur et de la police de g
         g.setFont(font);
         g.setColor(Color.RED);
         try{
-        	g.drawString("Tour du joueur " + (controller_ref.getCurrentPlayer() + 1), 400, 650);
+            g.drawString("Tour du joueur " + (controller_ref.getCurrentPlayer() + 1), 400, 650);
         }catch (Exception e) {
-			System.out.println("Game not initialized !");
-		}
+            System.out.println("Game not initialized !");
+        }
         //On remet g a le couleur de base;
         g.setColor(Color.BLACK);
+    }
+
+    public void displayEndOfGame(int winner) {
+
     }
 }
 
@@ -291,8 +304,7 @@ class PopupPanel extends JPanel {
         this.playGrid = new PlayGrid(gridPosition, view_ref, POPUP_RECT_SIZE);
         this.pattern = new Pattern(patternPosition, view_ref,  POPUP_RECT_SIZE);
         this.malus = new Malus(malusPosition, view_ref, POPUP_RECT_SIZE);
-        
-        
+
         //Add the buttons of the Piles and middle pile
         JButton malusButton = this.malus.getMalusButton();
         this.add(malusButton);
@@ -403,13 +415,22 @@ class PopupPanel extends JPanel {
     				// The color of the tile selected is different from the color of tiles on the line
     				// Or the line is already full :
     				// We need to disable the button of this line
-    				if(!line.isPossible(hand) || line.checkFull()) {
+
+                    System.out.println("!!!!!!!!!!!!!!!!!!!!");
+
+
+                    if((!line.isPossible(hand) || line.checkFull())) {
     					buttons[line.getLength() - 1].setVisible(false);
     				}
         		}
     			i++;
     		}
     	}
+        for(Line line : grid){
+            if(line.isAlreadyOnPattern(hand)) {
+                buttons[line.getLength() - 1].setVisible(false);
+            }
+        }
     }
     
     private void switchEnum(Tile t, int offsetX, int offsetY, int x, int y, Position position) {

@@ -142,7 +142,10 @@ public class Line {
 	public boolean isPossible(Tile tile) {
 		return !checkColor(tile) && (tile.getColorEnum()==current_color || current_color == null);
 	}
-	
+
+	public boolean isAlreadyOnPattern(Tile tile){
+		return pattern_m.isAlreadyOnPattern(size, tile);
+	}
 	
 	// check si la couleur a déjà été mise dans cette "Line"
 	public boolean checkColor(Tile tile_p) {

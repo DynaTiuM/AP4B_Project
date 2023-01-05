@@ -16,7 +16,7 @@ public class Malus {
 	private int previous_index;
 	
 	public Malus(Bord bord_p){
-		current_index=0;
+		current_index = 0;
 		previous_index = 0;
 		
 		to_send = new LinkedList<>();
@@ -31,6 +31,7 @@ public class Malus {
 	
 	public void addTile(LinkedList<Tile> tiles) {
 		previous_index = current_index;
+
 		for(Tile p: tiles) {
 			if(current_index < 7) {
 				line[current_index] = p;
@@ -42,7 +43,6 @@ public class Malus {
 				bord_ref.sendToBag(p);
 			}
 		}
-
 	}
 	
 	public void addTile(Tile tile_p) {
@@ -116,7 +116,7 @@ public class Malus {
 		
 		to_send.clear();
 		
-		for(int i =0; i<current_index; i++) {
+		for(int i =0; i < current_index; i++) {
 			to_send.add(line[i]);
 			line[i] = null;
 		}
