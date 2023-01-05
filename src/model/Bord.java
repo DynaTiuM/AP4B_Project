@@ -191,7 +191,7 @@ public class Bord {
 	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, boolean modified) {
 		// TODO Auto-generated method stub
 		if(modified) {
-			this.game_ref.updateViewLine(to_send, previous_index, i, malus_grid_m.getContent(), malus_grid_m.getPrevious());
+			this.game_ref.updateViewLine(to_send, previous_index, i, malus_grid_m.getLine());
 		}else {
 			this.game_ref.updateViewLine(to_send, previous_index, i);
 		}
@@ -205,7 +205,7 @@ public class Bord {
 	public void updateMalus() {
 		this.malus_grid_m.addTile(hand_of_player);
 		//this.malus_grid_m.setPrevious(malus_grid_m.getPrevious() - hand_of_player.size());
-		this.game_ref.updateMalusToView(malus_grid_m.getContent(), malus_grid_m.getPrevious());
+		this.game_ref.updateMalusToView(malus_grid_m.getLine());
 		this.game_ref.nextPlayer();
 	}
 

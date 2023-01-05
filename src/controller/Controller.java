@@ -5,9 +5,7 @@ import java.util.LinkedList;
 
 import View.Position;
 import View.View;
-import model.Game;
-import model.Line;
-import model.Tile;
+import model.*;
 
 public class Controller {
 	private Game game_m;
@@ -38,8 +36,8 @@ public class Controller {
 		view_m.updatePile(to_update, position);
 	}
 
-	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, int current_player, LinkedList<Tile> linkedList, int previous_index_2) {
-		view_m.updateViewLine(to_send, previous_index, i, current_player, linkedList, previous_index_2);
+	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, int current_player, Tile[] malus) {
+		view_m.updateViewLine(to_send, previous_index, i, current_player, malus);
 	}
 	
 	public void updateMiddlePileView(LinkedList<Tile> to_send, int previous_index, boolean delete) {
@@ -50,8 +48,8 @@ public class Controller {
 		view_m.updatePattern(playerID, to_send);
 	}
 	
-	public void updateMalusView(LinkedList<Tile> to_send, int previous_index, int current_player) {
-		view_m.updateMalus(to_send, previous_index, current_player);
+	public void updateMalusView(Tile[] malus, int current_player) {
+		view_m.updateMalus(malus, current_player);
 	}
 
 	public void clearMalusView(int playerID){
@@ -87,17 +85,18 @@ public class Controller {
 
 	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, int current_player) {
 		view_m.updateViewLine(to_send, previous_index, i, current_player);
-		
 	}
-
 
 	public void sendMalusFirstToView(int previous, int current_player) {
 		view_m.sendMalusFirstToView(previous, current_player);
 	}
-		
 
-	public void displayEndOfGame(int winner, int[] scores) {
-		view_m.displayEndOfGame(winner, scores);
+	public void displayEndOfGame(int winner, model.Bord[] bords) {
+		view_m.displayEndOfGame(winner, bords);
 
+	}
+
+	public void stopGame(){
+		game_m = null;
 	}
 }

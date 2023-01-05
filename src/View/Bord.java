@@ -70,17 +70,17 @@ public class Bord{
 	    playGrid.setButton(visible);
 	  }
 
-	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, LinkedList<Tile> linkedList, int previous_index_2) {
+	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, Tile[] malus) {
 		playGrid.updateViewLine(to_send, previous_index, i);
-		if(previous_index_2 < 7) malus.updateViewLine(linkedList, previous_index_2);
+		this.malus.updateViewLine(malus);
 	}
 
 	public void updatePattern(HashMap<Tile, Position> to_send) {
 		pattern.updatePattern(to_send, this.playGrid);
 	}
 
-	public void updateMalus(LinkedList<Tile> to_send, int previous_index) {
-		if(previous_index < 7) malus.updateViewLine(to_send, previous_index);
+	public void updateMalus(Tile[] malus) {
+		this.malus.updateViewLine(malus);
 	}
 
 	public void clearMalus(){

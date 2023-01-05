@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.*;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.awt.event.ActionEvent;
@@ -93,16 +94,16 @@ public class View extends JFrame {
         pot_m.updatePile(to_update, index);
     }
 
-    public void displayEndOfGame(int winner, int[] scores){
-        this.getPanel().displayEndOfGame(winner, scores);
+    public void displayEndOfGame(int winner, model.Bord[] bords){
+        this.getPanel().displayEndOfGame(winner, bords);
     }
 
     public ViewPanel getPanel() {
         return this.ContentPanel;
     }
 
-    public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, int current_player, LinkedList<Tile> linkedList, int previous_index_2) {
-        bords[current_player].updateViewLine(to_send, previous_index, i, linkedList, previous_index_2);
+    public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, int current_player, Tile[] malus) {
+        bords[current_player].updateViewLine(to_send, previous_index, i, malus);
     }
 
     public void updateMiddlePile(LinkedList<Tile> to_send, int previous_index, boolean delete) {
@@ -117,8 +118,8 @@ public class View extends JFrame {
         bords[playerID].updatePattern(to_send);
     }
 
-    public void updateMalus(LinkedList<Tile> to_send, int previous_index, int current_player) {
-        bords[current_player].updateMalus(to_send, previous_index);
+    public void updateMalus(Tile[] malus, int current_player) {
+        bords[current_player].updateMalus(malus);
     }
 
     public void clearMalus(int playerID){
@@ -157,13 +158,16 @@ public class View extends JFrame {
 
 	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, int current_player) {
 		bords[current_player].updateViewLine(to_send, previous_index, i);
-		
 	}
 
 	public void sendMalusFirstToView(int previous, int current_player) {
 		bords[current_player].sendMalusFirstToView(previous);
 		
 	}
+
+    public void stopGame(){
+        controller_ref.stopGame();
+    }
 }
 
 
@@ -281,8 +285,8 @@ class ViewPanel extends JPanel {
         g.setColor(Color.BLACK);
     }
 
-    public void displayEndOfGame(int winner, int[] scores) {
-        JPanel panel = new PopupEnd(view_ref, winner, scores);
+    public void displayEndOfGame(int winner, model.Bord[] bords) {
+        JPanel panel = new PopupEnd(view_ref, winner, bords);
         JDialog dialog = new JDialog((JFrame)null, "", true);
         dialog.setUndecorated(true);
         dialog.add(panel);
@@ -296,15 +300,15 @@ class ViewPanel extends JPanel {
 class PopupEnd extends JPanel {
 
     private int winnerID;
-    private int[] scores;
+    private model.Bord[] bords;
     private View view;
     private final int WIDTH = 500;
     private final int HEIGHT = 500;
 
-    public PopupEnd(View view, int winner, int[] scores) {
+    public PopupEnd(View view, int winner, model.Bord[] bords) {
         this.view = view;
         this.winnerID = winner;
-        this.scores = scores;
+        this.bords = bords;
 
         setLayout(null);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -326,6 +330,30 @@ class PopupEnd extends JPanel {
         playAgain.setBounds(WIDTH/4, HEIGHT - HEIGHT/5, WIDTH/5, HEIGHT/10);
         playAgain.setText("Play again!");
 
+        LinkedList<Integer> scores = new LinkedList<>();
+        LinkedList<Duo> duos = new LinkedList<>();
+
+        for(model.Bord b : bords){
+            scores.add(b.getScore());
+        }
+
+        Collections.sort(scores);
+
+        scores.forEach(s ->{
+            for(model.Bord b : bords){
+                if(s == b.getScore()) {
+                    duos.add(new Duo(b.getID(), b.getScore()));
+                }
+            }
+        });
+
+        int x = WIDTH - 20 - 60;
+        for(int i = 0; i < scores.size(); i++){
+            createLabel(x, 20, "src\\Images\\UVs\\"+ (scores.size() - i) + ".jpg", duos.get(i));
+            x -= 100;
+        }
+
+
         playAgain.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -335,15 +363,67 @@ class PopupEnd extends JPanel {
         this.add(playAgain);
     }
 
+    class Duo {
+        private int ID;
+        private int score;
+        private Duo(int ID, int score) {
+            this.ID = ID;
+            this.score = score;
+        }
+
+        public int getID(){
+            return this.ID;
+        }
+        public int getScore(){
+            return this.score;
+        }
+    }
+
+    public void createLabel(int posX, int posY, String texture, Duo duo) {
+        JLabel uv = new JLabel();
+        uv.setBounds(posX, posY, 60, 60);
+        ImageIcon icon = new ImageIcon(texture);
+        Image image = icon.getImage();
+        Image newimg = image.getScaledInstance(60, 60,  java.awt.Image.SCALE_SMOOTH);
+        icon = new ImageIcon(newimg);
+
+        JLabel text = new JLabel();
+        JLabel text2 = new JLabel();
+        text.setText("Player " + (duo.getID() + 1));
+        text2.setText("Score : " + duo.getScore());
+        text.setFont(new Font("Serif", Font.BOLD, 10));
+        text2.setFont(new Font("Serif", Font.BOLD, 10));
+        text.setBounds(posX, posY + 40, 80, 60);
+        text2.setBounds(posX, posY + 80, 80, 60);
+
+        if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
+            // There was an error loading the image
+            assert false : "Error during loading the texture";
+        } else {
+            // The image was successfully loaded
+            uv.setIcon(icon);
+
+        }
+        this.add(uv);
+        this.add(text);
+        this.add(text2);
+        System.out.println("LABELLLL");
+        uv.setVisible(true);
+        text.setVisible(true);
+    }
+
     private void newGame() {
+        view.stopGame();
         SwingUtilities.getWindowAncestor(this).dispose();
         view.dispose();
         new MenuFrame();
     }
 
     private void quit(){
+        view.stopGame();
         SwingUtilities.getWindowAncestor(this).dispose();
         view.dispose();
+        System.exit(1);
     }
 }
 
@@ -401,7 +481,6 @@ class PopupPanel extends JPanel {
                     button.setIcon(icon);
                 }
             }
-
         }
 
         ImageIcon icon2 = new ImageIcon("src\\Images\\ButtonLines2.png");

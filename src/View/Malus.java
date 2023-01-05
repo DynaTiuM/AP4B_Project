@@ -67,32 +67,35 @@ public class Malus {
     button.setVisible(value);
   }
 
-public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
+public void updateViewLine(Tile[] malus) {
+	clearMalus();
+	int temp = 0;
 
-	int temp = previous_index_2;
-	System.out.println("PREVIOUS INDEX GYIGIYGIIYHUIHIGIYGIYGYIGYIGIYGYIGYIGYIGIYGIYGIYGIYGIYGYIGYIGY\n " + previous_index_2);
+	for(Tile p: malus) {
+		if(p != null){
+			switch (p.getColorEnum()){
+				case O: tiles[temp] = new Orange(new Position(position.getX() + 5 + (int)(RECT_WIDTH *temp), position.getY() + (int)(RECT_HEIGHT /2.5)));
+					break;
+				case M: tiles[temp] = new Purple(new Position(position.getX() + 5 +(int)(RECT_WIDTH *temp), position.getY() + (int)(RECT_HEIGHT /2.5)));
+					break;
+				case B: tiles[temp] = new Blue(new Position(position.getX() + 5 +(int)(RECT_WIDTH *temp), position.getY() + (int)(RECT_HEIGHT /2.5)));
+					break;
+				case Y: tiles[temp] = new Yellow(new Position(position.getX() + 5 +(int)(RECT_WIDTH *temp), position.getY() + (int)(RECT_HEIGHT /2.5)));
+					break;
+				case G: tiles[temp] = new Green(new Position(position.getX() + 5 + (int)(RECT_WIDTH *temp), position.getY() + (int)(RECT_HEIGHT /2.5)));
+					break;
 
-	for(Tile p: linkedList) {
-		switch (p.getColorEnum()){
-		  case O: tiles[temp] = new Orange(new Position(position.getX() + 5 + (int)(RECT_WIDTH *temp), position.getY() + (int)(RECT_HEIGHT /2.5))); 
-		  	break;
-		  case M: tiles[temp] = new Purple(new Position(position.getX() + 5 +(int)(RECT_WIDTH *temp), position.getY() + (int)(RECT_HEIGHT /2.5)));
-		  	break;
-		  case B: tiles[temp] = new Blue(new Position(position.getX() + 5 +(int)(RECT_WIDTH *temp), position.getY() + (int)(RECT_HEIGHT /2.5)));
-		  	break;
-		  case Y: tiles[temp] = new Yellow(new Position(position.getX() + 5 +(int)(RECT_WIDTH *temp), position.getY() + (int)(RECT_HEIGHT /2.5)));
-		  	break;
-		  case G: tiles[temp] = new Green(new Position(position.getX() + 5 + (int)(RECT_WIDTH *temp), position.getY() + (int)(RECT_HEIGHT /2.5)));
-			  break;
+			}
+			System.out.println("TEMP " + temp);
+			System.out.print(p.getColorEnum() + " / ");
+			if(tiles[temp] != null) view_m.getPanel().addT(tiles[temp]);
 
-		  }
-		System.out.println("TEMP " + temp);
-		System.out.print(p.getColorEnum() + " / ");
-		  if(tiles[temp] != null) view_m.getPanel().addT(tiles[temp]);
-		  temp++;
-		  if(temp >= 7) {
-			  break;
-		  }
+		}
+		temp++;
+		if(temp >= 7) {
+			break;
+		}
+
 	}
 	//System.out.println("\nend of malus_view");
 	

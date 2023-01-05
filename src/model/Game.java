@@ -73,7 +73,7 @@ public class Game {
 		controller.initialiseButtonsPiles();
 		pot.setFirst();
 
-		controller.displayEndOfGame(2, new int[]{0, 0, 0, 0});
+		//controller.displayEndOfGame(2, players);
 	}
 
 	public void testShuffle() {
@@ -96,8 +96,8 @@ public class Game {
 		controller.updatePile(to_send, index);
 	}
 
-	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, LinkedList<Tile> linkedList, int previous_index_2) {
-		controller.updateViewLine(to_send, previous_index, i, current_player, linkedList, previous_index_2);
+	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, Tile[] malus) {
+		controller.updateViewLine(to_send, previous_index, i, current_player, malus);
 	}
 	
 	public void updateMiddlePileView(LinkedList<Tile> to_add, int previous_index, boolean delete) {
@@ -108,8 +108,8 @@ public class Game {
 		controller.updatePatternView(playerID, to_send);
 	}
 	
-	public void updateMalusToView(LinkedList<Tile> to_send, int previous_index) {
-		controller.updateMalusView(to_send, previous_index, current_player);
+	public void updateMalusToView(Tile[] malus) {
+		controller.updateMalusView(malus, current_player);
 	}
 
 	public void clearMalusView(int playerID){
@@ -177,15 +177,9 @@ public class Game {
 		}
 		
 		System.out.println("Winner : " + winner);
-		int[] scores = new int[4];
 
-		int i = 0;
-		for(Bord bord : players) {
-			scores[i] = bord.getScore();
-			i++;
-		}
 
-		controller.displayEndOfGame(winner, scores);
+		controller.displayEndOfGame(winner, players);
 	}
 
 	public void sendMalusFirst(Tile first) {
