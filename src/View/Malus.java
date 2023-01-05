@@ -84,6 +84,8 @@ public void updateViewLine(Tile[] malus) {
 					break;
 				case G: tiles[temp] = new Green(new Position(position.getX() + 5 + (int)(RECT_WIDTH *temp), position.getY() + (int)(RECT_HEIGHT /2.5)));
 					break;
+				case MALUS : tiles[temp] = new MalusTile(new Position(position.getX() + 5 + (int)(RECT_WIDTH *temp), position.getY() + (int)(RECT_HEIGHT /2.5)));
+					break;
 
 			}
 
