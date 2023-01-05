@@ -116,7 +116,6 @@ public void updateViewLine(LinkedList<Tile> linkedList, int previous_index_2) {
 		for(Tile_View tile : tiles) {
 			tile = null;
 		}
-		
 		view_m.getPanel().repaint();
 	}
 

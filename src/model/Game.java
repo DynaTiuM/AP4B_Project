@@ -73,7 +73,7 @@ public class Game {
 		controller.initialiseButtonsPiles();
 		pot.setFirst();
 
-		controller.displayEndOfGame(2, new int[]{0, 0, 0, 0});
+		//controller.displayEndOfGame(2, new int[]{0, 0, 0, 0});
 	}
 
 	public void testShuffle() {
