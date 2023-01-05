@@ -12,18 +12,18 @@ import View.Position;
 //Le plateau est composé de 5 lignes, d'une grille de malus et d'une grille de motifs.
 public class Bord {
 	
-	private Line[] play_grid;
-	private Malus malus_grid_m;
-	private Pattern pattern_grid_m;
+	private final Line[] play_grid;
+	private final Malus malus_grid_m;
+	private final Pattern pattern_grid_m;
 	
 	//TODO SUPPRESS
 	private int TEST_LINE;
 	
 	// Référence du "Game" auquel appartient le "Bord".
-	private Game game_ref;
+	private final Game game_ref;
 	
 	// Identifiant du joueur associé à ce "Bord"
-	private int playerID;
+	private final int playerID;
 	
 	// Numéro de la "Line" actuellement sélectionnée
 	private int current;

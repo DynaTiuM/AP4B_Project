@@ -4,15 +4,15 @@ import java.util.LinkedList;
 
 public class Pile {
 	
-	private Tile[] tiles;
+	private final Tile[] tiles;
 	
-	private LinkedList<Tile> tiles_bord;
-	private LinkedList<Tile> tiles_middle;
+	private final LinkedList<Tile> tiles_bord;
+	private final LinkedList<Tile> tiles_middle;
 
-	private MiddlePile middle_ref;
-	private Game game_ref;
+	private final MiddlePile middle_ref;
+	private final Game game_ref;
 	
-	private int index;
+	private final int index;
 	
 	
 	

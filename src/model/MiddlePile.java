@@ -10,13 +10,13 @@ public class MiddlePile {
 	private int previous_index = 0;
 
 	// Liste de "Tile" qui constitue la pile
-	private LinkedList<Tile> tiles;
+	private final LinkedList<Tile> tiles;
 	
 	// Liste de "Tile" qui est utilisée pour stocker une sélection de "Tile" en fonction de leur couleur
-	private LinkedList<Tile> selection;
+	private final LinkedList<Tile> selection;
 	
 	// Référence à un objet Pot
-	private Pot pot_ref;
+	private final Pot pot_ref;
 	
 	// Indique si on a déjà pris des "Tile" dans la pile
 	private boolean first;
@@ -25,8 +25,8 @@ public class MiddlePile {
 	// Constructeur qui prend une référence à un objet Pot en paramètre
 	public MiddlePile(Pot ref) {
 		
-		tiles = new LinkedList<Tile>();
-		selection = new LinkedList<Tile>();
+		tiles = new LinkedList<>();
+		selection = new LinkedList<>();
 		
 		pot_ref = ref;
 		

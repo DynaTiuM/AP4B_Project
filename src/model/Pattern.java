@@ -9,10 +9,10 @@ import View.Position;
 
 public class Pattern {
 
-	private Tile[][] grid;
+	private final Tile[][] grid;
 	private Color[] new_colorpos;
-	private HashMap<Tile, Position> newTiles;
-	private Bord bord_ref;
+	private final HashMap<Tile, Position> newTiles;
+	private final Bord bord_ref;
 	private int score;
 
 	private boolean end_trigger;
@@ -23,7 +23,7 @@ public class Pattern {
 		newTiles = new HashMap<>();
 		this.bord_ref = bord;
 		grid = new Tile[5][5];
-		
+
 		new_colorpos = new Color[5];
 
 		grid[0][0] = new Tile(Color.MAGENTA);

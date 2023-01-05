@@ -11,13 +11,10 @@ public class Bag {
 	
 	
 	private static LinkedList<Tile> tiles;
-	private Pile[] allPiles;
-	private Pot pot_ref;
-
+	private final Pile[] allPiles;
 	
 	// constructeur de la classe "Bag"
-	public Bag(Pile[] piles, Pot pot) {
-		pot_ref = pot;
+	public Bag(Pile[] piles) {
 		allPiles = piles;
 		initialiseTiles(); // on initialise les tiles du bag
 		this.distributeContents(); // on remplit les piles

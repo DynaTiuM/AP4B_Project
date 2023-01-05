@@ -17,22 +17,22 @@ public class Line {
 	private int size;
 
     // Tableau de booléens indiquant si chaque couleur est présente ou non dans la ligne
-	private boolean[] color_presence;
+	private final boolean[] color_presence;
 
     // Couleur courante de la ligne	
 	private ColorEnum current_color;
 	
     // Instance de la classe Malus
-	private Malus malus_m;
+	private final Malus malus_m;
 	
     // Instance de la classe Pattern
-	private Pattern pattern_m;
+	private final Pattern pattern_m;
 		
 	// 
-	private LinkedList<Tile> to_send;
+	private final LinkedList<Tile> to_send;
 	
-	private Bord bord_m;
-	private int length;
+	private final Bord bord_m;
+	private final int length;
 	
 	
 	// Constructeur de la classe Line
@@ -52,7 +52,7 @@ public class Line {
 		current_color = null;
 		this.length = size;
 		
-		to_send = new LinkedList<Tile>();
+		to_send = new LinkedList<>();
 		
 		for(int i = 0; i<5;i++) {
 			color_presence[i]=false;

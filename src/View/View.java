@@ -20,11 +20,10 @@ public class View extends JFrame {
     private static final long serialVersionUID = 1L;
     private static final int HEIGHT = 720;
     private static final int WIDTH = 1080;
-    private int numberOfPlayers;
 
-    private Bord[] bords;
-    private Pot pot_m;
-    private Controller controller_ref;
+    private final Bord[] bords;
+    private final Pot pot_m;
+    private final Controller controller_ref;
 
     private ViewPanel ContentPanel;
 
@@ -34,7 +33,6 @@ public class View extends JFrame {
      * Create the frame.
      */
     public View(Controller controller, int numberOfPlayers) {	 //View(Controller ref, int numberOfPlayers)
-        this.numberOfPlayers = numberOfPlayers;
         this.controller_ref = controller;
         //controller_m = ref;
         // Set the background color of the frame to white
@@ -158,16 +156,15 @@ class ViewPanel extends JPanel {
     /**
      *
      */
-    private Graphics ref;
-    private View view_ref;
+    private final View view_ref;
     private static final long serialVersionUID = 1L;
     // Image to display
-    private Image image;
-    private Bord[] bords;
-    private Pot pot;
+    private final Image image;
+    private final Bord[] bords;
+    private final Pot pot;
     private PopupPanel panel;
-    private Controller controller_ref;
-    private Font font;    
+    private final Controller controller_ref;
+    private final Font font;
 
 // Constructor that takes in image, bords array, and pot object
     public ViewPanel(Controller controller, Image image, Bord[] bords, Pot pot, View view_ref) {
@@ -243,7 +240,6 @@ class ViewPanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        ref = g;
         // Draw image 
         g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
         // Draw bords 
@@ -256,7 +252,7 @@ class ViewPanel extends JPanel {
         g.setFont(font);
         g.setColor(Color.RED);
         try{
-        	g.drawString("Tour du joueur " + controller_ref.getCurrentPlayer() + 1, 400, 650);
+        	g.drawString("Tour du joueur " + (controller_ref.getCurrentPlayer() + 1), 400, 650);
         }catch (Exception e) {
 			System.out.println("Game not initialized !");
 		}
@@ -273,27 +269,20 @@ class PopupPanel extends JPanel {
     private static final int POPUP_BORD_SIZE = 500;
     private static final int POPUP_RECT_SIZE = 42;
     private static final long serialVersionUID = 1L;
-    private Image image = Toolkit.getDefaultToolkit().getImage("src\\Images\\Bord.png");
-    private PlayGrid playGrid;
-    private Pattern pattern;
-    private Malus malus;
-    private JButton[] buttons;
-    private JButton malusButton;
-     
-    private View view_m;
-    
-    private Position patternPosition = new Position(10 + POPUP_BORD_SIZE / 2, POPUP_RECT_SIZE*4);
-    private Position gridPosition = new Position(POPUP_RECT_SIZE, POPUP_RECT_SIZE*4);
-    private Position malusPosition = new Position(18, POPUP_BORD_SIZE - POPUP_RECT_SIZE * 2 - 20);
+    private final Image image = Toolkit.getDefaultToolkit().getImage("src\\Images\\Bord.png");
+    private final PlayGrid playGrid;
+    private final Pattern pattern;
+    private final Malus malus;
+    private final JButton[] buttons;
+
+    private final Position patternPosition = new Position(10 + POPUP_BORD_SIZE / 2, POPUP_RECT_SIZE*4);
+    private final Position gridPosition = new Position(POPUP_RECT_SIZE, POPUP_RECT_SIZE*4);
+    private final Position malusPosition = new Position(18, POPUP_BORD_SIZE - POPUP_RECT_SIZE * 2 - 20);
     
     private final static int TILE_SIZE = 30;
 
-    // Timer to blink the buttons
-    private Timer blinkTimer;
-    
     // Constructor that takes in image, bords array, and pot object
     public PopupPanel(View view_ref, Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
-    	this.view_m = view_ref;
         setLayout(null);
         setPreferredSize(new Dimension(500, 500));
         this.playGrid = new PlayGrid(gridPosition, view_ref, POPUP_RECT_SIZE);
@@ -302,7 +291,7 @@ class PopupPanel extends JPanel {
         
         
         //Add the buttons of the Piles and middle pile
-        this.malusButton = this.malus.getMalusButton();
+        JButton malusButton = this.malus.getMalusButton();
         this.add(malusButton);
       //Add the buttons of the Piles and middle pile
         this.buttons = playGrid.getPileButtons();
@@ -337,7 +326,10 @@ class PopupPanel extends JPanel {
         ImageIcon icon2 = new ImageIcon("src\\Images\\ButtonLines2.png");
 
         // Create the timer to blink the buttons
-        blinkTimer = new Timer(500, new ActionListener() {
+        // Toggle the visibility of the buttons every time the timer fires
+        // Erreur lors du chargement de l'image
+        // Timer to blink the buttons
+        Timer blinkTimer = new Timer(500, new ActionListener() {
             // Toggle the visibility of the buttons every time the timer fires
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -348,10 +340,10 @@ class PopupPanel extends JPanel {
                     } else {
                         if (icon2.getImageLoadStatus() == MediaTracker.ERRORED) {
                             // Erreur lors du chargement de l'image
-                          } else {
-                              button.setIcon(icon2);
-                              repaint();
-                          }
+                        } else {
+                            button.setIcon(icon2);
+                            repaint();
+                        }
                     }
                 }
             }

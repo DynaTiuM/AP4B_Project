@@ -5,14 +5,14 @@ import java.util.LinkedList;
 public class Pot {
 
 	private Pile[] piles;
-	private MiddlePile middlePile;
-	private Bag bag;
+	private final MiddlePile middlePile;
+	private final Bag bag;
 	
-	 private boolean[] possible_pile;
+	 private final boolean[] possible_pile;
 
-	private Game game_ref;
+	private final Game game_ref;
 	
-	private int numberOfPiles;
+	private final int numberOfPiles;
 	
 	public Pot(int numberOfPlayers, Game ref) {
 		
@@ -24,7 +24,7 @@ public class Pot {
 		
 		instanciatePiles();
 		
-		bag = new Bag(piles, this);
+		bag = new Bag(piles);
 		
 		display();
 	}

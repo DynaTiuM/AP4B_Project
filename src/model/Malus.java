@@ -1,15 +1,16 @@
 package model;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class Malus {
 
-	private Tile[] line;
-	private int[] penalty;
+	private final Tile[] line;
+	private final int[] penalty;
 	
-	private LinkedList<Tile> to_send;
+	private final LinkedList<Tile> to_send;
 	
-	private Bord bord_ref; 
+	private final Bord bord_ref;
 
 	private int current_index;
 	private int previous_index;
@@ -18,7 +19,7 @@ public class Malus {
 		current_index=0;
 		previous_index = 0;
 		
-		to_send = new LinkedList<Tile>();
+		to_send = new LinkedList<>();
 		
 		penalty = new int[7];
 		initPenalty();
@@ -97,9 +98,14 @@ public class Malus {
 	
 	public LinkedList<Tile> getContent(){
 		to_send.clear();
-		for(int i = 0; i< current_index; i++) 
-			to_send.add(line[i]);
-		
+		// Improved form
+		to_send.addAll(Arrays.asList(line).subList(0, current_index));
+		/*
+		 Version before :
+		 for(int i = 0; i< current_index; i++)
+		 	to_send.add(line[i]);
+
+		*/
 		return to_send;
 	}
 		
@@ -117,8 +123,10 @@ public class Malus {
 		
 		current_index = 0;
 		
-		/*for(Tile p: to_send) System.out.print(p.getColorEnum() + " ");
-		System.out.println();*/
+		/*
+		for(Tile p: to_send) System.out.print(p.getColorEnum() + " ");
+		System.out.println();
+		*/
 		
 		return to_send;
 	}

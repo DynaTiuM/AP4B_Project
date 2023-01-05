@@ -13,17 +13,17 @@ import controller.Controller;
 public class Game {
 	
 	// Centre de la table 
-	private Pot pot;
+	private final Pot pot;
 	
 	// Plateau de jeu pour chaque joueur 
-	private Bord[] players;
+	private final Bord[] players;
 	
 	// Le contrôleur qui gère le déroulement du jeu
-	private Controller controller;
+	private final Controller controller;
 	
 	// L'indice du joueur actuellement actif
 	private int current_player;
-	private int nbPlayers;
+	private final int nbPlayers;
 	
 	
 	// Constructeur qui prend en paramètre un contrôleur et le nombre de joueurs
@@ -34,7 +34,7 @@ public class Game {
 		
 		// initialise les Bord avec le nombre de joueurs
 		players = new Bord[4];
-		for(int i = 0; i<4; i++) players[i] = new Bord(i, this);
+		for(int i = 0; i < 4; i++) players[i] = new Bord(i, this);
 		
 		// initialise le Pot en fonction du nombre de joueurs 
 		pot = new Pot(nb_player, this);
@@ -73,8 +73,7 @@ public class Game {
 		controller.initialiseButtonsPiles();
 		pot.setFirst();
 	}
-	
-	
+
 	public void testShuffle() {
 		pot.testShuffle();
 	}
