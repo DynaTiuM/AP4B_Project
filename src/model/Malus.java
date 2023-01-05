@@ -127,10 +127,7 @@ public class Malus {
 		return this.line;
 	}
 
-	public int getPrevious() {
-
-		System.out.println("previous " + previous_index);
-		
+	public int getPrevious() {		
 		return previous_index;
 	}
 	
