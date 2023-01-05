@@ -536,7 +536,7 @@ class PopupPanel extends JPanel {
     				// Or the line is already full :
     				// We need to disable the button of this line
 
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!");
+                   
 
 
                     if((!line.isPossible(hand) || line.checkFull())) {
