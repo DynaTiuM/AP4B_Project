@@ -48,7 +48,7 @@ public class Bord{
 			    //g.setColor(Color.getHSBColor(45, 65, 41));
 				Font font = new Font("Arial", Font.PLAIN, 25);
 				g.setFont(font);
-				g.drawString("Score: " +String.valueOf(score), position.getX() + BORD_SIZE/2 + 15, position.getY() + 50);
+				g.drawString("ECTS: " +String.valueOf(score), position.getX() + BORD_SIZE/2 + 15, position.getY() + 50);
 			}catch (Exception e) {
 				System.out.println("Game not initialized !");
 			}
