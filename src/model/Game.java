@@ -113,7 +113,7 @@ public class Game {
 		controller.updatePatternView(playerID, to_send);
 	}
 	
-	public void updateMalusToView(Tile[] malus) {
+	public void updateMalusView(Tile[] malus) {
 		controller.updateMalusView(malus, current_player);
 	}
 
