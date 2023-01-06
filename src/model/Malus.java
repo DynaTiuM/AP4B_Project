@@ -11,7 +11,10 @@ public class Malus {
 	
 	private final Bord bordRef;
 
+	//allows us to know the progress of Malus
 	private int currentIndex;
+	
+	//allows us to know the progress of Malus before modifications
 	private int previousIndex;
 	
 	public Malus(Bord bord){
@@ -51,6 +54,8 @@ public class Malus {
 		}
 	}
 	
+	//associate the cases of Malus with their values
+	
 	private void initPenalty() {
 		penalty[0]=1;
 		penalty[1]=1;
@@ -72,29 +77,15 @@ public class Malus {
 		return badPoints;
 	}
 	
-	public void display() {
-		System.out.println("malus");
-		
-		int i =0;
-		
-		while(i<currentIndex) {
-			System.out.print(line[i].getColorEnum() + " ");
-			i++;
-		}
-		
-		while(i< 7) {
-			System.out.print("- ");
-			i++;
-		}
-		
-		System.out.println();
-	}
+	//empties malus and sends content to the bag for re use
 
 	public LinkedList<Tile> clear() {
 		
 		toSend.clear();
 		
 		for(int i = 0; i < currentIndex; i++) {
+			
+			//makes it so Malus cant be sent to path
 			if(line[i].getColorEnum()!=ColorEnum.MALUS) toSend.add(line[i]);
 
 			line[i] = null;
@@ -118,7 +109,28 @@ public class Malus {
 	}
 	
 	public boolean isEmpty() {
+		//if the first line is empty, then the entire line is empty
 		return line[0] == null;
+	}
+	
+	//display Malus in the console
+	
+	public void display() {
+		System.out.println("malus");
+		
+		int i =0;
+		
+		while(i<currentIndex) {
+			System.out.print(line[i].getColorEnum() + " ");
+			i++;
+		}
+		
+		while(i< 7) {
+			System.out.print("- ");
+			i++;
+		}
+		
+		System.out.println();
 	}
 
 	

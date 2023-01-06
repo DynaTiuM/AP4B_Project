@@ -6,36 +6,36 @@ import java.util.LinkedList;
 import View.Position;
 
 
-//ATTENTION DEUX METHODES TEST SONT TOUJOURS DANS LE CODE
 
-//Classe qui représente le plateau de jeu d'un joueur.
-//Le plateau est composé de 5 lignes, d'une grille de malus et d'une grille de motifs.
+
+//Bord of a Player
+//Each bord contains 5 Lines, a Malus grid, and a Pattern grid
 public class Bord {
 
 	private final Line[] playGrid;
 	private final Malus malusGrid;
 	private final Pattern patternGrid;
 
-	// Référence du "Game" auquel appartient le "Bord".
+	// Reference to the game, used for communication
 	private final Game gameRef;
 	
-	// Identifiant du joueur associé à ce "Bord"
+	// Used to allow Game to identify the player
 	private final int playerID;
 
-	// Liste des "Tile" dans la main du joueur
+	//Tiles the player has currently selected, use to store Tiles before setting them on a line or in the Malus grid
 	private LinkedList<Tile> playerHand;
 	
+	//allow game to know if this player has taken the Malus tile from MiddlePile
 	private boolean nextFirstPlayer;
 	
 	
-	// Constructeur de la classe Bord.
-	// Initialise les différents éléments du plateau de jeu (lignes, grille de malus, grille de motifs).4
-	// Prends l'identifiant du joueur et la référence de "Game"
 	public Bord(int number, Game ref) {
 
 		nextFirstPlayer = false;
 		
 		playerID = number;
+		
+		//sets reference
 		gameRef = ref;
 		
 		malusGrid = new Malus(this);
@@ -50,50 +50,25 @@ public class Bord {
 	}
 	
 	
-	// modifie la main du joueur 
-	public void setHand(LinkedList<Tile> tiles) {
-		playerHand.clear();
-		playerHand = tiles;
-	}
-	
-	public LinkedList<Tile> getHand() {
-		return playerHand;
-	}
-	
-	public Line[] getLines() {
-		return playGrid;
-	}
-	
-	public Tile[] getMalus() {
-		return malusGrid.getLine();
-	}
 
-	// permet d'afficher la main du joueur
-	public void displayHand() {
-		System.out.print("Hand : ");
-		for(Tile p: playerHand) System.out.print(p.getColorEnum() + " ");
-		System.out.println();
-		
-	}
+
 	
-	// permet d'afficher les "Line" et la "malus_grid"
-	public void display() {
-		for(Line p: playGrid) p.display();
-		malusGrid.display();
 
-	}
-
-	// permet de poser les "Tile" de la main du joueur sur la ligne choisie
+	// plays hand contained in hand of player to the chosen line
 	public void playHandIndex(int index) {
 		playGrid[index].addChoice(playerHand);
 		this.gameRef.nextPlayer();
 	}
 	
+	//check if the player has filled end of game conditions
+	public boolean checkEnd(){
+		return patternGrid.checkEndGame();
+	}
 	
-	// fonction appelée en fin de manche 
+	// fonction called at each end of round
 	public void endOfSet() {
 		boolean update = false;
-		// vide toute les "Line" qui sont pleines 
+		// if a line is filled, will empty the line
 		for(Line line: playGrid) {
 			if(line.checkFull()) {
 				gameRef.sendToBag(line.clear());
@@ -102,13 +77,13 @@ public class Bord {
 			}
 		}
 		
-		// calcul le malus et remet les "Tile" de malus dans le "Bag"
+		// computates malus, and trigger method emptying it
 		if(!this.malusGrid.isEmpty()) {
 			patternGrid.scoreMalus(malusGrid.computateMalus());
 			gameRef.sendToBag(malusGrid.clear());
 		}
 
-		
+		//if we emptied a line, the pattern grid needs to be emptied on the view
 		if(update) {
 			patternGrid.sendPattern();
 		}
@@ -118,11 +93,7 @@ public class Bord {
 
 	}
 	
-	// envoie le pattern à la view
-	public Tile[][] getPatternToView() {
 
-		return patternGrid.getGrid();
-	}
 
 	public void sendToBag(Tile p) {
 		gameRef.sendToBag(p);
@@ -143,14 +114,72 @@ public class Bord {
 		this.gameRef.updatePatternView(this.playerID, toSend);
 	}
 	
-	public void updateMalus() {
-		this.malusGrid.addTile(playerHand);
-		this.gameRef.updateMalusToView(malusGrid.getLine());
-		this.gameRef.nextPlayer();
-	}
+	
+	
 
 	public void calculateEndOfGameBonuses() {
 		patternGrid.calculateEndOfGameBonuses();
+	}
+	
+
+
+	//called if a player was the first to choose a Tile in the MiddlePile
+
+	public void sendMalusFirst(Tile first) {
+		nextFirstPlayer = true;
+		malusGrid.addTile(first);
+		gameRef.sendMalusFirstToView(malusGrid.getPrevious());
+	}
+	
+	//called when a player choose to directly put tiles in his Malus grid
+	public void updateMalus() {
+		
+		//sets his hand in the malus grid
+		this.malusGrid.addTile(playerHand);
+		
+		//updates the view
+		this.gameRef.updateMalusToView(malusGrid.getLine());
+		
+		//pass to the next player
+		this.gameRef.nextPlayer();
+	}
+
+	
+	//Sets the selection in the hand of the player
+	public void setHand(LinkedList<Tile> tiles) {
+		playerHand.clear();
+		playerHand = tiles;
+	}
+	
+	public LinkedList<Tile> getHand() {
+		return playerHand;
+	}
+	
+	public Line[] getLines() {
+		return playGrid;
+	}
+	
+	public Tile[] getMalus() {
+		return malusGrid.getLine();
+	}
+
+
+	public boolean getNextFirst() {
+		
+		return nextFirstPlayer;
+	}
+	
+	//if player was first, reset the value
+	
+	public void resetNextFirst() {
+		nextFirstPlayer = false;
+	}
+	
+	
+	// send pattern to the view
+	public Tile[][] getPatternToView() {
+
+		return patternGrid.getGrid();
 	}
 	
 	public int getScore() {
@@ -161,26 +190,21 @@ public class Bord {
 
 		return this.playerID;
 	}
-
-
-	public void sendMalusFirst(Tile first) {
-		nextFirstPlayer = true;
-		malusGrid.addTile(first);
-		gameRef.sendMalusFirstToView(malusGrid.getPrevious());
-	}
-
-	public boolean checkEnd(){
-		return patternGrid.checkEndGame();
-	}
-
-
-	public boolean getNextFirst() {
-		
-		return nextFirstPlayer;
-	}
 	
-	public void resetNextFirst() {
-		nextFirstPlayer = false;
-	}
+	
+	// displays the hand of the player
+		public void displayHand() {
+			System.out.print("Hand : ");
+			for(Tile p: playerHand) System.out.print(p.getColorEnum() + " ");
+			System.out.println();
+			
+		}
+		
+		// display the lines of the bord, as well as the Malus grid
+		public void display() {
+			for(Line p: playGrid) p.display();
+			malusGrid.display();
+
+		}
 	
 }

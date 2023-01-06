@@ -30,14 +30,19 @@ public class Pile {
 		gameRef = game;
 	}
 	
+	//method called when a tile on a Pile is pressed
 	
 	public void setTilesSelectedToHand(int index) {
 		getSelection(tiles[index]);
 	}
+	
+	//method called by the bag
 
 	public void setContent(Tile toAdd, int index) {
 		tiles[index] = toAdd;
 	}
+	
+	//send the content to the view
 	
 	public void sendContentList() {
 		LinkedList<Tile> toSend = new LinkedList<>();
@@ -50,6 +55,8 @@ public class Pile {
 
 	}
 
+	//check the tiles for tiles of the same color as the current one and send it to bord of current player, remaining tiles are sent to MiddlePile
+	
 	public void getSelection(Tile chosen) {
 		middleTiles.clear();
 		bordTiles.clear();
@@ -107,7 +114,12 @@ public class Pile {
 		
 	}
 	
+	//checks if Tile is empty, is used to check if play is possible
+	
 	public int isEmpty() {
+		
+		//if the first tile is not present, there can't be any other tiles
+		
 		if(tiles[0] == null) {
 			return 1;
 		}else {

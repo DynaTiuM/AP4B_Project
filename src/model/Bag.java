@@ -7,37 +7,40 @@ import java.util.LinkedList;
 
 //déclaration de la classe "Bag"
 public class Bag {
+	
+	//Tiles contained in the middle pile
 	private static LinkedList<Tile> tiles;
+	
 	private final Pile[] allPilesRef;
 	
-	// constructeur de la classe "Bag"
+	
 	public Bag(Pile[] piles) {
 		allPilesRef = piles;
-		initialiseTiles(); // on initialise les tiles du bag
-		this.distributeContents(); // on remplit les piles
+		initialiseTiles(); // initialise the tiles
+		this.distributeContents(); // fill the piles
 	}
 
-	// initialise les "Tile" dans le "Bag" avec 20 "Tile" de chaque couleur
+	// initialise Tiles in the bag with 20 Tiles of each color
 	private void initialiseTiles() {
 		tiles = new LinkedList<>();
 
-		// tableau des couleurs possibles pour les tuiles
+		// ColorEnum array used to initiate the tiles
 		ColorEnum[] colors = {ColorEnum.M, ColorEnum.O, ColorEnum.G, ColorEnum.B, ColorEnum.Y};
 		
 		for (int i = 0; i < 20; i++) {
-			// on ajoute une tuile de chaque couleur dans la liste chainée de tuiles
+			//for each iteration of if, we add a tile of each color
 			for (ColorEnum color : colors) {
 				tiles.add(new Tile(color));
 			}
 		}
 		
-		// on mélange aléatoirement les tuiles de la liste chainée de tuiles deux fois
+		//shuffle the tiles twice
 		Collections.shuffle(tiles);
 		Collections.shuffle(tiles);
 	}
 	
 	
-	// remplit les "Pile" en prenant les dernières "Tile"
+	//fill Piles, can't fill a Pile if the number of remaining tiles is less than 4
 	public void distributeContents() {
 		Collections.shuffle(tiles);
 		Tile last;

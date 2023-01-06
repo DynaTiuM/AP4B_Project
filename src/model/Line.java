@@ -4,29 +4,29 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 
-// Classe représentant une "Line"
+// Class representing one of the Lines where a player is able to play Tiles
 public class Line {
 
-    // Tableau de "Tile" représentant la "Line"
+    // Contains the Tiles
 	private Tile[] lineArray;
 	
-    // Première case encore libre de la "Line"
+    //Allows us to know about the progress of the Line
 	private int currentIndex;
 	private int previousIndex;
 	
-    // Taille de la "Line"
+    // Size of Line
 	private int size;
 
-    // Tableau de booléens indiquant si chaque couleur est présente ou non dans la ligne
+    // Allows us to know if a color has already been placed in this line, thus can't be placed here again
 	private final boolean[] colorPresence;
 
-    // Couleur courante de la ligne	
+    // The color of Tiles still present in the line
 	private ColorEnum currentColor;
 	
-    // Instance de la classe Malus
+    // Reference to the Malus Grid of the player
 	private final Malus malusRef;
 	
-    // Instance de la classe Pattern
+    // Reference to the Pattern Grid of the player
 	private final Pattern patternRef;
 		
 	// 
@@ -74,10 +74,12 @@ public class Line {
 		size = index;
 	}
 
-	// permet d'ajouter une liste de "Tile" à la "Line"
+	// Sets hand of Player on the Line
 	public void addChoice(LinkedList<Tile> tiles) {
 		
 		int previousMalus = malusRef.getPrevious();
+		
+		//checks if the Malus grid of the player has been modified by the current function
 		boolean modified = false;
 		
 		int i = currentIndex;
@@ -85,7 +87,7 @@ public class Line {
 			if(i < size) {
 				setTileIndex(i, p);
 				i++;
-			}else { // les "Tile" en trop sont mise dans le malus 
+			}else { // If the line is full, tiles will be sent to the Malus Grid
 			
 				
 				malusRef.addTile(p);
@@ -100,21 +102,24 @@ public class Line {
 
 		malusRef.setPrevious(previousMalus);
 		
+		//updates the view
 		updateViewLine(modified);
 	}
 	
+	//updates the view
 	private void updateViewLine(boolean modified) {
 		LinkedList<Tile> toSend = new LinkedList<>(Arrays.asList(lineArray).subList(previousIndex, currentIndex));
 
 		this.bordRef.updateViewLine(toSend, previousIndex, this.size - 1, modified);
 	}
 	
-	// check si la ligne est pleine
+	// check if the Line is already full
 	public boolean checkFull() {
 		return currentIndex == size;
 	}
 
-	// check s'il est possible de placer un ou plusieurs "Tile" de la couleur de celle en parametre dans le "Line"
+	// checks if it is possible to place a tile in the current Line
+	// it is possible to place a Tile, if the color of the Tile is the same as the current_color or if we haven't played a Tile of this color on this Line
 	public boolean isPossible(Tile tile) {
 		return !checkColor(tile) && (tile.getColorEnum() == currentColor || currentColor == null);
 	}
@@ -123,12 +128,12 @@ public class Line {
 		return patternRef.isAlreadyOnPattern(size, tile);
 	}
 	
-	// check si la couleur a déjà été mise dans cette "Line"
+	// check if color has already been placed here before
 	public boolean checkColor(Tile tile) {
 		return colorPresence[tile.getColorEnum().ordinal()];
 	}
 
-	// permet d'ajouter une "Tile" à l'index donné
+	// Puts Tile to given Index
 	public void setTileIndex(int index, Tile tile){
 		if(index < size) {
 			currentColor = tile.getColorEnum();
@@ -139,7 +144,7 @@ public class Line {
 	}
 
 	
-	// renvoie le tableau de "Tile" de la "Line"
+	// Gets content of the Line
 	public Tile[] getTiles() {
 		return this.lineArray;
 	}
@@ -149,7 +154,7 @@ public class Line {
 	}
 	
 	
-	// affiche la "Line"
+	// Displays the Line
 	public void display() {
 		int i =0;
 		while(i<this.currentIndex) {
@@ -166,21 +171,25 @@ public class Line {
 	}
 	
 	
-	// permet de clear la "Line" pour être prêt à acceuillir d'autres "Tile"
+	// function called only if the line is full, clears the line
 	public LinkedList<Tile> clear() {
 		
 		toSend.clear();
 		
+		//takes first Tile of the line and sends it to the Pattern of the player
 		patternRef.determineSendingPlace(size - 1, lineArray[0]);
 		
 		lineArray[0] = null;
 		
+		
+		//prepares the rest to be sent to the Bag
 		for(int i =1; i<size; i++) {
 			toSend.add(lineArray[i]);
 			lineArray[i] = null;
 		}
-		
+		//reset the current color
 		currentColor = null;
+		
 		currentIndex = 0;
 		
 		return toSend;
