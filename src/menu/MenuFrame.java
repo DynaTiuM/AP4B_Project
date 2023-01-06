@@ -41,6 +41,7 @@ public class MenuFrame implements WindowProperties {
 		assert url != null;
 		ImageIcon icon = new ImageIcon(url);
 		Image image = icon.getImage();
+		frame.setIconImage(image);
 		Image newimg = image.getScaledInstance(300, 200,  java.awt.Image.SCALE_SMOOTH);
 		icon = new ImageIcon(newimg);
 		imageLabel.setIcon(icon);
@@ -58,11 +59,14 @@ public class MenuFrame implements WindowProperties {
 		label.setForeground(Color.white);
 
 		frame.getContentPane().setBackground(new Color(35, 87, 43));
-		button.setBorder(BorderFactory.createLineBorder(new Color(64, 129, 166), GAME_WIDTH/150));
-		button.setBackground(new Color(246, 237, 227));
+		//button.setBorder(BorderFactory.createLineBorder(new Color(64, 129, 166), GAME_WIDTH/150));
+		//button.setBackground(new Color(246, 237, 227));
 	    
 	    // Initialize listScroller and set its view to list
 	    JScrollPane listScroller = new JScrollPane(list);
+        ImageIcon playIcon = new ImageIcon("src\\Images\\PlayButton.png");
+        ImageIcon playIcon2 = new ImageIcon("src\\Images\\PlayButton2.png");
+        button.setIcon(playIcon);
 	    
 	    // Add listScroller, button, and label to the frame
 	    frame.add(listScroller);
@@ -76,8 +80,8 @@ public class MenuFrame implements WindowProperties {
 	    button.setFont(font);
 	    
 	    // Set the text and bounds for button
-	    button.setText("Valider");
-	    button.setBounds(WINDOW_WIDTH/2-115, (int)(WINDOW_HEIGHT/1.9), 275, 100);
+	    button.setBounds(WINDOW_WIDTH/2-50, (int)(WINDOW_HEIGHT/1.9), 200, 88);
+	    
 	    
 	    // Set the bounds for listScroller
 	    listScroller.setBounds(WINDOW_WIDTH/2-170, (int)(WINDOW_HEIGHT/1.9), 40, 100);
@@ -109,5 +113,22 @@ public class MenuFrame implements WindowProperties {
 	    // Set the selection mode and layout orientation for the list
 	    list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	    list.setLayoutOrientation(JList.VERTICAL);
+	    
+        Timer blinkTimer = new Timer(500, e -> {
+                if (button.getIcon() == playIcon2) {
+                	
+                	button.setIcon(playIcon);
+                    
+                } else {
+                    	button.setIcon(playIcon2);
+                        //repaint();
+                    }
+                
+            
+        });
+
+        // Start the timer
+        blinkTimer.start();
+	    
 	}
 }

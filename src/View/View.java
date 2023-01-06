@@ -449,26 +449,35 @@ class PopupPanel extends JPanel {
         URL url2 = getClass().getResource("..\\Images\\ButtonLines.png");
         assert url2 != null;
         ImageIcon icon = new ImageIcon(url2);
+
         // Ajout des boutons au JPanel
+        
+
+        ImageIcon lineRolloverIcon = new ImageIcon("src\\Images\\rolloverButtonLines.png");
+        ImageIcon lineIcon = new ImageIcon("src\\Images\\ButtonLines.png");
+        ImageIcon lineIcon2 = new ImageIcon("src\\Images\\ButtonLines2.png");
+        ImageIcon malusIcon = new ImageIcon("src\\Images\\MalusButton.png");
+        ImageIcon malusIcon2 = new ImageIcon("src\\Images\\MalusButton2.png");
+        
         for (JButton button : this.buttons) {
             if (button != null) {
                 this.add(button);
-                if (rolloverIcon.getImageLoadStatus() == MediaTracker.ERRORED) {
+                if (lineRolloverIcon.getImageLoadStatus() == MediaTracker.ERRORED) {
                     // Erreur lors du chargement de l'image
                     assert false : "Can't load the image";
                   } else {
-                      button.setRolloverIcon(rolloverIcon);
+                      button.setRolloverIcon(lineRolloverIcon);
                   }
 
                 button.setVisible(true);
                 // Chargement de l'image de la tuile
 
                 // V�rifie si l'image a pu �tre charg�e correctement
-                if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
+                if (lineIcon.getImageLoadStatus() == MediaTracker.ERRORED) {
                     assert false : "Can't load the image";
                     // Erreur lors du chargement de l'image
                 } else {
-                    button.setIcon(icon);
+                    button.setIcon(lineIcon);
                 }
             }
         }
@@ -483,16 +492,19 @@ class PopupPanel extends JPanel {
         // Timer to blink the buttons
         // Toggle the visibility of the buttons every time the timer fires
         Timer blinkTimer = new Timer(500, e -> {
-            for (JButton button : buttons) {
-                if (button.getIcon() == icon2) {
-                    button.setIcon(icon);
+            for (JButton lineButton : buttons) {
+                if (lineButton.getIcon() == lineIcon2) {
+                	
+                	lineButton.setIcon(lineIcon);
+                	malusButton.setIcon(malusIcon);
                     repaint();
                 } else {
-                    if (icon2.getImageLoadStatus() == MediaTracker.ERRORED) {
+                    if (lineIcon.getImageLoadStatus() == MediaTracker.ERRORED) {
                         assert false : "Can't load the image";
                         // Erreur lors du chargement de l'image
                     } else {
-                        button.setIcon(icon2);
+                    	lineButton.setIcon(lineIcon2);
+                    	malusButton.setIcon(malusIcon2);
                         repaint();
                     }
                 }

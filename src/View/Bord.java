@@ -52,7 +52,8 @@ public class Bord{
 
 				Font font = new Font("Arial", Font.PLAIN, 25);
 				g.setFont(font);
-				g.drawString("ECTS: " + score, position.getX() + BORD_SIZE/2 + 15, position.getY() + 50);
+				g.drawString("ECTS: " + score, position.getX() + BORD_SIZE/2 + 30, position.getY() + 45);
+
 			}catch (Exception e) {
 				System.out.println("Game not initialized !");
 			}

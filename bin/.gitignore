@@ -1,1 +1,11 @@
 /module-info.class
+/.classpath
+/.gitignore
+/.project
+/.settings/
+/Images/
+/View/
+/controller/
+/main/
+/menu/
+/model/

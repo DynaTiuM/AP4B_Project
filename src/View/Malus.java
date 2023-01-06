@@ -24,8 +24,10 @@ public class Malus {
 		tiles = new Tile_View[7];
     	this.position = position;
     	this.button = new JButton();
-		this.button.setBounds(400, 40, 50, 50);
-    
+		this.button.setBounds(275, 35, 200, 50);
+		ImageIcon icon = new ImageIcon("src\\Images\\MalusButton.png");
+	    button.setIcon(icon);
+		
     	RECT_WIDTH = (int)(RECT_SIZE * 1.5);
     	RECT_HEIGHT = RECT_SIZE * 2;
     	font = new Font("Arial", Font.BOLD, RECT_WIDTH/4);

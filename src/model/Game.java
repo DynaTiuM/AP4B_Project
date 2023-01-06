@@ -6,8 +6,6 @@ import java.util.LinkedList;
 import View.Position;
 import controller.Controller;
 
-// ATTENTION : dans game on crée toujours 4 bord est-ce normal ?
-// Toujours une fonction test
 
 // déclaration de la classe Game
 public class Game {
