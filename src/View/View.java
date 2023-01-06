@@ -452,12 +452,11 @@ class PopupPanel extends JPanel {
 
         // Ajout des boutons au JPanel
         
-
-        ImageIcon lineRolloverIcon = new ImageIcon("src\\Images\\rolloverButtonLines.png");
-        ImageIcon lineIcon = new ImageIcon("src\\Images\\ButtonLines.png");
-        ImageIcon lineIcon2 = new ImageIcon("src\\Images\\ButtonLines2.png");
-        ImageIcon malusIcon = new ImageIcon("src\\Images\\MalusButton.png");
-        ImageIcon malusIcon2 = new ImageIcon("src\\Images\\MalusButton2.png");
+        ImageIcon lineRolloverIcon = new ImageIcon(getClass().getClassLoader().getResource("rolloverButtonLines.png"));
+        ImageIcon lineIcon = new ImageIcon(getClass().getClassLoader().getResource("ButtonLines.png"));
+        ImageIcon lineIcon2 = new ImageIcon(getClass().getClassLoader().getResource("ButtonLines2.png"));
+        ImageIcon malusIcon = new ImageIcon(getClass().getClassLoader().getResource("MalusButton.png"));
+        ImageIcon malusIcon2 = new ImageIcon(getClass().getClassLoader().getResource("MalusButton2.png"));
         
         for (JButton button : this.buttons) {
             if (button != null) {

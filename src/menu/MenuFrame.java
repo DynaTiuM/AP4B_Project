@@ -64,8 +64,8 @@ public class MenuFrame implements WindowProperties {
 	    
 	    // Initialize listScroller and set its view to list
 	    JScrollPane listScroller = new JScrollPane(list);
-        ImageIcon playIcon = new ImageIcon("src\\Images\\PlayButton.png");
-        ImageIcon playIcon2 = new ImageIcon("src\\Images\\PlayButton2.png");
+        ImageIcon playIcon = new ImageIcon(getClass().getClassLoader().getResource("PlayButton.png"));
+        ImageIcon playIcon2 = new ImageIcon(getClass().getClassLoader().getResource("PlayButton2.png"));
         button.setIcon(playIcon);
 	    
 	    // Add listScroller, button, and label to the frame
