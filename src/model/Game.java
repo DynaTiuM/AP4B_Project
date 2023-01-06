@@ -42,15 +42,7 @@ public class Game {
 		
 	}
 	
-	// Envoie une liste de tuiles à la main du joueur actuel
-	public void sendSelectionToBord(LinkedList<Tile> tiles) {
-		players[current_player].setHand(tiles);
-	}
-
-	// Envoie une liste de tuiles au Bag
-	public void sendToBag(LinkedList<Tile> tiles) {
-		pot.sendToBag(tiles);
-	}
+	
 	
 	// The player clicked on a line on the popup :
 	public void lineSelected(int lineNumber) {
@@ -83,6 +75,35 @@ public class Game {
 		
 
 	}
+	
+	public void endOfGame() {
+		int winning_score = 0;
+		for(Bord p: players) {
+			p.calculateEndOfGameBonuses();
+			
+			if(p.getScore()>winning_score) {
+				winning_score = p.getScore();
+				this.winner = p.getID();
+			}
+			
+		}
+		
+		System.out.println("Winner : " + winner);
+	}
+	
+	public void nextPlayer() {
+		this.current_player++;
+		
+		if(current_player == nbPlayers) {
+			current_player = 0;
+		}
+		
+
+		if(pot.isPlayNotPossible()) {
+			this.endOfSet();
+			if(pot.isPlayNotPossible()) this.endOfGame();
+		}
+	}
 
 	public void setTilesSelectedToHand(int numberOfPile, int ID) {
 		pot.setTilesSelectedToHand(numberOfPile, ID);
@@ -92,9 +113,6 @@ public class Game {
 		return pot.modifyMiddlePile(index);
 	}
 	
-	public void sendSelectionToBordTest(LinkedList<Tile> tiles_bord) {
-		players[current_player].test(tiles_bord);
-	}
 
 	public void sendContentList(LinkedList<Tile> to_send, int index) {
 		controller.updatePile(to_send, index);
@@ -127,11 +145,30 @@ public class Game {
 	public void updateMalusModel() {
 		players[current_player].updateMalus();
 	}
+	
 
-	public int getScore(int playerID) {
-		return players[playerID].getScore();
+	public void sendToBag(Tile p) {
+		pot.sendToBag(p);
 	}
 	
+	public void sendMalusFirst(Tile first) {
+		players[current_player].sendMalusFirst(first);
+	}
+	
+	// Envoie une liste de tuiles à la main du joueur actuel
+	public void sendSelectionToBord(LinkedList<Tile> tiles) {
+		players[current_player].setHand(tiles);
+	}
+
+	// Envoie une liste de tuiles au Bag
+	public void sendToBag(LinkedList<Tile> tiles) {
+		pot.sendToBag(tiles);
+	}
+	
+	
+	//Methodes pour communiquer avec la vue
+	
+
 	public void getInformationForPopUp() {
 		Tile[][] pattern = players[current_player].getPatternToView();
 		Line[] grid = players[current_player].getLines();
@@ -144,53 +181,13 @@ public class Game {
 	private void updatePopUp(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
 		controller.updatePopup(pattern, malus, grid, hand);
 	}
-
-	public void sendToBag(Tile p) {
-		pot.sendToBag(p);
-	}
-
-	public void nextPlayer() {
-		this.current_player++;
-		
-		if(current_player == nbPlayers) {
-			current_player = 0;
-		}
-		
-
-		if(pot.isPlayNotPossible()) {
-			this.endOfSet();
-			if(pot.isPlayNotPossible()) this.endOfGame();
-		}
-	}
 	
-	public int getCurrentPlayer() {
-		return current_player;
-	}
-	
-	public void endOfGame() {
-		int winning_score = 0;
-		for(Bord p: players) {
-			p.calculateEndOfGameBonuses();
-			
-			if(p.getScore()>winning_score) {
-				winning_score = p.getScore();
-				this.winner = p.getID();
-			}
-			
-		}
-		
-		System.out.println("Winner : " + winner);
-	}
-
-	public void sendMalusFirst(Tile first) {
-		players[current_player].sendMalusFirst(first);
-	}
-
 	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i) {
 		controller.updateViewLine(to_send, previous_index, i, current_player);
 		
 	}
-
+	
+	
 
 	public void sendMalusFirstToView(int previous) {
 		controller.sendMalusFirstToView(previous, current_player);
@@ -198,6 +195,15 @@ public class Game {
 	}
 	
 	
+	//Methodes get
 	
+
+	public int getCurrentPlayer() {
+		return current_player;
+	}
+	
+	public int getScore(int playerID) {
+		return players[playerID].getScore();
+	}
 	
 }

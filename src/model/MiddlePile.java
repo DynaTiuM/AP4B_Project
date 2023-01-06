@@ -1,6 +1,6 @@
 package model;
 
-import java.awt.Color;
+
 import java.util.LinkedList;
 
 
@@ -65,7 +65,7 @@ public class MiddlePile {
 		
 		
 		for(Tile tile : this.tiles) {
-			if(tile.getColor() == tile_ref.getColor()) {
+			if(tile.getColorEnum() == tile_ref.getColorEnum()) {
 				toSend.add(tile);
 				tmp.add(tile);
 			}
@@ -95,7 +95,7 @@ public class MiddlePile {
 
 	public void setFirst() {
 		first = true;
-		tiles.addFirst(new Tile(Color.gray));
+		tiles.addFirst(new Tile(ColorEnum.MALUS));
 		this.sendCompletePileToView(false);
 	}
 	

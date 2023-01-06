@@ -1,6 +1,6 @@
 package model;
 
-import java.awt.Color;
+
 import java.util.Collections;
 import java.util.LinkedList;
 
@@ -24,11 +24,11 @@ public class Bag {
 		tiles = new LinkedList<>();
 
 		// tableau des couleurs possibles pour les tuiles
-		Color[] colors = {Color.MAGENTA, Color.ORANGE, Color.GREEN, Color.BLUE, Color.YELLOW};
+		ColorEnum[] colors = {ColorEnum.M, ColorEnum.O, ColorEnum.G, ColorEnum.B, ColorEnum.Y};
 		
 		for (int i = 0; i < 20; i++) {
 			// on ajoute une tuile de chaque couleur dans la liste chainée de tuiles
-			for (Color color : colors) {
+			for (ColorEnum color : colors) {
 				tiles.add(new Tile(color));
 			}
 		}

@@ -16,8 +16,7 @@ public class Bord {
 	private final Malus malus_grid_m;
 	private final Pattern pattern_grid_m;
 	
-	//TODO SUPPRESS
-	private int TEST_LINE;
+
 	
 	// Référence du "Game" auquel appartient le "Bord".
 	private final Game game_ref;
@@ -39,7 +38,7 @@ public class Bord {
 	// Prends l'identifiant du joueur et la référence de "Game"
 	public Bord(int number, Game ref) {
 		
-		this.TEST_LINE = 0;
+
 		
 		next_first_player = false;
 		
@@ -78,16 +77,7 @@ public class Bord {
 		return malus_grid_m.getLine();
 	}
 	
-	public void test(LinkedList<Tile> tiles) {
-		setHand(tiles);
-		displayHand();
-		playHandIndex(TEST_LINE);
-		TEST_LINE++;
-		if(current + 1 >= 4) {
-	    	current = 0;
-	    } else current++;
-		display();
-	}
+
 
 	// permet de changer la main du joueur en y mettant qu'une seule "Tile"
 	public void setHand(Tile tile) {

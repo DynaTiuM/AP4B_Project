@@ -1,6 +1,6 @@
 package model;
 
-import java.awt.Color;
+
 import java.util.HashMap;
 
 import View.Position;
@@ -19,20 +19,20 @@ public class Pattern {
 		this.bord_ref = bord;
 		grid = new Tile[5][5];
 
-		Color[] new_colorpos = new Color[5];
+		ColorEnum[] new_colorpos = new ColorEnum[5];
 
-		grid[0][0] = new Tile(Color.MAGENTA);
-		grid[0][1] = new Tile(Color.BLUE);
-		grid[0][2] = new Tile(Color.YELLOW);
-		grid[0][3] = new Tile(Color.GREEN);
-		grid[0][4] = new Tile(Color.ORANGE);
+		grid[0][0] = new Tile(ColorEnum.M);
+		grid[0][1] = new Tile(ColorEnum.B);
+		grid[0][2] = new Tile(ColorEnum.Y);
+		grid[0][3] = new Tile(ColorEnum.G);
+		grid[0][4] = new Tile(ColorEnum.O);
 		
 		for(int l = 0; l < 4; l++) {
 			for(int c = 0; c < 5; c++) {
 				if(c + 1 >= 5) {
-					new_colorpos[0] = grid[l][c].getColor();
+					new_colorpos[0] = grid[l][c].getColorEnum();
 				}else {
-					new_colorpos[c+1] = grid[l][c].getColor();
+					new_colorpos[c+1] = grid[l][c].getColorEnum();
 				}
 			}
 			for(int i = 0; i<5;i++) {

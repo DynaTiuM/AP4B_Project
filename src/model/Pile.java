@@ -56,7 +56,7 @@ public class Pile {
 		tiles_bord.clear();
 		
 		for(int i = 0; i < 4; i++) {
-			if(tiles[i].getColor() == chosen.getColor()) {
+			if(tiles[i].getColorEnum() == chosen.getColorEnum()) {
 				tiles_bord.add(tiles[i]);
 			} else tiles_middle.add(tiles[i]);
 			
