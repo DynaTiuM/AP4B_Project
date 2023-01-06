@@ -37,9 +37,10 @@ public class MenuFrame implements WindowProperties {
 
 		JLabel imageLabel = new JLabel();
 
-		URL url = getClass().getResource("..\\Images\\Azul.png");
+		URL url = getClass().getClassLoader().getResource("Azul.png");
 		assert url != null;
 		ImageIcon icon = new ImageIcon(url);
+
 		Image image = icon.getImage();
 		Image newimg = image.getScaledInstance(300, 200,  java.awt.Image.SCALE_SMOOTH);
 		icon = new ImageIcon(newimg);
