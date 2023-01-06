@@ -1,4 +1,4 @@
-package view;
+package View;
 
 public class Position {
 	  private final int x;

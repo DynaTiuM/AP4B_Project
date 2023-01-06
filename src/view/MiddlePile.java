@@ -1,4 +1,4 @@
-package view;
+package View;
 
 import java.util.HashMap;
 import java.util.LinkedList;

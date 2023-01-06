@@ -3,7 +3,7 @@ package model;
 
 import java.util.HashMap;
 
-import view.Position;
+import View.Position;
 
 
 public class Pattern {

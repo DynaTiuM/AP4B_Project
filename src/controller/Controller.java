@@ -3,9 +3,9 @@ package controller;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import view.PopupEnd;
-import view.Position;
-import view.View;
+import View.PopupEnd;
+import View.Position;
+import View.View;
 import model.*;
 
 public class Controller {

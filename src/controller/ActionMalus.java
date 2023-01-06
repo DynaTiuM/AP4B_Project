@@ -1,6 +1,6 @@
 package controller;
 
-import view.View;
+import View.View;
 import model.Game;
 
 import java.awt.event.ActionEvent;

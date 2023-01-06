@@ -3,7 +3,7 @@ package model;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import view.Position;
+import View.Position;
 
 
 

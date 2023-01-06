@@ -3,7 +3,7 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import view.View;
+import View.View;
 import model.Game;
 
 public class ActionLine implements ActionListener {

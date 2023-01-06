@@ -3,7 +3,7 @@ package model;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import view.Position;
+import View.Position;
 import controller.Controller;
 
 // ATTENTION : dans game on crée toujours 4 bord est-ce normal ?
@@ -72,8 +72,6 @@ public class Game {
 				break;
 			}
 		}
-
-		controllerRef.displayEndOfGame(players);
 	}
 
 	public void setTilesSelectedToHand(int numberOfPile, int ID) {
