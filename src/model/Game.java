@@ -170,7 +170,6 @@ public class Game {
 
 	public void updateViewLine(LinkedList<Tile> toSend, int previousIndex, int i) {
 		controllerRef.updateViewLine(toSend, previousIndex, i, currentPlayer);
-		
 	}
 
 	public void sendMalusFirstToView(int previous) {
@@ -178,10 +177,7 @@ public class Game {
 		
 	}
 	
-	
 	//Methodes get
-
-
 	public int getCurrentPlayer() {
 		return currentPlayer;
 	}

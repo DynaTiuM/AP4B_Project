@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.*;
+import java.net.URL;
 import java.util.*;
 import java.util.List;
 import javax.swing.*;
@@ -44,9 +45,13 @@ public class View extends JFrame {
         setLocationRelativeTo(null);
 
         setTitle("Azul");
-        Image icon = Toolkit.getDefaultToolkit().getImage("src\\Images\\Azul.png");
+        URL url1 = getClass().getResource("..\\Images\\Azul.png");
+        assert url1 != null;
+        Image icon = Toolkit.getDefaultToolkit().getImage(url1);
 
-        ImageIcon iconTable = new ImageIcon("src\\Images\\Table.png");
+        URL url2 = getClass().getResource("..\\Images\\Table.png");
+        assert url2 != null;
+        ImageIcon iconTable = new ImageIcon(url2);
         // Set the frame's icon
         setIconImage(icon);
         bords = new Bord[numberOfPlayers];
@@ -66,8 +71,9 @@ public class View extends JFrame {
             System.out.println("ERRO LOADING IMAGE BACKGROUND " + MediaTracker.ERRORED);
         } else {
             // The image was successfully loaded
-            
-            Image image = Toolkit.getDefaultToolkit().getImage("src\\Images\\Table.png");
+            URL url = getClass().getResource("..\\Images\\Table.png");
+            assert url != null;
+            Image image = Toolkit.getDefaultToolkit().getImage(url);
             contentPanel = new ViewPanel(controllerRef, image, bords, potRef, this);
             setContentPane(contentPanel);
         }
@@ -312,7 +318,7 @@ class PopupEnd extends JPanel {
             int ID = entry.getKey();
             int score = entry.getValue();
 
-            createLabel(x, 160, "src\\Images\\UVs\\"+ (scores.size() - i) + ".jpg", ID, score);
+            createLabel(x, 160, "..\\Images\\UVs\\"+ (scores.size() - i) + ".jpg", ID, score);
             i++;
             x -= 120;
         }
@@ -347,7 +353,11 @@ class PopupEnd extends JPanel {
     public void createLabel(int posX, int posY, String texture, int ID, int score) {
         JLabel uv = new JLabel();
         uv.setBounds(posX, posY, 80, 80);
-        ImageIcon icon = new ImageIcon(texture);
+
+        URL urlTexture = getClass().getResource(texture);
+        assert urlTexture != null;
+        ImageIcon icon = new ImageIcon(urlTexture);
+
         Image image = icon.getImage();
         Image newimg = image.getScaledInstance(80, 80,  java.awt.Image.SCALE_SMOOTH);
         icon = new ImageIcon(newimg);
@@ -406,7 +416,7 @@ class PopupPanel extends JPanel {
     private static final int POPUP_BORD_SIZE = 500;
     private static final int POPUP_RECT_SIZE = 42;
     private static final long serialVersionUID = 1L;
-    private final Image image = Toolkit.getDefaultToolkit().getImage("src\\Images\\Bord.png");
+    private final Image image;
     private final PlayGrid playGrid;
     private final Pattern pattern;
     private final Malus malus;
@@ -418,6 +428,8 @@ class PopupPanel extends JPanel {
 
     // Constructor that takes in image, bords array, and pot object
     public PopupPanel(View view_ref, Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
+        URL url = getClass().getResource("..\\Images\\Bord.png");
+        image = Toolkit.getDefaultToolkit().getImage(url);
         setLayout(null);
         setPreferredSize(new Dimension(500, 500));
         this.playGrid = new PlayGrid(gridPosition, view_ref, POPUP_RECT_SIZE);
@@ -429,8 +441,14 @@ class PopupPanel extends JPanel {
         this.add(malusButton);
       //Add the buttons of the Piles and middle pile
         this.buttons = playGrid.getPileButtons();
-        ImageIcon rolloverIcon = new ImageIcon("src\\Images\\rolloverButtonLines.png");
-        ImageIcon icon = new ImageIcon("src\\Images\\ButtonLines.png");
+
+        URL url1 = getClass().getResource("..\\Images\\rolloverButtonLines.png");
+        assert url1 != null;
+        ImageIcon rolloverIcon = new ImageIcon(url1);
+
+        URL url2 = getClass().getResource("..\\Images\\ButtonLines.png");
+        assert url2 != null;
+        ImageIcon icon = new ImageIcon(url2);
         // Ajout des boutons au JPanel
         for (JButton button : this.buttons) {
             if (button != null) {
@@ -455,7 +473,9 @@ class PopupPanel extends JPanel {
             }
         }
 
-        ImageIcon icon2 = new ImageIcon("src\\Images\\ButtonLines2.png");
+        URL url3 = getClass().getResource("..\\Images\\ButtonLines2.png");
+        assert url3 != null;
+        ImageIcon icon2 = new ImageIcon(url3);
 
         // Create the timer to blink the buttons
         // Toggle the visibility of the buttons every time the timer fires

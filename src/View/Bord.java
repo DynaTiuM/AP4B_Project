@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.*;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -31,7 +32,9 @@ public class Bord{
 	  }
 
 	  public void draw(Graphics g) {
-		    ImageIcon icon = new ImageIcon("src\\Images\\Bord.png");
+		  URL url = getClass().getResource("..\\Images\\Bord.png");
+		  assert url != null;
+		  ImageIcon icon = new ImageIcon(url);
 		    if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
 				assert false : "Can't load the image!";
 		      // There was an error loading the image

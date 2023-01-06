@@ -5,6 +5,7 @@ import controller.Controller;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.URL;
 
 import javax.swing.*;
 
@@ -35,7 +36,10 @@ public class MenuFrame implements WindowProperties {
 	    list = new JList<>(numberPlayersList);
 
 		JLabel imageLabel = new JLabel();
-		ImageIcon icon = new ImageIcon("src\\Images\\Azul.png");
+
+		URL url = getClass().getResource("..\\Images\\Azul.png");
+		assert url != null;
+		ImageIcon icon = new ImageIcon(url);
 		Image image = icon.getImage();
 		Image newimg = image.getScaledInstance(300, 200,  java.awt.Image.SCALE_SMOOTH);
 		icon = new ImageIcon(newimg);

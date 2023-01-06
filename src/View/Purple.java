@@ -7,10 +7,10 @@ import model.ColorEnum;
 public class Purple extends Tile_View {
 
 	public Purple(Position position) {
-		super(position, new ImageIcon("src\\Images\\Hardware.png"), ColorEnum.M, false);
+		super(position, "..\\Images\\Hardware.png", ColorEnum.M, false);
 	}
 	
 	public Purple(Position position, boolean PopUp) {
-		super(position, new ImageIcon("src\\Images\\Hardware.png"), ColorEnum.M, PopUp);
+		super(position, "..\\Images\\Hardware.png", ColorEnum.M, PopUp);
 	}
 }
