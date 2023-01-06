@@ -1,7 +1,6 @@
 package View;
 
 import java.awt.*;
-import java.net.URL;
 import java.util.*;
 import java.util.List;
 import javax.swing.*;
@@ -33,7 +32,7 @@ public class View extends JFrame {
      */
     public View(Controller controller, int numberOfPlayers) {	 //View(Controller ref, int numberOfPlayers)
         this.controllerRef = controller;
-        //controller_m = ref;
+
         // Set the background color of the frame to white
         setBackground(new Color(255, 255, 255));
         setSize(WIDTH, HEIGHT);
@@ -45,15 +44,13 @@ public class View extends JFrame {
         setLocationRelativeTo(null);
 
         setTitle("Azul");
-        URL url1 = getClass().getResource("..\\Images\\Azul.png");
-        assert url1 != null;
-        Image icon = Toolkit.getDefaultToolkit().getImage(url1);
+        
+        ImageIcon azulIcon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("Azul.png")));
+        Image azul = azulIcon.getImage();
 
-        URL url2 = getClass().getResource("..\\Images\\Table.png");
-        assert url2 != null;
-        ImageIcon iconTable = new ImageIcon(url2);
+        ImageIcon iconTable = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("Table.png")));
         // Set the frame's icon
-        setIconImage(icon);
+        setIconImage(azul);
         bords = new Bord[numberOfPlayers];
         bords[0] = new Bord(new Position(30, 20), this, 0);
         bords[1] = new Bord(new Position(WIDTH - Bord.BORD_SIZE - 50, 20), this, 1);
@@ -68,12 +65,12 @@ public class View extends JFrame {
         potRef = new Pot(new Position(WIDTH/2, HEIGHT/2), (numberOfPlayers * 2) + 1, this);
 
         if (iconTable.getImageLoadStatus() == MediaTracker.ERRORED) {
-            System.out.println("ERRO LOADING IMAGE BACKGROUND " + MediaTracker.ERRORED);
+            System.out.println("ERROR LOADING IMAGE BACKGROUND " + MediaTracker.ERRORED);
+            
         } else {
             // The image was successfully loaded
-            URL url = getClass().getResource("..\\Images\\Table.png");
-            assert url != null;
-            Image image = Toolkit.getDefaultToolkit().getImage(url);
+        	
+            Image image = iconTable.getImage();
             contentPanel = new ViewPanel(controllerRef, image, bords, potRef, this);
             setContentPane(contentPanel);
         }
@@ -165,7 +162,7 @@ class ViewPanel extends JPanel {
     private final View view_ref;
     private static final long serialVersionUID = 1L;
     // Image to display
-    private final Image image;
+    private Image image;
     private final Bord[] bords;
     private final Pot pot;
     private PopupPanel panel;
@@ -181,6 +178,7 @@ class ViewPanel extends JPanel {
         this.setLayout(null);
         this.controllerRef= controller;
         font = new Font("Arial", Font.BOLD, 30);    
+        
     }
 
     public void closePopUp() {
@@ -287,7 +285,6 @@ class PopupEnd extends JPanel {
         quit.setBorder(BorderFactory.createLineBorder(new Color(64, 129, 166), 3));
         quit.setBackground(new Color(246, 237, 227));
 
-
         quit.addActionListener(e -> quit());
 
         this.add(quit);
@@ -318,7 +315,7 @@ class PopupEnd extends JPanel {
             int ID = entry.getKey();
             int score = entry.getValue();
 
-            createLabel(x, 160, "..\\Images\\UVs\\"+ (scores.size() - i) + ".jpg", ID, score);
+            createLabel(x, 160, (scores.size() - i) + ".jpg", ID, score);
             i++;
             x -= 120;
         }
@@ -354,9 +351,8 @@ class PopupEnd extends JPanel {
         JLabel uv = new JLabel();
         uv.setBounds(posX, posY, 80, 80);
 
-        URL urlTexture = getClass().getResource(texture);
-        assert urlTexture != null;
-        ImageIcon icon = new ImageIcon(urlTexture);
+      
+        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource(texture)));
 
         Image image = icon.getImage();
         Image newimg = image.getScaledInstance(80, 80,  java.awt.Image.SCALE_SMOOTH);
@@ -428,8 +424,9 @@ class PopupPanel extends JPanel {
 
     // Constructor that takes in image, bords array, and pot object
     public PopupPanel(View view_ref, Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
-        URL url = getClass().getResource("..\\Images\\Bord.png");
-        image = Toolkit.getDefaultToolkit().getImage(url);
+        
+    	ImageIcon icon_ = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("Bord.png")));
+        image = icon_.getImage();
         setLayout(null);
         setPreferredSize(new Dimension(500, 500));
         this.playGrid = new PlayGrid(gridPosition, view_ref, POPUP_RECT_SIZE);
@@ -442,13 +439,9 @@ class PopupPanel extends JPanel {
       //Add the buttons of the Piles and middle pile
         this.buttons = playGrid.getPileButtons();
 
-        URL url1 = getClass().getResource("..\\Images\\rolloverButtonLines.png");
-        assert url1 != null;
-        ImageIcon rolloverIcon = new ImageIcon(url1);
+        ImageIcon rolloverIcon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("rolloverButtonLines.png")));
 
-        URL url2 = getClass().getResource("..\\Images\\ButtonLines.png");
-        assert url2 != null;
-        ImageIcon icon = new ImageIcon(url2);
+        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("ButtonLines.png")));
         // Ajout des boutons au JPanel
         for (JButton button : this.buttons) {
             if (button != null) {
@@ -473,9 +466,7 @@ class PopupPanel extends JPanel {
             }
         }
 
-        URL url3 = getClass().getResource("..\\Images\\ButtonLines2.png");
-        assert url3 != null;
-        ImageIcon icon2 = new ImageIcon(url3);
+        ImageIcon icon2 = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("ButtonLines2.png")));
 
         // Create the timer to blink the buttons
         // Toggle the visibility of the buttons every time the timer fires

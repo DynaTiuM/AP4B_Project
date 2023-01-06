@@ -14,7 +14,7 @@ public class Malus {
 	private int currentIndex;
 	private int previousIndex;
 	
-	public Malus(Bord bord_p){
+	public Malus(Bord bord){
 		currentIndex = 0;
 		previousIndex = 0;
 		
@@ -25,7 +25,7 @@ public class Malus {
 	
 		line = new Tile[7];
 		
-		bordRef = bord_p;
+		bordRef = bord;
 	}
 	
 	public void addTile(LinkedList<Tile> tiles) {

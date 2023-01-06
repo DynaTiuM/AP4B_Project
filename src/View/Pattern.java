@@ -2,6 +2,7 @@ package View;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Objects;
 
 import javax.swing.ImageIcon;
 
@@ -20,8 +21,8 @@ public class Pattern {
 		this.RECT_SIZE = RECT_SIZE;
 	}
 
-  public void draw(Graphics g) {  	  
-	ImageIcon icon = new ImageIcon("src\\Images\\Pattern.png");
+  public void draw(Graphics g) {
+	ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("Pattern.PNG")));
     if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
       System.out.println("Error Pattern : " + MediaTracker.ERRORED);
     } else {

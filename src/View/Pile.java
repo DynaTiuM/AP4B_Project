@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.util.LinkedList;
+import java.util.Objects;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -41,7 +42,7 @@ public class Pile {
     }
 
     public void draw(Graphics g) {
-        ImageIcon icon = new ImageIcon("src\\Images\\Pile.png");
+        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("Pile.PNG")));
         if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
             System.out.println("CANT LOAD IMAGE");
         } else {

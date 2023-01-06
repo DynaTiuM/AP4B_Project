@@ -28,12 +28,11 @@ public class Line {
       button.setBounds(position.getX() - RECT_SIZE, position.getY(), RECT_SIZE, RECT_SIZE);
 
       JButton button = new JButton();
-      ImageIcon icon = new ImageIcon("src\\Images\\ButtonLines.png");
+      ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("ButtonLines.png"));
       button.setIcon(icon);
 	        
-      ImageIcon selectedIcon = new ImageIcon("selectedButtonLines.png");
-      ImageIcon rolloverIcon = new ImageIcon("rolloverButtonLines.png");
-      button.setSelectedIcon(selectedIcon);
+      ImageIcon rolloverIcon = new ImageIcon(getClass().getClassLoader().getResource("rolloverButtonLines.png"));
+      
       button.setRolloverIcon(rolloverIcon);
   }
   
@@ -50,7 +49,7 @@ public class Line {
   // M�thode qui dessine la ligne sur l'interface graphique
   public void draw(Graphics g) {
     // Chargement de l'image de la tuile
-    ImageIcon icon = new ImageIcon("src\\Images\\Cube.png");
+    ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("Cube.png"));
     // V�rifie si l'image a pu �tre charg�e correctement
     if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
         assert false : "Can't load the image : Line";

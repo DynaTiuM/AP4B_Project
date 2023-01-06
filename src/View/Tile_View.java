@@ -21,10 +21,8 @@ public class Tile_View extends JLabel {
 		this.position = position;
 		this.color = color;
 		this.setBounds(position.getX(), position.getY(), RECT_SIZE, RECT_SIZE);
-		URL url = getClass().getResource(path);
-
-		assert url != null;
-		ImageIcon imageIcon3 = new ImageIcon(url); // load the image to a imageIcon
+		
+		ImageIcon imageIcon3 = new ImageIcon(getClass().getClassLoader().getResource(path)); // load the image to a imageIcon
 		Image image = imageIcon3.getImage(); // transform it
 		Image newimg = image.getScaledInstance(RECT_SIZE, RECT_SIZE,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
 		imageIcon3 = new ImageIcon(newimg);  // transform it back

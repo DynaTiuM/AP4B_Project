@@ -6,10 +6,10 @@ import model.ColorEnum;
 
 public class MalusTile extends Tile_View {
 	public MalusTile(Position position) {
-		super(position, "..\\Images\\MalusTile.png", ColorEnum.MALUS, false);
+		super(position, "MalusTile.png", ColorEnum.MALUS, false);
   	}
 
 	public MalusTile(Position position, boolean PopUp) {
-		super(position, "..\\Images\\MalusTile.png", ColorEnum.MALUS, PopUp);
+		super(position, "MalusTile.png", ColorEnum.MALUS, PopUp);
 	}
 }
