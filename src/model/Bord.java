@@ -31,7 +31,7 @@ public class Bord {
 	// Liste des "Tile" dans la main du joueur
 	private LinkedList<Tile> hand_of_player;
 	
-	private boolean next_first;
+	private boolean next_first_player;
 	
 	
 	// Constructeur de la classe Bord.
@@ -41,7 +41,7 @@ public class Bord {
 		
 		this.TEST_LINE = 0;
 		
-		next_first = false;
+		next_first_player = false;
 		
 		current = 0;
 		
@@ -153,7 +153,7 @@ public class Bord {
 
 
 	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, boolean modified) {
-		// TODO Auto-generated method stub
+	
 		if(modified) {
 			this.game_ref.updateViewLine(to_send, previous_index, i, malus_grid_m.getLine());
 		}else {
@@ -191,7 +191,7 @@ public class Bord {
 
 
 	public void sendMalusFirst(Tile first) {
-		next_first = true;
+		next_first_player = true;
 		malus_grid_m.addTile(first);
 		game_ref.sendMalusFirstToView(malus_grid_m.getPrevious());
 	}
@@ -202,12 +202,12 @@ public class Bord {
 
 
 	public boolean getNextFirst() {
-		// TODO Auto-generated method stub
-		return next_first;
+		
+		return next_first_player;
 	}
 	
 	public void resetNextFirst() {
-		next_first = false;
+		next_first_player = false;
 	}
 	
 }
