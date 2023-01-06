@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -13,10 +13,10 @@ import model.Tile;
 public class Bord{
 	
 	  //Size of a Bord
-	  public static final int BORD_SIZE = 300;
+	  private static final int BORD_SIZE = 300;
 	  
 	  //Size of a Tile
-	  public static final int RECT_SIZE = 25;
+	  private static final int RECT_SIZE = 25;
 	  
 	  //Position of a Bord on the View Panel
 	  private final Position position;
@@ -31,19 +31,19 @@ public class Bord{
 	  private final Malus malus;
 	  
 	  //Reference to the View
-	  private final View view_ref;
+	  private final View viewRef;
 	  
 	  //used to identify the player
 	  private final int playerID;
 
 	  
-	  public Bord(Position position, View view_ref, int playerID) {
+	  public Bord(Position position, View viewRef, int playerID) {
 	    this.position = position;
-	    this.view_ref = view_ref;
+	    this.viewRef = viewRef;
 		this.playerID = playerID;
-	    this.playGrid = new PlayGrid(new Position(position.getX() + RECT_SIZE, position.getY() + RECT_SIZE*4), view_ref,  RECT_SIZE);
-	    this.pattern = new Pattern(new Position(position.getX() + 10 + BORD_SIZE / 2, position.getY()+ RECT_SIZE*4), view_ref, RECT_SIZE);
-	    this.malus = new Malus(new Position(position.getX() + 10, position.getY() + BORD_SIZE - RECT_SIZE * 2 - 10 ), view_ref, RECT_SIZE);
+	    this.playGrid = new PlayGrid(new Position(position.getX() + RECT_SIZE, position.getY() + RECT_SIZE*4), viewRef,  RECT_SIZE);
+	    this.pattern = new Pattern(new Position(position.getX() + 10 + BORD_SIZE / 2, position.getY()+ RECT_SIZE*4), viewRef, RECT_SIZE);
+	    this.malus = new Malus(new Position(position.getX() + 10, position.getY() + BORD_SIZE - RECT_SIZE * 2 - 10 ), viewRef, RECT_SIZE);
 	  }
 
 	  //Draw the Bord
@@ -62,7 +62,7 @@ public class Bord{
 		    playGrid.draw(g);
 		    pattern.draw(g);
 			try{
-				int score = view_ref.getScore(playerID);
+				int score = viewRef.getScore(playerID);
 
 				Font font = new Font("Arial", Font.PLAIN, 25);
 				g.setFont(font);

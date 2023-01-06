@@ -1,7 +1,7 @@
 package controller;
 
-import View.PopupEnd;
-import View.View;
+import view.PopupEnd;
+import view.View;
 import menu.MenuFrame;
 
 import javax.swing.*;

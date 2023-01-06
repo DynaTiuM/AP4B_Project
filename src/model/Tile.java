@@ -10,17 +10,13 @@ public class Tile {
 	private boolean occupied;
 	
 	
-	public Tile(ColorEnum color_p){
+	public Tile(ColorEnum color){
 		this.occupied = false;
-		this.colorEnum = color_p;
+		this.colorEnum = color;
 	}
 	
 	public ColorEnum getColorEnum() {
 		return this.colorEnum;
-	}
-
-	public void setColorEnum(ColorEnum color) {
-		this.colorEnum = color;
 	}
 
 	public void setOccupiedTrue() {

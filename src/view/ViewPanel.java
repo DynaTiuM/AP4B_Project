@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -19,7 +19,7 @@ public class ViewPanel extends JPanel {
     /**
      *
      */
-    private final View view_ref;
+    private final View viewRef;
     private static final long serialVersionUID = 1L;
     // Image to display
     private final Image image;
@@ -30,8 +30,8 @@ public class ViewPanel extends JPanel {
     private final Font font;
 
     // Constructor that takes in image, bords array, and pot object
-    public ViewPanel(Controller controller, Image image, Bord[] bords, Pot pot, View view_ref) {
-        this.view_ref = view_ref;
+    public ViewPanel(Controller controller, Image image, Bord[] bords, Pot pot, View viewRef) {
+        this.viewRef = viewRef;
         this.image = image;
         this.bords = bords;
         this.pot = pot;
@@ -71,7 +71,7 @@ public class ViewPanel extends JPanel {
     public void updateBordPopUp(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
     	
 
-        panel = new PopupPanel(view_ref, pattern, malus, grid, hand);
+        panel = new PopupPanel(viewRef, pattern, malus, grid, hand);
         JDialog dialog = new JDialog((JFrame)null, "", true);
         dialog.setUndecorated(true);
         dialog.add(panel);
@@ -113,7 +113,7 @@ public class ViewPanel extends JPanel {
 
     //display PopPup at the end of the game, showing who won and what score each player got
     public void displayEndOfGame(model.Bord[] bords) {
-        JPanel panel = new PopupEnd(view_ref, bords);
+        JPanel panel = new PopupEnd(viewRef, bords);
         JDialog dialog = new JDialog((JFrame)null, "", true);
         dialog.setUndecorated(true);
         dialog.add(panel);

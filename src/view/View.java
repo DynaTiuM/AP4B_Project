@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import java.awt.*;
 import java.util.*;
@@ -15,6 +15,7 @@ public class View extends JFrame {
     private static final long serialVersionUID = 1L;
     private static final int HEIGHT = 720;
     private static final int WIDTH = 1080;
+	private static final int BORD_SIZE = 300;
 
     private final Bord[] bords;
     private final Pot potRef;
@@ -46,13 +47,13 @@ public class View extends JFrame {
         setIconImage(azul);
         bords = new Bord[numberOfPlayers];
         bords[0] = new Bord(new Position(30, 20), this, 0);
-        bords[1] = new Bord(new Position(WIDTH - Bord.BORD_SIZE - 50, 20), this, 1);
+        bords[1] = new Bord(new Position(WIDTH - BORD_SIZE - 50, 20), this, 1);
 
         if (numberOfPlayers > 2) {
-            bords[2] = new Bord(new Position(30, HEIGHT -Bord.BORD_SIZE - 50), this, 2);
+            bords[2] = new Bord(new Position(30, HEIGHT -BORD_SIZE - 50), this, 2);
         }
         if (numberOfPlayers > 3) {
-            bords[3] = new Bord(new Position(WIDTH - Bord.BORD_SIZE - 50, HEIGHT -Bord.BORD_SIZE - 50), this, 3);
+            bords[3] = new Bord(new Position(WIDTH - BORD_SIZE - 50, HEIGHT -BORD_SIZE - 50), this, 3);
         }
         // Create the Pot object
         potRef = new Pot(new Position(WIDTH/2, HEIGHT/2), (numberOfPlayers * 2) + 1, this);

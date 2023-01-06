@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -33,15 +33,15 @@ public class PopupPanel extends JPanel {
     private final Position malusPosition = new Position(18, POPUP_BORD_SIZE - POPUP_BORD_SIZE / 6 - 20);
 
     // Constructor that takes in image, bords array, and pot object
-    public PopupPanel(View view_ref, Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
+    public PopupPanel(View viewRef, Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
         
     	ImageIcon icon_ = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("Bord.png")));
         image = icon_.getImage();
         setLayout(null);
         setPreferredSize(new Dimension(500, 500));
-        this.playGrid = new PlayGrid(gridPosition, view_ref, POPUP_RECT_SIZE);
-        this.pattern = new Pattern(patternPosition, view_ref,  POPUP_RECT_SIZE);
-        this.malus = new Malus(malusPosition, view_ref, POPUP_RECT_SIZE);
+        this.playGrid = new PlayGrid(gridPosition, viewRef, POPUP_RECT_SIZE);
+        this.pattern = new Pattern(patternPosition, viewRef,  POPUP_RECT_SIZE);
+        this.malus = new Malus(malusPosition, viewRef, POPUP_RECT_SIZE);
 
         //Add the buttons of the Piles and middle pile
         JButton malusButton = this.malus.getMalusButton();

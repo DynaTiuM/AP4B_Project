@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -13,7 +13,7 @@ import controller.ActionSelectionTile;
 import model.Tile;
 //Display A pile in the ViewPanel
 public class Pile {
-    private static final int RECT_SIZE = Bord.RECT_SIZE;
+    private static final int RECT_SIZE = 25;
     private final Position position;
    
     //Stores tiles in the pile

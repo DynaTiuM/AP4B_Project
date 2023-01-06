@@ -3,7 +3,7 @@ package model;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import View.Position;
+import view.Position;
 import controller.Controller;
 
 // ATTENTION : dans game on crée toujours 4 bord est-ce normal ?
@@ -92,8 +92,8 @@ public class Game {
 		controllerRef.updateViewLine(toSend, previousIndex, i, currentPlayer, malus);
 	}
 	
-	public void updateMiddlePileView(LinkedList<Tile> to_add, int previousIndex, boolean delete) {
-		controllerRef.updateMiddlePileView(to_add, previousIndex, delete);
+	public void updateMiddlePileView(LinkedList<Tile> toAdd, int previousIndex, boolean delete) {
+		controllerRef.updateMiddlePileView(toAdd, previousIndex, delete);
 	}
 	
 	public void updatePatternView(int playerID, HashMap<Tile, Position> toSend) {

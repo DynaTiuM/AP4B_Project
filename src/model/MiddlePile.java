@@ -53,7 +53,7 @@ public class MiddlePile {
 	//Function called when we choose a tile from MiddlePile
 	
 	public LinkedList<Tile> modifyMiddlePile(int index) {
-		Tile tile_ref = tiles.get(index);
+		Tile tileRef = tiles.get(index);
 		LinkedList<Tile> toSend = new LinkedList<>();
 		LinkedList<Tile> tmp = new LinkedList<>();
 		
@@ -68,7 +68,7 @@ public class MiddlePile {
 		
 		
 		for(Tile tile : this.tiles) {
-			if(tile.getColorEnum() == tile_ref.getColorEnum()) {
+			if(tile.getColorEnum() == tileRef.getColorEnum()) {
 				toSend.add(tile);
 				tmp.add(tile);
 			}

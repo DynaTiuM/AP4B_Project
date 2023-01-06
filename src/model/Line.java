@@ -37,13 +37,13 @@ public class Line {
 	
 	
 	// Constructeur de la classe Line
-	public Line(Malus malus_p, Pattern pattern_ref, int size, Bord ref) {
+	public Line(Malus malus, Pattern patternRef, int size, Bord ref) {
 		
-		bordRef = ref;
+		this.bordRef = ref;
 		
-		malusRef = malus_p;
+		this.malusRef = malus;
 		
-		patternRef = pattern_ref;
+		this.patternRef = patternRef;
 		
 		currentIndex = 0;
 		previousIndex = 0;

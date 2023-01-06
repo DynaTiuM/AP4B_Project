@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -23,9 +23,9 @@ public class Pattern {
 	//Reference to the view
 	private final View viewRef;
 
-	public Pattern(Position position, View view, int RECT_SIZE) {
+	public Pattern(Position position, View viewRef, int RECT_SIZE) {
 		tile = new Tile_View[5][5];
-		viewRef = view;
+		this.viewRef = viewRef;
 		this.position = position;
 		this.RECT_SIZE = RECT_SIZE;
 	}

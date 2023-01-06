@@ -1,4 +1,4 @@
-package View;
+package view;
 
 //Class used to simplify determining the coordinates of one of the components of the ViewPanel
 public class Position {

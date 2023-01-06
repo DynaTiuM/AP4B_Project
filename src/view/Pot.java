@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import java.awt.Graphics;
 import java.util.LinkedList;
@@ -11,6 +11,7 @@ import model.Tile;
 //Displays the Piles and MiddlePile
 public class Pot {
     // Array contening the Piles
+	private static final int RECT_SIZE = 25;
     private final Pile[] piles;
     
     private final MiddlePile middlePile;
@@ -20,19 +21,19 @@ public class Pot {
  
 
     // Constructor with the position of the Pot, the number of tiles to instanciate and the reference to the view
-    public Pot(Position position, int numberOfPiles, View ref) {
+    public Pot(Position position, int numberOfPiles, View viewRef) {
 	  
 	    // sets reference to View
-	    viewRef = ref;
+	    this.viewRef = viewRef;
         
  
-        piles = new Pile[numberOfPiles];
+        this.piles = new Pile[numberOfPiles];
     
         // Determine center of the frame
         int centerX = position.getX();
 
         // Determine size of Piles
-        int pileSize = Bord.RECT_SIZE * 4;
+        int pileSize = RECT_SIZE * 4;
 
         // Determine the top left coordinates x and y of the first pile
         int firstPileX = centerX - pileSize;
