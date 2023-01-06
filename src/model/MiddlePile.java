@@ -86,7 +86,7 @@ public class MiddlePile {
 	}
 
 	public int isEmpty() {
-		if(tiles.isEmpty()) {
+		if(tiles.isEmpty()||(tiles.size() == 1 && tiles.getFirst().getColorEnum() == ColorEnum.MALUS)) {
 			return 1;
 		}else {
 			return 0;
