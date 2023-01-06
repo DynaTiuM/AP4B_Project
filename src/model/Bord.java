@@ -31,6 +31,8 @@ public class Bord {
 	// Liste des "Tile" dans la main du joueur
 	private LinkedList<Tile> hand_of_player;
 	
+	private boolean next_first;
+	
 	
 	// Constructeur de la classe Bord.
 	// Initialise les différents éléments du plateau de jeu (lignes, grille de malus, grille de motifs).4
@@ -38,6 +40,8 @@ public class Bord {
 	public Bord(int number, Game ref) {
 		
 		this.TEST_LINE = 0;
+		
+		next_first = false;
 		
 		current = 0;
 		
@@ -187,12 +191,23 @@ public class Bord {
 
 
 	public void sendMalusFirst(Tile first) {
+		next_first = true;
 		malus_grid_m.addTile(first);
 		game_ref.sendMalusFirstToView(malus_grid_m.getPrevious());
 	}
 
 	public boolean checkEnd(){
 		return pattern_grid_m.checkEndGame();
+	}
+
+
+	public boolean getNextFirst() {
+		// TODO Auto-generated method stub
+		return next_first;
+	}
+	
+	public void resetNextFirst() {
+		next_first = false;
 	}
 	
 }

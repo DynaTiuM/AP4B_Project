@@ -72,9 +72,15 @@ public class Game {
 				this.endOfGame();
 				break;
 			}
+			
+			if(p.getNextFirst()) {
+				p.resetNextFirst();
+				current_player = p.getID();
+				break;
+			}
 		}
 
-		controller.displayEndOfGame(players);
+		
 
 	}
 
