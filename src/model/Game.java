@@ -79,10 +79,8 @@ public class Game {
 			}
 		}
 
-	}
+		controller.displayEndOfGame(players);
 
-	public void testShuffle() {
-		pot.testShuffle();
 	}
 
 	public void setTilesSelectedToHand(int numberOfPile, int ID) {
@@ -113,7 +111,7 @@ public class Game {
 		controller.updatePatternView(playerID, to_send);
 	}
 	
-	public void updateMalusView(Tile[] malus) {
+	public void updateMalusToView(Tile[] malus) {
 		controller.updateMalusView(malus, current_player);
 	}
 

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 
-import javax.swing.JButton;
+import javax.swing.*;
 
 import controller.ActionSelectionMiddlePile;
 import model.Tile;
@@ -75,9 +75,14 @@ public class MiddlePile {
   			}
   			
   			// For every tile, we associate it a button
-  			
-  			JButton button_tile = new JButton();
-  			button_tile.setBounds(position.getX() + offsetX, position.getY() + this.offsetY, (int)(RECT_SIZE/1.5), (int)(RECT_SIZE/1.5));
+
+			JButton button_tile = new JButton();
+			button_tile.setOpaque(false);
+			button_tile.setContentAreaFilled(false);
+			//enlever la bordure
+			button_tile.setBorderPainted(false);
+
+  			button_tile.setBounds(position.getX() + offsetX, position.getY() + this.offsetY, RECT_SIZE, RECT_SIZE);
   			int ID = tiles.size();
   			
   			// Initiation of every button, with their ID and an ActionListener

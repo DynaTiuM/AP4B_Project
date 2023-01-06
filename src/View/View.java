@@ -404,6 +404,7 @@ class PopupEnd extends JPanel {
     }
 
     private void newGame() {
+        view.closePopup();
         view.stopGame();
         SwingUtilities.getWindowAncestor(this).dispose();
         view.dispose();
@@ -411,6 +412,7 @@ class PopupEnd extends JPanel {
     }
 
     private void quit(){
+        view.closePopup();
         view.stopGame();
         SwingUtilities.getWindowAncestor(this).dispose();
         view.dispose();

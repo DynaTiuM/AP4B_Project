@@ -3,27 +3,23 @@ package View;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
-import java.util.HashMap;
 import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import controller.ActionDisplayTile;
 import controller.ActionSelectionTile;
 import model.Tile;
 
 public class Pile {
     private static final int RECT_SIZE = Bord.RECT_SIZE;
-    private Position position;
+    private final Position position;
    
-    private Tile_View[] tiles;
-    private JButton[] buttons;
-    private View view_m;
-    private JPanel panel;
+    private final Tile_View[] tiles;
+    private final JButton[] buttons;
+    private final View view_m;
     int number;
-    private int passage;
 
     public Pile(Position position, View view_ref, int number) {
         this.number = number;
@@ -83,7 +79,11 @@ public class Pile {
                 }
                 
                 buttons[i] = new JButton();
-                buttons[i].setBounds(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2), (int)(RECT_SIZE/1.5), (int)(RECT_SIZE/1.5));
+                buttons[i].setOpaque(false);
+                buttons[i].setContentAreaFilled(false);
+                //enlever la bordure
+                buttons[i].setBorderPainted(false);
+                buttons[i].setBounds(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2), RECT_SIZE, RECT_SIZE);
                
                 view_m.getPanel().addB(buttons[i]);
                 view_m.getPanel().addT(tiles[i]);
