@@ -10,16 +10,16 @@ public class ActionLine implements ActionListener {
 	
 	private final int lineSupervised;
 	private final Game model;
-	private final View view_m;
+	private final View viewRef;
 	
 	public ActionLine(Game ref, int ID, View view) {
 		this.model = ref;
-		this.view_m = view;
+		this.viewRef = view;
 		this.lineSupervised = ID;
 	}
 	
 	public void close() {
-		view_m.closePopup();
+		viewRef.closePopup();
 	}
 
 	@Override

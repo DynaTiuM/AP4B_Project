@@ -7,52 +7,47 @@ public class Malus {
 	private final Tile[] line;
 	private final int[] penalty;
 	
-	private final LinkedList<Tile> to_send;
+	private final LinkedList<Tile> toSend;
 	
-	private final Bord bord_ref;
+	private final Bord bordRef;
 
-	private int current_index;
-	private int previous_index;
+	private int currentIndex;
+	private int previousIndex;
 	
 	public Malus(Bord bord_p){
-		current_index = 0;
-		previous_index = 0;
+		currentIndex = 0;
+		previousIndex = 0;
 		
-		to_send = new LinkedList<>();
+		toSend = new LinkedList<>();
 		
 		penalty = new int[7];
 		initPenalty();
 	
 		line = new Tile[7];
 		
-		bord_ref = bord_p;
+		bordRef = bord_p;
 	}
 	
 	public void addTile(LinkedList<Tile> tiles) {
-		previous_index = current_index;
+		previousIndex = currentIndex;
 
 		for(Tile p: tiles) {
-			if(current_index < 7) {
-				line[current_index] = p;
-
-				
-				
-				current_index++;
+			if(currentIndex < 7) {
+				line[currentIndex] = p;
+				currentIndex++;
 			}else {
-				bord_ref.sendToBag(p);
-				//previous_index=7;
+				bordRef.sendToBag(p);
 			}
 		}
 	}
 	
-	public void addTile(Tile tile_p) {
-		if(current_index < 7) {
-			line[current_index] = tile_p;
-			
-			previous_index = current_index;
-			current_index++;
+	public void addTile(Tile tile) {
+		if(currentIndex < 7) {
+			line[currentIndex] = tile;
+			previousIndex = currentIndex;
+			currentIndex++;
 		}else {
-			if(tile_p.getColorEnum()!=ColorEnum.MALUS) bord_ref.sendToBag(tile_p);
+			if(tile.getColorEnum()!=ColorEnum.MALUS) bordRef.sendToBag(tile);
 		}
 	}
 	
@@ -67,14 +62,14 @@ public class Malus {
 	}
 	
 	public int computateMalus() {
-		int badpoints = 0;
+		int badPoints = 0;
 		
-		for(int i = 0; i<current_index; i++) {
-			badpoints += penalty[i];
+		for(int i = 0; i<currentIndex; i++) {
+			badPoints += penalty[i];
 		}
 		
 		
-		return badpoints;
+		return badPoints;
 	}
 	
 	public void display() {
@@ -82,7 +77,7 @@ public class Malus {
 		
 		int i =0;
 		
-		while(i<current_index) {
+		while(i<currentIndex) {
 			System.out.print(line[i].getColorEnum() + " ");
 			i++;
 		}
@@ -97,17 +92,17 @@ public class Malus {
 
 	public LinkedList<Tile> clear() {
 		
-		to_send.clear();
+		toSend.clear();
 		
-		for(int i =0; i<current_index; i++) {
-			if(line[i].getColorEnum()!=ColorEnum.MALUS) to_send.add(line[i]);
+		for(int i = 0; i < currentIndex; i++) {
+			if(line[i].getColorEnum()!=ColorEnum.MALUS) toSend.add(line[i]);
 
 			line[i] = null;
 		}
 		
-		current_index = 0;
+		currentIndex = 0;
 		
-		return to_send;
+		return toSend;
 	}
 	
 	public Tile[] getLine() {
@@ -115,11 +110,11 @@ public class Malus {
 	}
 
 	public int getPrevious() {		
-		return previous_index;
+		return previousIndex;
 	}
 	
 	public void setPrevious(int previous) {
-		this.previous_index = previous;
+		this.previousIndex = previous;
 	}
 	
 	public boolean isEmpty() {

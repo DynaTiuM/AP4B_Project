@@ -8,13 +8,13 @@ public class Pot {
 	private final MiddlePile middlePile;
 	private final Bag bag;
 
-	private final Game game_ref;
+	private final Game gameRef;
 	
 	private final int numberOfPiles;
 	
 	public Pot(int numberOfPlayers, Game ref) {
 		
-		game_ref = ref;
+		gameRef = ref;
 		
 		middlePile = new MiddlePile(this);
 		numberOfPiles = 1 + numberOfPlayers * 2;
@@ -26,8 +26,8 @@ public class Pot {
 		//display();
 	}
 	
-	public void sendAddedTilesToView(LinkedList<Tile> to_add, int previous_index, boolean delete) {
-		this.game_ref.updateMiddlePileView(to_add, previous_index, delete);
+	public void sendAddedTilesToView(LinkedList<Tile> toAdd, int previousIndex, boolean delete) {
+		this.gameRef.updateMiddlePileView(toAdd, previousIndex, delete);
 	}
 	
 	public void distributeContents() {
@@ -41,7 +41,7 @@ public class Pot {
 	private void instanciatePiles() {
 		piles = new Pile[numberOfPiles];
 		for(int i = 0; i < numberOfPiles; i++){
-			piles[i] = new Pile(game_ref, middlePile,  i);
+			piles[i] = new Pile(gameRef, middlePile,  i);
 		}
 	}
 	
@@ -73,7 +73,7 @@ public class Pot {
 	}
 
 	public void sendMalusFirst(Tile first) {
-		game_ref.sendMalusFirst(first);
+		gameRef.sendMalusFirst(first);
 		
 	}
 	

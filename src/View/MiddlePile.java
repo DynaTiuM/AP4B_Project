@@ -22,7 +22,7 @@ public class MiddlePile {
     	pot_m = ref;
   	}
 
-  	public void updatePile(LinkedList<Tile> to_add, int previous_index, boolean delete) {
+  	public void updatePile(LinkedList<Tile> toAdd, int previousIndex, boolean delete) {
   		if(delete) {
   			for (HashMap.Entry<Tile_View, JButton> entry : this.tiles.entrySet()) {
   				pot_m.removeB(entry.getValue());
@@ -33,10 +33,10 @@ public class MiddlePile {
   			tiles.clear();
   		}
   		Tile_View tile = null;
-  		int offsetX = (previous_index % 7) * RECT_SIZE;
+  		int offsetX = (previousIndex % 7) * RECT_SIZE;
   		
 	  
-  		for(Tile p: to_add) {
+  		for(Tile p: toAdd) {
   			switch (p.getColorEnum()){
   				case O: tile = new Orange(new Position(position.getX() + offsetX, position.getY() + this.offsetY));
   					break;
@@ -54,26 +54,26 @@ public class MiddlePile {
   			
   			// For every tile, we associate it a button
 
-			JButton button_tile = new JButton();
-			button_tile.setOpaque(false);
-			button_tile.setContentAreaFilled(false);
+			JButton buttonTile = new JButton();
+			buttonTile.setOpaque(false);
+			buttonTile.setContentAreaFilled(false);
 			//enlever la bordure
-			button_tile.setBorderPainted(false);
+			buttonTile.setBorderPainted(false);
 
-  			button_tile.setBounds(position.getX() + offsetX, position.getY() + this.offsetY, RECT_SIZE, RECT_SIZE);
+			buttonTile.setBounds(position.getX() + offsetX, position.getY() + this.offsetY, RECT_SIZE, RECT_SIZE);
   			int ID = tiles.size();
   			
   			// Initiation of every button, with their ID and an ActionListener
-  			initiateButton(button_tile, ID);
+  			initiateButton(buttonTile, ID);
   			
   			if(p.getColorEnum() == ColorEnum.MALUS) {
-  				button_tile.setVisible(false);
-  				button_tile.setEnabled(false);
+				buttonTile.setVisible(false);
+				buttonTile.setEnabled(false);
   			}
   			
   			// We add the couple Tile_View/JButton into a HashMap
-  			tiles.put(tile, button_tile);
-  			pot_m.addB(button_tile);
+  			tiles.put(tile, buttonTile);
+  			pot_m.addB(buttonTile);
 			pot_m.addT(tile);
   			
   			
@@ -85,8 +85,8 @@ public class MiddlePile {
   		}
   	}
   	
-  	public void updatePile(LinkedList<Tile> to_remove) {
-  		Tile ref = to_remove.get(0);
+  	public void updatePile(LinkedList<Tile> toRemove) {
+  		Tile ref = toRemove.get(0);
   		Tile_View tile = null;
   		
   		switch (ref.getColorEnum()){

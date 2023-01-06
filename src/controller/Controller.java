@@ -8,95 +8,90 @@ import View.View;
 import model.*;
 
 public class Controller {
-	private Game game_m;
-	private final View view_m;
+	private Game gameRef;
+	private final View viewRef;
 	
 	public Controller(int numPlayers)  {
-		view_m = new View(this, numPlayers);
-		game_m = new Game(this, numPlayers);
+		viewRef = new View(this, numPlayers);
+		gameRef = new Game(this, numPlayers);
 		
 		initialiseButtonsPiles();
 		
 		try {
-
             Thread.sleep(1000);
         } catch (InterruptedException e) {
         	 e.printStackTrace();
         }
-		
-		//game_m.test();
-
-	}
+			}
 	
 	public void initialiseButtonsPiles() {
-		view_m.initiateButtons();
+		viewRef.initiateButtons();
 	}
 
-	public void updatePile(LinkedList<Tile> to_update, int position) {
-		view_m.updatePile(to_update, position);
+	public void updatePile(LinkedList<Tile> toUpdate, int position) {
+		viewRef.updatePile(toUpdate, position);
 	}
 
-	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, int current_player, Tile[] malus) {
-		view_m.updateViewLine(to_send, previous_index, i, current_player, malus);
+	public void updateViewLine(LinkedList<Tile> toSend, int previousIndex, int i, int currentPlayer, Tile[] malus) {
+		viewRef.updateViewLine(toSend, previousIndex, i, currentPlayer, malus);
 	}
 	
-	public void updateMiddlePileView(LinkedList<Tile> to_send, int previous_index, boolean delete) {
-		view_m.updateMiddlePile(to_send, previous_index, delete);
+	public void updateMiddlePileView(LinkedList<Tile> toSend, int previousIndex, boolean delete) {
+		viewRef.updateMiddlePile(toSend, previousIndex, delete);
 	}
 	
-	public void updatePatternView(int playerID, HashMap<Tile, Position> to_send) {
-		view_m.updatePattern(playerID, to_send);
+	public void updatePatternView(int playerID, HashMap<Tile, Position> toSend) {
+		viewRef.updatePattern(playerID, toSend);
 	}
 	
-	public void updateMalusView(Tile[] malus, int current_player) {
-		view_m.updateMalus(malus, current_player);
+	public void updateMalusView(Tile[] malus, int currentPlayer) {
+		viewRef.updateMalus(malus, currentPlayer);
 	}
 
 	public void clearMalusView(int playerID){
-		view_m.clearMalus(playerID);
+		viewRef.clearMalus(playerID);
 	}
 	
 	public void updatePopup(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
-		view_m.updatePopup(pattern, malus, grid, hand);
+		viewRef.updatePopup(pattern, malus, grid, hand);
 	}
 
 	public int getScore(int playerID){
-		return game_m.getScore(playerID);
+		return gameRef.getScore(playerID);
 	}
 	
 	public ActionSelectionTile actionSelectionTile(int ID, int numberPile) {
-		return new ActionSelectionTile(game_m, ID, numberPile);
+		return new ActionSelectionTile(gameRef, ID, numberPile);
 	}
 	public ActionSelectionMiddlePile actionSelectionMiddlePile(int ID) {
-		return new ActionSelectionMiddlePile(game_m, ID);
+		return new ActionSelectionMiddlePile(gameRef, ID);
 	}
 	
 	public ActionLine actionLine(int ID) {
-		return new ActionLine(game_m, ID, view_m);
+		return new ActionLine(gameRef, ID, viewRef);
 	}
 	
 	public int getCurrentPlayer() {
-		return game_m.getCurrentPlayer();
+		return gameRef.getCurrentPlayer();
 	}
 	
 	public ActionMalus actionMalus() {
-		return new ActionMalus(game_m, view_m);
+		return new ActionMalus(gameRef, viewRef);
 	}
 
-	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, int current_player) {
-		view_m.updateViewLine(to_send, previous_index, i, current_player);
+	public void updateViewLine(LinkedList<Tile> toSend, int previousIndex, int i, int currentPlayer) {
+		viewRef.updateViewLine(toSend, previousIndex, i, currentPlayer);
 	}
 
-	public void sendMalusFirstToView(int previous, int current_player) {
-		view_m.sendMalusFirstToView(previous, current_player);
+	public void sendMalusFirstToView(int previous, int currentPlayer) {
+		viewRef.sendMalusFirstToView(previous, currentPlayer);
 	}
 
 	public void displayEndOfGame(model.Bord[] bords) {
-		view_m.displayEndOfGame(bords);
-
+		viewRef.displayEndOfGame(bords);
 	}
 
 	public void stopGame(){
-		game_m = null;
+		gameRef = null;
 	}
 }

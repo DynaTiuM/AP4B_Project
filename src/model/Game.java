@@ -19,34 +19,35 @@ public class Game {
 	private final Bord[] players;
 	
 	// Le contrôleur qui gère le déroulement du jeu
-	private final Controller controller;
+	private final Controller controllerRef;
 	
 	// L'indice du joueur actuellement actif
-	private int current_player;
+	private int currentPlayer;
 	private final int nbPlayers;
-
-	private int winner = -1;
 	
 	// Constructeur qui prend en paramètre un contrôleur et le nombre de joueurs
-	public Game(Controller ref, int nb_player) {
-		nbPlayers = nb_player;
-		current_player = 0;
-		controller = ref;
+	public Game(Controller ref, int nbPlayers) {
+		this.nbPlayers = nbPlayers;
+		currentPlayer = 0;
+		controllerRef = ref;
 		
 		// initialise les Bord avec le nombre de joueurs
-		players = new Bord[nb_player];
-		for(int i = 0; i < nb_player; i++) players[i] = new Bord(i, this);
+		players = new Bord[nbPlayers];
+		for(int i = 0; i < nbPlayers; i++) players[i] = new Bord(i, this);
 		
 		// initialise le Pot en fonction du nombre de joueurs 
-		pot = new Pot(nb_player, this);
+		pot = new Pot(nbPlayers, this);
 		
 	}
-	
-	
-	
+
+	// Envoie une liste de tuiles à la main du joueur actuel
+	public void sendSelectionToBord(LinkedList<Tile> tiles) {
+		players[currentPlayer].setHand(tiles);
+	}
+
 	// The player clicked on a line on the popup :
 	public void lineSelected(int lineNumber) {
-		players[current_player].playHandIndex(lineNumber);
+		players[currentPlayer].playHandIndex(lineNumber);
 	}
 	
 	// Indique la fin d'un tour de jeu et passe au joueur suivant
@@ -56,52 +57,20 @@ public class Game {
 			p.endOfSet();
 		}
 		pot.distributeContents();
-		controller.initialiseButtonsPiles();
+		controllerRef.initialiseButtonsPiles();
 		pot.setFirst();
 
-		for(Bord p: players){
-			if(p.checkEnd()){
+		for(Bord p: players) {
+			if(p.checkEnd()) {
 				this.endOfGame();
 				break;
 			}
 			
 			if(p.getNextFirst()) {
 				p.resetNextFirst();
-				current_player = p.getID();
+				currentPlayer = p.getID();
 				break;
 			}
-		}
-
-		
-
-	}
-	
-	public void endOfGame() {
-		int winning_score = 0;
-		for(Bord p: players) {
-			p.calculateEndOfGameBonuses();
-			
-			if(p.getScore()>winning_score) {
-				winning_score = p.getScore();
-				this.winner = p.getID();
-			}
-			
-		}
-		
-		System.out.println("Winner : " + winner);
-	}
-	
-	public void nextPlayer() {
-		this.current_player++;
-		
-		if(current_player == nbPlayers) {
-			current_player = 0;
-		}
-		
-
-		if(pot.isPlayNotPossible()) {
-			this.endOfSet();
-			if(pot.isPlayNotPossible()) this.endOfGame();
 		}
 	}
 
@@ -112,30 +81,31 @@ public class Game {
 	public LinkedList<Tile> modifyMiddlePile(int index) {
 		return pot.modifyMiddlePile(index);
 	}
-	
 
-	public void sendContentList(LinkedList<Tile> to_send, int index) {
-		controller.updatePile(to_send, index);
+
+	public void sendContentList(LinkedList<Tile> toSend, int index) {
+		controllerRef.updatePile(toSend, index);
 	}
 
-	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, Tile[] malus) {
-		controller.updateViewLine(to_send, previous_index, i, current_player, malus);
+
+	public void updateViewLine(LinkedList<Tile> toSend, int previousIndex, int i, Tile[] malus) {
+		controllerRef.updateViewLine(toSend, previousIndex, i, currentPlayer, malus);
 	}
 	
-	public void updateMiddlePileView(LinkedList<Tile> to_add, int previous_index, boolean delete) {
-		controller.updateMiddlePileView(to_add, previous_index, delete);
+	public void updateMiddlePileView(LinkedList<Tile> to_add, int previousIndex, boolean delete) {
+		controllerRef.updateMiddlePileView(to_add, previousIndex, delete);
 	}
 	
-	public void updatePatternView(int playerID, HashMap<Tile, Position> to_send) {
-		controller.updatePatternView(playerID, to_send);
+	public void updatePatternView(int playerID, HashMap<Tile, Position> toSend) {
+		controllerRef.updatePatternView(playerID, toSend);
 	}
 	
 	public void updateMalusToView(Tile[] malus) {
-		controller.updateMalusView(malus, current_player);
+		controllerRef.updateMalusView(malus, currentPlayer);
 	}
 
 	public void clearMalusView(int playerID){
-		controller.clearMalusView(playerID);
+		controllerRef.clearMalusView(playerID);
 	}
 	
 	public void sendCompleteMiddlePileToView(boolean bool) {
@@ -143,21 +113,11 @@ public class Game {
 	}
 
 	public void updateMalusModel() {
-		players[current_player].updateMalus();
+		players[currentPlayer].updateMalus();
 	}
-	
 
 	public void sendToBag(Tile p) {
 		pot.sendToBag(p);
-	}
-	
-	public void sendMalusFirst(Tile first) {
-		players[current_player].sendMalusFirst(first);
-	}
-	
-	// Envoie une liste de tuiles à la main du joueur actuel
-	public void sendSelectionToBord(LinkedList<Tile> tiles) {
-		players[current_player].setHand(tiles);
 	}
 
 	// Envoie une liste de tuiles au Bag
@@ -165,43 +125,67 @@ public class Game {
 		pot.sendToBag(tiles);
 	}
 	
-	
 	//Methodes pour communiquer avec la vue
-	
-
 	public void getInformationForPopUp() {
-		Tile[][] pattern = players[current_player].getPatternToView();
-		Line[] grid = players[current_player].getLines();
-		Tile[] malus = players[current_player].getMalus();
-		Tile hand = players[current_player].getHand().get(0);
+		Tile[][] pattern = players[currentPlayer].getPatternToView();
+		Line[] grid = players[currentPlayer].getLines();
+		Tile[] malus = players[currentPlayer].getMalus();
+		Tile hand = players[currentPlayer].getHand().get(0);
 		
 		updatePopUp(pattern, malus, grid, hand);
 	}
 	
 	private void updatePopUp(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
-		controller.updatePopup(pattern, malus, grid, hand);
+		controllerRef.updatePopup(pattern, malus, grid, hand);
 	}
-	
-	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i) {
-		controller.updateViewLine(to_send, previous_index, i, current_player);
+
+	public void nextPlayer() {
+		this.currentPlayer++;
+		
+		if(currentPlayer == nbPlayers) {
+			currentPlayer = 0;
+		}
+
+		if(pot.isPlayNotPossible()) {
+			this.endOfSet();
+			if(pot.isPlayNotPossible()) this.endOfGame();
+		}
+	}
+
+	public void endOfGame() {
+		int winningScore = 0;
+		for(Bord p: players) {
+			p.calculateEndOfGameBonuses();
+			
+			if(p.getScore() > winningScore) {
+				winningScore = p.getScore();
+			}
+		}
+		controllerRef.displayEndOfGame(players);
+	}
+
+	public void sendMalusFirst(Tile first) {
+		players[currentPlayer].sendMalusFirst(first);
+	}
+
+	public void updateViewLine(LinkedList<Tile> toSend, int previousIndex, int i) {
+		controllerRef.updateViewLine(toSend, previousIndex, i, currentPlayer);
 		
 	}
-	
-	
 
 	public void sendMalusFirstToView(int previous) {
-		controller.sendMalusFirstToView(previous, current_player);
+		controllerRef.sendMalusFirstToView(previous, currentPlayer);
 		
 	}
 	
 	
 	//Methodes get
-	
+
 
 	public int getCurrentPlayer() {
-		return current_player;
+		return currentPlayer;
 	}
-	
+
 	public int getScore(int playerID) {
 		return players[playerID].getScore();
 	}

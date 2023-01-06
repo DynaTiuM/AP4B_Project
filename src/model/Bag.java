@@ -7,14 +7,12 @@ import java.util.LinkedList;
 
 //déclaration de la classe "Bag"
 public class Bag {
-	
-	
 	private static LinkedList<Tile> tiles;
-	private final Pile[] allPiles;
+	private final Pile[] allPilesRef;
 	
 	// constructeur de la classe "Bag"
 	public Bag(Pile[] piles) {
-		allPiles = piles;
+		allPilesRef = piles;
 		initialiseTiles(); // on initialise les tiles du bag
 		this.distributeContents(); // on remplit les piles
 	}
@@ -44,7 +42,7 @@ public class Bag {
 		Collections.shuffle(tiles);
 		Tile last;
 		
-		for(Pile p: allPiles) {
+		for(Pile p: allPilesRef) {
 			if(tiles.size()>=4) {
 				for(int i = 0; i < 4; i++) {
 					last = tiles.getLast();
@@ -59,12 +57,9 @@ public class Bag {
 		}
 	}
 	
-	
 	// Re-remplit le "Bag" 
-	public void getTilesBack(LinkedList<Tile> tiles_toadd) {
-		for(Tile p: tiles_toadd) {
-			tiles.add(p);
-		}
+	public void getTilesBack(LinkedList<Tile> tilesToAdd) {
+		tiles.addAll(tilesToAdd);
 	}
 
 

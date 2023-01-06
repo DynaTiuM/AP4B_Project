@@ -22,18 +22,16 @@ public class View extends JFrame {
     private static final int WIDTH = 1080;
 
     private final Bord[] bords;
-    private final Pot pot_m;
-    private final Controller controller_ref;
+    private final Pot potRef;
+    private final Controller controllerRef;
 
-    private ViewPanel ContentPanel;
-
-    //private Controller controller_m;
+    private ViewPanel contentPanel;
 
     /**
      * Create the frame.
      */
     public View(Controller controller, int numberOfPlayers) {	 //View(Controller ref, int numberOfPlayers)
-        this.controller_ref = controller;
+        this.controllerRef = controller;
         //controller_m = ref;
         // Set the background color of the frame to white
         setBackground(new Color(255, 255, 255));
@@ -61,10 +59,8 @@ public class View extends JFrame {
         if (numberOfPlayers > 3) {
             bords[3] = new Bord(new Position(WIDTH - Bord.BORD_SIZE - 50, HEIGHT -Bord.BORD_SIZE - 50), this, 3);
         }
-        //getContentPane().add(center);
-
         // Create the Pot object
-        pot_m = new Pot(new Position(WIDTH/2, HEIGHT/2), (numberOfPlayers * 2) + 1, this);
+        potRef = new Pot(new Position(WIDTH/2, HEIGHT/2), (numberOfPlayers * 2) + 1, this);
 
         if (iconTable.getImageLoadStatus() == MediaTracker.ERRORED) {
             System.out.println("ERRO LOADING IMAGE BACKGROUND " + MediaTracker.ERRORED);
@@ -72,16 +68,16 @@ public class View extends JFrame {
             // The image was successfully loaded
             
             Image image = Toolkit.getDefaultToolkit().getImage("src\\Images\\Table.png");
-            ContentPanel = new ViewPanel(controller_ref, image, bords, pot_m, this);
-            setContentPane(ContentPanel);
+            contentPanel = new ViewPanel(controllerRef, image, bords, potRef, this);
+            setContentPane(contentPanel);
         }
 
 
         this.setVisible(true);
     }
 
-    public void updatePile(LinkedList<Tile> to_update, int index) {
-        pot_m.updatePile(to_update, index);
+    public void updatePile(LinkedList<Tile> toUpdate, int index) {
+        potRef.updatePile(toUpdate, index);
     }
 
     public void displayEndOfGame(model.Bord[] bords){
@@ -89,22 +85,22 @@ public class View extends JFrame {
     }
 
     public ViewPanel getPanel() {
-        return this.ContentPanel;
+        return this.contentPanel;
     }
 
-    public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, int current_player, Tile[] malus) {
-        bords[current_player].updateViewLine(to_send, previous_index, i, malus);
+    public void updateViewLine(LinkedList<Tile> toSend, int previousIndex, int i, int currentPlayer, Tile[] malus) {
+        bords[currentPlayer].updateViewLine(toSend, previousIndex, i, malus);
     }
 
-    public void updateMiddlePile(LinkedList<Tile> to_send, int previous_index, boolean delete) {
-        pot_m.updateMiddlePile(to_send, previous_index, delete);
+    public void updateMiddlePile(LinkedList<Tile> toSend, int previousIndex, boolean delete) {
+        potRef.updateMiddlePile(toSend, previousIndex, delete);
     }
-    public void updatePattern(int playerID, HashMap<Tile, Position> to_send) {
-        bords[playerID].updatePattern(to_send);
+    public void updatePattern(int playerID, HashMap<Tile, Position> toSend) {
+        bords[playerID].updatePattern(toSend);
     }
 
-    public void updateMalus(Tile[] malus, int current_player) {
-        bords[current_player].updateMalus(malus);
+    public void updateMalus(Tile[] malus, int currentPlayer) {
+        bords[currentPlayer].updateMalus(malus);
     }
 
     public void clearMalus(int playerID){
@@ -112,46 +108,46 @@ public class View extends JFrame {
     }
     
     public void updatePopup(Tile[][] pattern, Tile[] malus, Line[] grid, Tile hand) {
-    	ContentPanel.updateBordPopUp(pattern, malus, grid, hand);
+    	contentPanel.updateBordPopUp(pattern, malus, grid, hand);
     }
     
     public void closePopup() {
-    	ContentPanel.closePopUp();
+    	contentPanel.closePopUp();
     }
     
     public void initiateButtons() {
-    	pot_m.initiateButtons();
+    	potRef.initiateButtons();
     }
     public int getScore(int playerID) {
-        return controller_ref.getScore(playerID);
+        return controllerRef.getScore(playerID);
     }
     
     public ActionSelectionTile actionSelectionTile(int ID, int numberPile) {
-    	return controller_ref.actionSelectionTile(ID, numberPile);
+    	return controllerRef.actionSelectionTile(ID, numberPile);
     }
     public ActionSelectionMiddlePile actionSelectionMiddlePile(int ID) {
-    	return controller_ref.actionSelectionMiddlePile(ID);
+    	return controllerRef.actionSelectionMiddlePile(ID);
     }
     
     public ActionLine actionLine(int ID) {
-    	return controller_ref.actionLine(ID);
+    	return controllerRef.actionLine(ID);
     }
     
     public ActionMalus actionMalus() {
-    	return controller_ref.actionMalus();
+    	return controllerRef.actionMalus();
     }
 
-	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, int current_player) {
-		bords[current_player].updateViewLine(to_send, previous_index, i);
+	public void updateViewLine(LinkedList<Tile> toSend, int previousIndex, int i, int currentPlayer) {
+		bords[currentPlayer].updateViewLine(toSend, previousIndex, i);
 	}
 
-	public void sendMalusFirstToView(int previous, int current_player) {
-		bords[current_player].sendMalusFirstToView(previous);
+	public void sendMalusFirstToView(int previous, int currentPlayer) {
+		bords[currentPlayer].sendMalusFirstToView(previous);
 		
 	}
 
     public void stopGame(){
-        controller_ref.stopGame();
+        controllerRef.stopGame();
     }
 }
 
@@ -167,7 +163,7 @@ class ViewPanel extends JPanel {
     private final Bord[] bords;
     private final Pot pot;
     private PopupPanel panel;
-    private final Controller controller_ref;
+    private final Controller controllerRef;
     private final Font font;
 
 // Constructor that takes in image, bords array, and pot object
@@ -177,7 +173,7 @@ class ViewPanel extends JPanel {
         this.bords = bords;
         this.pot = pot;
         this.setLayout(null);
-        this.controller_ref= controller;
+        this.controllerRef= controller;
         font = new Font("Arial", Font.BOLD, 30);    
     }
 
@@ -247,7 +243,7 @@ class ViewPanel extends JPanel {
         g.setFont(font);
         g.setColor(Color.WHITE);
         try{
-            g.drawString("Tour du joueur " + (controller_ref.getCurrentPlayer() + 1), 413, 35);
+            g.drawString("Tour du joueur " + (controllerRef.getCurrentPlayer() + 1), 413, 35);
         }catch (Exception e) {
             System.out.println("Game not initialized !");
         }
@@ -536,10 +532,6 @@ class PopupPanel extends JPanel {
     				// The color of the tile selected is different from the color of tiles on the line
     				// Or the line is already full :
     				// We need to disable the button of this line
-
-                   
-
-
                     if((!line.isPossible(hand) || line.checkFull())) {
     					buttons[line.getLength() - 1].setVisible(false);
     				}
@@ -572,7 +564,6 @@ class PopupPanel extends JPanel {
 		}
 		this.add(tile);
     }
-
 
     @Override
     public void paintComponent(Graphics g) {

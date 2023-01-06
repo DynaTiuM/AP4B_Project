@@ -17,13 +17,13 @@ public class Pile {
    
     private final Tile_View[] tiles;
     private final JButton[] buttons;
-    private final View view_m;
+    private final View viewRef;
     int number;
 
-    public Pile(Position position, View view_ref, int number) {
+    public Pile(Position position, View viewRef, int number) {
         this.number = number;
 
-        view_m = view_ref;
+        this.viewRef = viewRef;
 
         this.position = position;
         tiles = new Tile_View[4];
@@ -34,7 +34,7 @@ public class Pile {
     public void initiateButtons() {
     	int i = 0;
     	for(JButton button : buttons) {
-	    	ActionSelectionTile action = view_m.actionSelectionTile(i, number);
+	    	ActionSelectionTile action = viewRef.actionSelectionTile(i, number);
 	        button.addActionListener(action);
     		i++;
     	}
@@ -51,14 +51,14 @@ public class Pile {
         }
     }
 
-    public boolean updateTile(LinkedList<Tile> to_iterate) {
+    public boolean updateTile(LinkedList<Tile> toIterate) {
 
         int x = 0;
         int y = 0;
         int i = 0;
 
-        if (to_iterate.getFirst() != null) {
-            for (Tile p : to_iterate) {
+        if (toIterate.getFirst() != null) {
+            for (Tile p : toIterate) {
                 switch (p.getColorEnum()) {
                     case O:
                         tiles[i] = new Orange(new Position(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2)));
@@ -84,18 +84,16 @@ public class Pile {
                 buttons[i].setBorderPainted(false);
                 buttons[i].setBounds(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2), RECT_SIZE, RECT_SIZE);
                
-                view_m.getPanel().addB(buttons[i]);
-                view_m.getPanel().addT(tiles[i]);
+                viewRef.getPanel().addB(buttons[i]);
+                viewRef.getPanel().addT(tiles[i]);
                 switch (i) {
                     case 0:
+                    case 2:
                         x++;
                         break;
                     case 1:
                         x = 0;
                         y++;
-                        break;
-                    case 2:
-                        x++;
                         break;
                 }
                 i++;
@@ -103,22 +101,16 @@ public class Pile {
         }
 
 
-        return to_iterate.getFirst() != null;
+        return toIterate.getFirst() != null;
 
     }
 
-    public void setButton(boolean value) {
-    	for(JButton button : buttons) {
-    		button.setVisible(value);
-    	}
-    }
 
+    public void updatePile(LinkedList<Tile> toUpdate) {
 
-    public void updatePile(LinkedList<Tile> to_update) {
+        ViewPanel temp = this.viewRef.getPanel();
 
-        ViewPanel temp = this.view_m.getPanel();
-
-        if (!updateTile(to_update)) {
+        if (!updateTile(toUpdate)) {
 
         	for(JButton button : buttons) {
         		temp.removeB(button);
@@ -130,9 +122,4 @@ public class Pile {
             temp.repaint();
         }
     }
-    
-    public JButton[] getButtons() {
-    	return buttons;
-    }
-
 }

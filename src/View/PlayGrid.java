@@ -9,11 +9,11 @@ import controller.ActionLine;
 import model.Tile;
 
 public class PlayGrid {
-	private final View view_m;
+	private final View viewRef;
 	private final Line[] lines;
 
-  public PlayGrid(Position position, View view_ref, int RECT_SIZE) {
-	  this.view_m = view_ref;
+  public PlayGrid(Position position, View viewRef, int RECT_SIZE) {
+	  this.viewRef = viewRef;
 	  this.lines = new Line[5];
 
 	  for (int i = 0; i < 5; i++) {
@@ -37,8 +37,8 @@ public class PlayGrid {
 	  }
   }
 
-  public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i) {
-	  lines[i].updateViewLine(to_send, previous_index, view_m);
+  public void updateViewLine(LinkedList<Tile> toSend, int previousIndex, int i) {
+	  lines[i].updateViewLine(toSend, previousIndex, viewRef);
 	
   }
   
@@ -50,7 +50,7 @@ public class PlayGrid {
           buttons[count] = line.getButton();
           // Adding an ActionListener for each button of this popup
           // Every button possess an ID, which corresponds to the line of the grid
-          ActionLine action = view_m.actionLine(ID);
+          ActionLine action = viewRef.actionLine(ID);
           buttons[count].addActionListener(action);
           count++;
           ID++;

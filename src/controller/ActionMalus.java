@@ -9,15 +9,15 @@ import java.awt.event.ActionListener;
 public class ActionMalus implements ActionListener {
 	
 	private final Game model;
-	private final View view_m;
+	private final View viewRef;
 	
 	public ActionMalus(Game ref, View view) {
 		this.model = ref;
-		this.view_m = view;
+		this.viewRef = view;
 	}
 	
 	public void close() {
-		view_m.closePopup();
+		viewRef.closePopup();
 	}
 
 	@Override

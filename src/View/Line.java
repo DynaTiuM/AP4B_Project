@@ -18,23 +18,23 @@ public class Line {
   
   // Constructeur de la classe Line
   public Line(Position position, int length, int RECT_SIZE) {
-	    // Initialisation de la position et de la longueur de la ligne
-		  this.RECT_SIZE = RECT_SIZE;
-		  this.position = position;
-	    tiles = new Tile_View[length];
-	    this.length = length;
-	    // Cr�ation d'un nouveau bouton
-	    this.button = new JButton();
-	    button.setBounds(position.getX() - RECT_SIZE, position.getY(), RECT_SIZE, RECT_SIZE);
+      // Initialisation de la position et de la longueur de la ligne
+      this.RECT_SIZE = RECT_SIZE;
+      this.position = position;
+      tiles = new Tile_View[length];
+      this.length = length;
+      // Cr�ation d'un nouveau bouton
+      this.button = new JButton();
+      button.setBounds(position.getX() - RECT_SIZE, position.getY(), RECT_SIZE, RECT_SIZE);
 
-	    JButton button = new JButton();
-	    ImageIcon icon = new ImageIcon("src\\Images\\ButtonLines.png");
-	    button.setIcon(icon);
+      JButton button = new JButton();
+      ImageIcon icon = new ImageIcon("src\\Images\\ButtonLines.png");
+      button.setIcon(icon);
 	        
-	    ImageIcon selectedIcon = new ImageIcon("selectedButtonLines.png");
-	    ImageIcon rolloverIcon = new ImageIcon("rolloverButtonLines.png");
-	    button.setSelectedIcon(selectedIcon);
-	    button.setRolloverIcon(rolloverIcon);
+      ImageIcon selectedIcon = new ImageIcon("selectedButtonLines.png");
+      ImageIcon rolloverIcon = new ImageIcon("rolloverButtonLines.png");
+      button.setSelectedIcon(selectedIcon);
+      button.setRolloverIcon(rolloverIcon);
   }
   
   // M�thode qui retourne le tableau de tuiles de la ligne
@@ -70,12 +70,12 @@ public class Line {
     button.setVisible(value);
   }
 
-  public void updateViewLine(LinkedList<Tile> to_send, int previous_index,  View view_ref) {
+  public void updateViewLine(LinkedList<Tile> toSend, int previousIndex,  View viewRef) {
 	  // Index de la prochaine tuile � ajouter dans le tableau de tuiles de la ligne
-	  int temp = previous_index;
+	  int temp = previousIndex;
 	  
 	  // Pour chaque tuile � ajouter � la ligne
-	  for(Tile p: to_send) {
+	  for(Tile p: toSend) {
 	    // Cr�ation de la tuile de vue en fonction de sa couleur
 	    switch (p.getColorEnum()) {
 	      case O: tiles[temp] = new Orange(new Position(position.getX() + (4 - temp) * (RECT_SIZE ), position.getY())); 
@@ -94,13 +94,12 @@ public class Line {
 	    //System.out.print(p.getColorEnum() + " / ");
 	    
 	    // Ajout de la tuile de vue au panel de la vue principale
-	    view_ref.getPanel().addT(tiles[temp]);
+	    viewRef.getPanel().addT(tiles[temp]);
 	 
 	    // Incr�mentation de l'index de la prochaine tuile � ajouter
 	    temp++;
 	  }
-	
-	}
+  }
   
   public JButton getButton() {
   	return button;

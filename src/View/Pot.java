@@ -16,16 +16,15 @@ public class Pot {
     private final MiddlePile middlePile;
   
     // Référence vers la vue principale
-    private final View view_m;
+    private final View viewRef;
  
 
     // Constructeur prenant en entrée la position du pot sur l'écran et le nombre de piles à créer
     public Pot(Position position, int numberOfPiles, View ref) {
 	  
 	    // Enregistrement de la référence vers la vue principale
-	    view_m = ref;
-	  
-
+	    viewRef = ref;
+        
         // Création du tableau de piles de la bonne longueur
         piles = new Pile[numberOfPiles];
     
@@ -48,25 +47,25 @@ public class Pot {
             }
 
             // Création de la pile et enregistrement dans le tableau
-            piles[i] = new Pile(new Position(firstPileX + (i % 2) * pileSize, yPosition), view_m, i);
+            piles[i] = new Pile(new Position(firstPileX + (i % 2) * pileSize, yPosition), viewRef, i);
         }
     
         // Création de la pile du milieu et enregistrement dans l'attribut middlePile
         middlePile = new MiddlePile(this, new Position(firstPileX, yPosition + pileSize));
-  }
+    }
   
     // Méthode ajoutant une tuile à la vue principale
     public void addT(Tile_View tile) {
-	  view_m.getPanel().addT(tile);
-  }
+	    viewRef.getPanel().addT(tile);
+    }
   
     public void addB(JButton button) {
-	  view_m.getPanel().addB(button);
-  }
+	    viewRef.getPanel().addB(button);
+    }
   
     public ActionSelectionMiddlePile actionSelectionMiddlePile(int ID) {
-	  return view_m.actionSelectionMiddlePile(ID);
-  }
+        return viewRef.actionSelectionMiddlePile(ID);
+    }
 
     // Méthode dessinant les piles
     public void draw(Graphics g) {
@@ -82,19 +81,19 @@ public class Pot {
 		}
 	}
 
-    public void updatePile(LinkedList<Tile> to_update, int index) {
-        piles[index].updatePile(to_update);
+    public void updatePile(LinkedList<Tile> toUpdate, int index) {
+        piles[index].updatePile(toUpdate);
     }
 
-    public void updateMiddlePile(LinkedList<Tile> to_update, int previous_index, boolean delete) {
-        middlePile.updatePile(to_update, previous_index, delete);
+    public void updateMiddlePile(LinkedList<Tile> toUpdate, int previousIndex, boolean delete) {
+        middlePile.updatePile(toUpdate, previousIndex, delete);
     }
 
 	public void removeT(Tile_View tile) {
-		view_m.getPanel().removeT(tile);
+		viewRef.getPanel().removeT(tile);
 	}
 	
 	public void removeB(JButton button) {
-		view_m.getPanel().removeB(button);
+		viewRef.getPanel().removeB(button);
 	}
 }

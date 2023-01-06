@@ -11,9 +11,9 @@ public class ActionSelectionMiddlePile implements ActionListener {
 	private final Game model;
 	private final int index;
 
-	public ActionSelectionMiddlePile(Game ref_game, int index) {
+	public ActionSelectionMiddlePile(Game gameRef, int index) {
 		this.index = index;
-		this.model = ref_game;
+		this.model = gameRef;
 	}
 	
 	public void open() {

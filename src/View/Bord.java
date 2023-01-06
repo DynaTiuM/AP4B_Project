@@ -60,13 +60,13 @@ public class Bord{
 	    playGrid.setButton(visible);
 	  }
 
-	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i, Tile[] malus) {
-		playGrid.updateViewLine(to_send, previous_index, i);
+	public void updateViewLine(LinkedList<Tile> toSend, int previousIndex, int i, Tile[] malus) {
+		playGrid.updateViewLine(toSend, previousIndex, i);
 		this.malus.updateViewLine(malus);
 	}
 
-	public void updatePattern(HashMap<Tile, Position> to_send) {
-		pattern.updatePattern(to_send, this.playGrid);
+	public void updatePattern(HashMap<Tile, Position> toSend) {
+		pattern.updatePattern(toSend, this.playGrid);
 	}
 
 	public void updateMalus(Tile[] malus) {
@@ -77,8 +77,8 @@ public class Bord{
 		  malus.clearMalus();
 	}
 
-	public void updateViewLine(LinkedList<Tile> to_send, int previous_index, int i) {
-		playGrid.updateViewLine(to_send, previous_index, i);
+	public void updateViewLine(LinkedList<Tile> toSend, int previousIndex, int i) {
+		playGrid.updateViewLine(toSend, previousIndex, i);
 		
 	}
 

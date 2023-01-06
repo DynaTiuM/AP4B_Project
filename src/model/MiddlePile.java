@@ -7,13 +7,13 @@ import java.util.LinkedList;
 //Classe qui représente une pile de "Tile"
 public class MiddlePile {
 	
-	private int previous_index = 0;
+	private int previousIndex = 0;
 
 	// Liste de "Tile" qui constitue la pile
 	private final LinkedList<Tile> tiles;
 
 	// Référence à un objet Pot
-	private final Pot pot_ref;
+	private final Pot potRef;
 	
 	// Indique si on a déjà pris des "Tile" dans la pile
 	private boolean first;
@@ -24,20 +24,19 @@ public class MiddlePile {
 		
 		tiles = new LinkedList<>();
 
-		pot_ref = ref;
+		potRef = ref;
 		
 		setFirst();
 		
 	}
 	
 	// Ajoute une liste de tuiles à la pile
-	public void addContent(LinkedList<Tile> to_add) {
-		tiles.addAll(to_add);
-		this.pot_ref.sendAddedTilesToView(to_add, previous_index, false);
-		previous_index += to_add.size();
-		
-		
-		to_add.clear();
+	public void addContent(LinkedList<Tile> toAdd) {
+		tiles.addAll(toAdd);
+		this.potRef.sendAddedTilesToView(toAdd, previousIndex, false);
+		previousIndex += toAdd.size();
+
+		toAdd.clear();
 	}
 	
 	// Renvoie la pile
@@ -46,9 +45,9 @@ public class MiddlePile {
 	}
 	
 	public void sendCompletePileToView(boolean bool) {
-		previous_index = 0;
-		this.pot_ref.sendAddedTilesToView(tiles, previous_index, bool);
-		previous_index += tiles.size();
+		previousIndex = 0;
+		this.potRef.sendAddedTilesToView(tiles, previousIndex, bool);
+		previousIndex += tiles.size();
 	}
 	
 	public LinkedList<Tile> modifyMiddlePile(int index) {
@@ -58,9 +57,8 @@ public class MiddlePile {
 		
 		if(first) {
 			first = false;
-			pot_ref.sendMalusFirst(tiles.getFirst());
+			potRef.sendMalusFirst(tiles.getFirst());
 			tiles.removeFirst();
-			
 		}
 		
 		

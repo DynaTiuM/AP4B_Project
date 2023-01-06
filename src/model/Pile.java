@@ -1,16 +1,17 @@
 package model;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class Pile {
 	
 	private final Tile[] tiles;
 	
-	private final LinkedList<Tile> tiles_bord;
-	private final LinkedList<Tile> tiles_middle;
+	private final LinkedList<Tile> bordTiles;
+	private final LinkedList<Tile> middleTiles;
 
-	private final MiddlePile middle_ref;
-	private final Game game_ref;
+	private final MiddlePile middleRef;
+	private final Game gameRef;
 	
 	private final int index;
 	
@@ -22,11 +23,11 @@ public class Pile {
 		tiles = new Tile[4];
 
 		
-		tiles_bord = new LinkedList<>();
-		tiles_middle = new LinkedList<>();
+		bordTiles = new LinkedList<>();
+		middleTiles = new LinkedList<>();
 
-		middle_ref = middle;
-		game_ref = game;
+		middleRef = middle;
+		gameRef = game;
 	}
 	
 	
@@ -34,36 +35,34 @@ public class Pile {
 		getSelection(tiles[index]);
 	}
 
-	public void setContent(Tile to_add, int index) {
-		tiles[index] = to_add;
+	public void setContent(Tile toAdd, int index) {
+		tiles[index] = toAdd;
 	}
 	
 	public void sendContentList() {
-		LinkedList<Tile> to_send = new LinkedList<Tile>();
+		LinkedList<Tile> toSend = new LinkedList<>();
 		if(tiles[0] != null) {
-			for(Tile p: tiles) {
-				to_send.add(p);
-			}
+			toSend.addAll(Arrays.asList(tiles));
 		} else {
-			to_send.add(null);
+			toSend.add(null);
 		}
-		game_ref.sendContentList(to_send, index);
+		gameRef.sendContentList(toSend, index);
 
 	}
 
 	public void getSelection(Tile chosen) {
-		tiles_middle.clear();
-		tiles_bord.clear();
+		middleTiles.clear();
+		bordTiles.clear();
 		
 		for(int i = 0; i < 4; i++) {
 			if(tiles[i].getColorEnum() == chosen.getColorEnum()) {
-				tiles_bord.add(tiles[i]);
-			} else tiles_middle.add(tiles[i]);
-			
+				bordTiles.add(tiles[i]);
+			} else middleTiles.add(tiles[i]);
+
 			tiles[i] = null;
 		}
 
-		if (tiles_middle != null)  sendToMiddle();
+		if (middleTiles != null)  sendToMiddle();
 		
 		sendToBord();
 		sendContentList();
@@ -71,11 +70,11 @@ public class Pile {
 	}
 	
 	private void sendToMiddle() {
-		this.middle_ref.addContent(tiles_middle);
+		this.middleRef.addContent(middleTiles);
 	}
 	
 	private void sendToBord() {
-		game_ref.sendSelectionToBord(tiles_bord);
+		gameRef.sendSelectionToBord(bordTiles);
 	}
 
 	public void display() {
@@ -106,10 +105,6 @@ public class Pile {
 		
 		//System.out.println(tiles[0].getColorEnum() + " " + tiles[1].getColorEnum() + "\n" + tiles[2].getColorEnum() + " " + tiles[3].getColorEnum() + "\n" );
 		
-	}
-	
-	public boolean checkPossible() {
-	  return tiles[0]!=null;
 	}
 	
 	public int isEmpty() {

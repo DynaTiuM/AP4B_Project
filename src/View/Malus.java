@@ -16,10 +16,10 @@ public class Malus {
   
   	private final Tile_View[] tiles;
   
-  	private final View view_m;
+  	private final View viewRef;
 
-  	public Malus(Position position, View view_ref, int RECT_SIZE) {
-		view_m = view_ref;
+  	public Malus(Position position, View viewRef, int RECT_SIZE) {
+		this.viewRef = viewRef;
 	
 		tiles = new Tile_View[7];
     	this.position = position;
@@ -87,7 +87,7 @@ public void updateViewLine(Tile[] malus) {
 
 			}
 
-			if(tiles[temp] != null) view_m.getPanel().addT(tiles[temp]);
+			if(tiles[temp] != null) viewRef.getPanel().addT(tiles[temp]);
 
 		}
 		temp++;
@@ -101,7 +101,7 @@ public void updateViewLine(Tile[] malus) {
 }
 	
 	public JButton getMalusButton() {
-		ActionMalus action = view_m.actionMalus();
+		ActionMalus action = viewRef.actionMalus();
 		button.addActionListener(action);
 		
 		return button;
@@ -112,17 +112,17 @@ public void updateViewLine(Tile[] malus) {
 		for(Tile_View tile : tiles) {
 			if(tile != null) {
 
-				view_m.getPanel().removeT(tile);
+				viewRef.getPanel().removeT(tile);
 			}
 		}
 		for(Tile_View tile : tiles) {
 			tile = null;
 		}
-		view_m.getPanel().repaint();
+		viewRef.getPanel().repaint();
 	}
 
 	public void addMalusFirst(int previous) {
 		tiles[previous] = new MalusTile(new Position(position.getX() + 5 + (RECT_WIDTH *previous), position.getY() + (int)(RECT_HEIGHT /2.5)));
-		view_m.getPanel().addT(tiles[previous]);
+		viewRef.getPanel().addT(tiles[previous]);
 	}
 }

@@ -11,11 +11,11 @@ public class Pattern {
 	private final int RECT_SIZE;
 	private final Position position;
 	private final Tile_View[][] tile;
-	private final View view_m;
+	private final View viewRef;
 
 	public Pattern(Position position, View view, int RECT_SIZE) {
 		tile = new Tile_View[5][5];
-		view_m = view;
+		viewRef = view;
 		this.position = position;
 		this.RECT_SIZE = RECT_SIZE;
 	}
@@ -34,8 +34,8 @@ public class Pattern {
   }
   
   
-  public void updatePattern(HashMap<Tile, Position> to_add, PlayGrid playGrid) {
-      for (HashMap.Entry<Tile, Position> entry : to_add.entrySet()) {
+  public void updatePattern(HashMap<Tile, Position> toAdd, PlayGrid playGrid) {
+      for (HashMap.Entry<Tile, Position> entry : toAdd.entrySet()) {
           Tile key = entry.getKey();
           Position value = entry.getValue();
 
@@ -54,7 +54,7 @@ public class Pattern {
 			  break;
 		  }
           
-          view_m.getPanel().addT(tile[value.getY()][value.getX()]);
+          viewRef.getPanel().addT(tile[value.getY()][value.getX()]);
       
 	  }
 
@@ -65,7 +65,7 @@ public class Pattern {
 					  if (tile[y][x] != null && tileView != null)
 						  if(tileView.color == tile[y][x].color
 						  && line.getLength() == y + 1) {
-							  view_m.getPanel().removeT(tileView);
+							  viewRef.getPanel().removeT(tileView);
 						  }
 		  }
 	  }

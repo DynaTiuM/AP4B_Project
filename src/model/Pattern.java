@@ -10,16 +10,16 @@ public class Pattern {
 
 	private final Tile[][] grid;
 	private final HashMap<Tile, Position> newTiles;
-	private final Bord bord_ref;
+	private final Bord bordRef;
 	private int score;
 	
 	public Pattern(Bord bord) {
 
 		newTiles = new HashMap<>();
-		this.bord_ref = bord;
+		this.bordRef = bord;
 		grid = new Tile[5][5];
 
-		ColorEnum[] new_colorpos = new ColorEnum[5];
+		ColorEnum[] newColorPos = new ColorEnum[5];
 
 		grid[0][0] = new Tile(ColorEnum.M);
 		grid[0][1] = new Tile(ColorEnum.B);
@@ -30,13 +30,13 @@ public class Pattern {
 		for(int l = 0; l < 4; l++) {
 			for(int c = 0; c < 5; c++) {
 				if(c + 1 >= 5) {
-					new_colorpos[0] = grid[l][c].getColorEnum();
+					newColorPos[0] = grid[l][c].getColorEnum();
 				}else {
-					new_colorpos[c+1] = grid[l][c].getColorEnum();
+					newColorPos[c+1] = grid[l][c].getColorEnum();
 				}
 			}
 			for(int i = 0; i<5;i++) {
-				grid[l+1][i] = new Tile(new_colorpos[i]);				
+				grid[l+1][i] = new Tile(newColorPos[i]);				
 			}
 		}
 	}
@@ -46,14 +46,14 @@ public class Pattern {
 		if (score < 0) score = 0;
 	}
 	
-	public void determineSendingPlace(int index, Tile to_place) {
+	public void determineSendingPlace(int index, Tile toPlace) {
 		int i = 0;
 		while(i < 5) {
-			if(grid[index][i].getColorEnum() != to_place.getColorEnum()) 
+			if(grid[index][i].getColorEnum() != toPlace.getColorEnum()) 
 				i++;
 			else {
 				if(!grid[index][i].getOccupied()) {
-					newTiles.put(to_place, new Position(i, index));
+					newTiles.put(toPlace, new Position(i, index));
 				}
 				calculateScore(index, i);
 				break;
@@ -61,13 +61,13 @@ public class Pattern {
 		}
 	}
 	
-	private void calculateScore(int index, int indexy) {
+	private void calculateScore(int index, int indexY) {
 		
 		//let's suppose we won't encounter any segmenation fault
-		grid[index][indexy].setOccupiedTrue();
+		grid[index][indexY].setOccupiedTrue();
 		
-		boolean first_line = false;
-		boolean first_column = false;
+		boolean firstLine = false;
+		boolean firstColumn = false;
 		
 		int x;
 		int y;
@@ -77,8 +77,8 @@ public class Pattern {
 		x = index-1;
 		
 		while(x > -1) {
-			if(grid[x][indexy].getOccupied()) {
-				first_line = true;
+			if(grid[x][indexY].getOccupied()) {
+				firstLine = true;
 				total++;
 				x = x-1;
 			}else {
@@ -89,8 +89,8 @@ public class Pattern {
 		x = index + 1;
 		
 		while(x <5) {
-			if(grid[x][indexy].getOccupied()) {
-				first_line = true;
+			if(grid[x][indexY].getOccupied()) {
+				firstLine = true;
 				total++;
 				x++;
 			}else {
@@ -100,11 +100,11 @@ public class Pattern {
 		
 		
 		
-		y = indexy-1;
+		y = indexY-1;
 		
 		while(y > -1) {
 			if(grid[index][y].getOccupied()) {
-				first_column = true;
+				firstColumn = true;
 				total++;
 				y = y - 1;
 			}else {
@@ -112,11 +112,11 @@ public class Pattern {
 			}
 		}
 		
-		y = indexy+1;
+		y = indexY+1;
 		
 		while(y <5) {
 			if(grid[index][y].getOccupied()) {
-				first_column = true;
+				firstColumn = true;
 				total++;
 				y++;
 			}else {
@@ -124,7 +124,7 @@ public class Pattern {
 			}
 		}
 		
-		if(first_column && first_line) total++;
+		if(firstColumn && firstLine) total++;
 		
 		score +=total;
 	}
@@ -204,6 +204,6 @@ public class Pattern {
 	}
 	
 	public void sendPattern() {
-		bord_ref.updatePatternView(this.newTiles);
+		bordRef.updatePatternView(this.newTiles);
 	}
 }

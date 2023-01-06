@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 
@@ -7,55 +8,55 @@ import java.util.LinkedList;
 public class Line {
 
     // Tableau de "Tile" représentant la "Line"
-	private Tile[] linearray;
+	private Tile[] lineArray;
 	
     // Première case encore libre de la "Line"
-	private int current_index;
-	private int previous_index;
+	private int currentIndex;
+	private int previousIndex;
 	
     // Taille de la "Line"
 	private int size;
 
     // Tableau de booléens indiquant si chaque couleur est présente ou non dans la ligne
-	private final boolean[] color_presence;
+	private final boolean[] colorPresence;
 
     // Couleur courante de la ligne	
-	private ColorEnum current_color;
+	private ColorEnum currentColor;
 	
     // Instance de la classe Malus
-	private final Malus malus_m;
+	private final Malus malusRef;
 	
     // Instance de la classe Pattern
-	private final Pattern pattern_m;
+	private final Pattern patternRef;
 		
 	// 
-	private final LinkedList<Tile> to_send;
+	private final LinkedList<Tile> toSend;
 	
-	private final Bord bord_m;
+	private final Bord bordRef;
 	private final int length;
 	
 	
 	// Constructeur de la classe Line
 	public Line(Malus malus_p, Pattern pattern_ref, int size, Bord ref) {
 		
-		bord_m = ref;
+		bordRef = ref;
 		
-		malus_m = malus_p;
+		malusRef = malus_p;
 		
-		pattern_m = pattern_ref;
+		patternRef = pattern_ref;
 		
-		current_index = 0;
-		previous_index = 0;
+		currentIndex = 0;
+		previousIndex = 0;
 		
-		color_presence = new boolean[5];
+		colorPresence = new boolean[5];
 		
-		current_color = null;
+		currentColor = null;
 		this.length = size;
 		
-		to_send = new LinkedList<>();
+		toSend = new LinkedList<>();
 		
 		for(int i = 0; i<5;i++) {
-			color_presence[i]=false;
+			colorPresence[i]=false;
 		}
 		
 		// initialise la "Line"
@@ -69,17 +70,17 @@ public class Line {
 	
 	// initialise la "Line"
 	private void initArray(int index) {
-		linearray = new Tile[index];
+		lineArray = new Tile[index];
 		size = index;
 	}
 
 	// permet d'ajouter une liste de "Tile" à la "Line"
 	public void addChoice(LinkedList<Tile> tiles) {
 		
-		int previous_malus = malus_m.getPrevious();
+		int previousMalus = malusRef.getPrevious();
 		boolean modified = false;
 		
-		int i = current_index;
+		int i = currentIndex;
 		for(Tile p: tiles) {
 			if(i < size) {
 				setTileIndex(i, p);
@@ -87,80 +88,72 @@ public class Line {
 			}else { // les "Tile" en trop sont mise dans le malus 
 			
 				
-				malus_m.addTile(p);
+				malusRef.addTile(p);
 				modified = true;
 				
 			}
 		}
 		
-		previous_index = current_index;
+		previousIndex = currentIndex;
 
-		current_index = i;
+		currentIndex = i;
 
-		malus_m.setPrevious(previous_malus);
+		malusRef.setPrevious(previousMalus);
 		
 		updateViewLine(modified);
 	}
 	
 	private void updateViewLine(boolean modified) {
+		LinkedList<Tile> toSend = new LinkedList<>(Arrays.asList(lineArray).subList(previousIndex, currentIndex));
 
-		LinkedList<Tile> to_send = new LinkedList<>();
-
-		for(int i = previous_index; i<current_index; i++) {
-			to_send.add(linearray[i]);
-		}
-
-		this.bord_m.updateViewLine(to_send, previous_index, this.size - 1, modified);
+		this.bordRef.updateViewLine(toSend, previousIndex, this.size - 1, modified);
 	}
 	
 	// check si la ligne est pleine
 	public boolean checkFull() {
-		return current_index == size;
+		return currentIndex == size;
 	}
 
 	// check s'il est possible de placer un ou plusieurs "Tile" de la couleur de celle en parametre dans le "Line"
 	public boolean isPossible(Tile tile) {
-		return !checkColor(tile) && (tile.getColorEnum()==current_color || current_color == null);
+		return !checkColor(tile) && (tile.getColorEnum() == currentColor || currentColor == null);
 	}
 
 	public boolean isAlreadyOnPattern(Tile tile){
-		return pattern_m.isAlreadyOnPattern(size, tile);
+		return patternRef.isAlreadyOnPattern(size, tile);
 	}
 	
 	// check si la couleur a déjà été mise dans cette "Line"
-	public boolean checkColor(Tile tile_p) {
-		return color_presence[tile_p.getColorEnum().ordinal()];
+	public boolean checkColor(Tile tile) {
+		return colorPresence[tile.getColorEnum().ordinal()];
 	}
 
 	// permet d'ajouter une "Tile" à l'index donné
-	public void setTileIndex(int index, Tile tile_p){
-		
-		if(index<size) {
-			current_color = tile_p.getColorEnum();
-			linearray[index] = tile_p;
-
-	
+	public void setTileIndex(int index, Tile tile){
+		if(index < size) {
+			currentColor = tile.getColorEnum();
+			lineArray[index] = tile;
 		} else {
-			malus_m.addTile(tile_p);
+			malusRef.addTile(tile);
 		}
 	}
 
 	
 	// renvoie le tableau de "Tile" de la "Line"
 	public Tile[] getTiles() {
-		return this.linearray;
+		return this.lineArray;
 	}
 	
 	public Tile[] getLine() {
-		return this.linearray;
+		return this.lineArray;
 	}
 	
 	
 	// affiche la "Line"
 	public void display() {
 		int i =0;
-		while(i<this.current_index) {
-			System.out.print(linearray[i].getColorEnum() + " ");
+		while(i<this.currentIndex) {
+			System.out.print(lineArray[i].getColorEnum() + " ");
 			i++;
 		}
 		
@@ -170,29 +163,27 @@ public class Line {
 		}
 		
 		System.out.println();
-		//System.out.println("--------------------------------------------");
-		
 	}
 	
 	
 	// permet de clear la "Line" pour être prêt à acceuillir d'autres "Tile"
 	public LinkedList<Tile> clear() {
 		
-		to_send.clear();
+		toSend.clear();
 		
-		pattern_m.determineSendingPlace(size - 1, linearray[0]);
+		patternRef.determineSendingPlace(size - 1, lineArray[0]);
 		
-		linearray[0] = null;
+		lineArray[0] = null;
 		
 		for(int i =1; i<size; i++) {
-			to_send.add(linearray[i]);
-			linearray[i] = null;
+			toSend.add(lineArray[i]);
+			lineArray[i] = null;
 		}
 		
-		current_color = null;
-		current_index = 0;
+		currentColor = null;
+		currentIndex = 0;
 		
-		return to_send;
+		return toSend;
 	}
 
 }
