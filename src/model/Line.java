@@ -70,9 +70,6 @@ public class Line {
 	// initialise la "Line"
 	private void initArray(int index) {
 		linearray = new Tile[index];
-		/*for(int i =0; i<index; i++) {
-			linearray[i] = new Tile();
-		}*/
 		size = index;
 	}
 
@@ -85,7 +82,6 @@ public class Line {
 		int i = current_index;
 		for(Tile p: tiles) {
 			if(i < size) {
-	;
 				setTileIndex(i, p);
 				i++;
 			}else { // les "Tile" en trop sont mise dans le malus 
@@ -108,34 +104,20 @@ public class Line {
 	
 	private void updateViewLine(boolean modified) {
 
-		LinkedList<Tile> to_send = new LinkedList<Tile>();
-		
+		LinkedList<Tile> to_send = new LinkedList<>();
+
 		for(int i = previous_index; i<current_index; i++) {
 			to_send.add(linearray[i]);
 		}
-		this.bord_m.updateViewLine(to_send, previous_index, this.size - 1, modified);
-	}
 
-	// permet d'ajouter une "Tile" à la "Line"
-	public void addChoice(Tile tile) {
-		System.out.println("Add choice weird");
-			setTileIndex(current_index, tile);
-			previous_index = current_index;
-			current_index++;
-			//updateViewLine();
+		this.bord_m.updateViewLine(to_send, previous_index, this.size - 1, modified);
 	}
 	
 	// check si la ligne est pleine
 	public boolean checkFull() {
 		return current_index == size;
 	}
-	
-	
-	// ajoute la couleur dans les couleurs qui ont déjà été présente
-	public void addColor(Tile tile_p) {
-		color_presence[tile_p.getColorEnum().ordinal()] = true;
-	}
-	
+
 	// check s'il est possible de placer un ou plusieurs "Tile" de la couleur de celle en parametre dans le "Line"
 	public boolean isPossible(Tile tile) {
 		return !checkColor(tile) && (tile.getColorEnum()==current_color || current_color == null);
@@ -149,14 +131,7 @@ public class Line {
 	public boolean checkColor(Tile tile_p) {
 		return color_presence[tile_p.getColorEnum().ordinal()];
 	}
-	
-	
-	// renvoie la "Tile" présente à un index donné
-	public Tile getTileIndex(int index) {
-		return linearray[index];
-	}
-	
-	
+
 	// permet d'ajouter une "Tile" à l'index donné
 	public void setTileIndex(int index, Tile tile_p){
 		
@@ -219,14 +194,5 @@ public class Line {
 		
 		return to_send;
 	}
-	
-	
-	// en fin de manche, si la ligne est pleine on place une "Tile" correspondante dans "Pattern"
-	public void endOfSet() {
-		if (checkFull()) 
-			pattern_m.determineSendingPlace(size, linearray[0]);
-	}
-	
-	
-	
+
 }

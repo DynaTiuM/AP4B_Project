@@ -28,9 +28,6 @@ public class Bord {
 	// Numéro de la "Line" actuellement sélectionnée
 	private int current;
 	
-	// Liste des "Tile" en excédent
-	private LinkedList<Tile> excedent_tiles_selection;
-	
 	// Liste des "Tile" dans la main du joueur
 	private LinkedList<Tile> hand_of_player;
 	
@@ -54,9 +51,8 @@ public class Bord {
 		for(int i=0; i<5; i++) {
 			play_grid[i] = new Line(malus_grid_m, pattern_grid_m, i+1, this);
 		}
-		
-		this.excedent_tiles_selection = new LinkedList<Tile>();
-		this.hand_of_player = new LinkedList<Tile>();
+
+		this.hand_of_player = new LinkedList<>();
 	}
 	
 	
@@ -88,17 +84,6 @@ public class Bord {
 	    } else current++;
 		display();
 	}
-	
-	public void test(Tile tile) {
-		setHand(tile);
-		displayHand();
-		playHandIndex(TEST_LINE);
-		TEST_LINE++;
-		if(current+1>=4) {
-	    	current = 0;
-	    }else current++;
-		display();
-	}
 
 	// permet de changer la main du joueur en y mettant qu'une seule "Tile"
 	public void setHand(Tile tile) {
@@ -120,30 +105,7 @@ public class Bord {
 		malus_grid_m.display();
 
 	}
-	
-	
-	// permet d'afficher la grille de pattern 
-	public void patternDisplay() {
-		pattern_grid_m.display();
-	}
-		
-	
-	// permet d'ajouter les "Tile" dans la liste des excédents
-	public void setExcedent(LinkedList<Tile> tiles) {
-		excedent_tiles_selection.addAll(tiles);
-	}
-		
-	// permet d'ajouter une "Tile" dans la liste des excédents
-	public void setExcedent(Tile tile) {
-		excedent_tiles_selection.add(tile);
-	}
-			
-	// permet de vider la liste des excédents 
-	public void clearExcedent() {
-		excedent_tiles_selection.clear();
-	}
-	
-	
+
 	// permet de poser les "Tile" de la main du joueur sur la ligne choisie
 	public void playHandIndex(int index) {
 		play_grid[index].addChoice(hand_of_player);
@@ -206,16 +168,8 @@ public class Bord {
 		this.game_ref.nextPlayer();
 	}
 
-	public void clearMalusView(){
-		this.game_ref.clearMalusView(playerID);
-	}
-
 	public void sendToBag(Tile p) {
 		game_ref.sendToBag(p);
-	}
-	
-	public void endOfGame() {
-		game_ref.endOfGame();
 	}
 
 	public void calculateEndOfGameBonuses() {
@@ -223,8 +177,6 @@ public class Bord {
 	}
 	
 	public int getScore() {
-		//System.out.println("Score of player " + playerID + " , score : " + pattern_grid_m.getScore());
-
 		return this.pattern_grid_m.getScore();
 	}
 
@@ -237,14 +189,6 @@ public class Bord {
 	public void sendMalusFirst(Tile first) {
 		malus_grid_m.addTile(first);
 		game_ref.sendMalusFirstToView(malus_grid_m.getPrevious());
-	}
-
-
-	public void setHandMiddle(LinkedList<Tile> toSend) {
-		hand_of_player.clear();
-		hand_of_player = toSend;
-		
-		
 	}
 
 	public boolean checkEnd(){

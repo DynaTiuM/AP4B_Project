@@ -16,14 +16,14 @@ public class Pile {
 	
 	
 	
-	public Pile(Game game, MiddlePile middle, Pot pot, int index) {
+	public Pile(Game game, MiddlePile middle, int index) {
 		this.index = index;
 
 		tiles = new Tile[4];
 
 		
-		tiles_bord = new LinkedList<Tile>();
-		tiles_middle = new LinkedList<Tile>();
+		tiles_bord = new LinkedList<>();
+		tiles_middle = new LinkedList<>();
 
 		middle_ref = middle;
 		game_ref = game;
@@ -33,11 +33,7 @@ public class Pile {
 	public void setTilesSelectedToHand(int index) {
 		getSelection(tiles[index]);
 	}
-	
-	public boolean hasContent() {
-		return tiles[0] != null;
-	}
-	
+
 	public void setContent(Tile to_add, int index) {
 		tiles[index] = to_add;
 	}
@@ -54,11 +50,7 @@ public class Pile {
 		game_ref.sendContentList(to_send, index);
 
 	}
-	
-	public Tile[] getContent(){
-		return this.tiles;
-	}
-	
+
 	public void getSelection(Tile chosen) {
 		tiles_middle.clear();
 		tiles_bord.clear();
@@ -70,7 +62,7 @@ public class Pile {
 			
 			tiles[i] = null;
 		}
-		
+
 		if (tiles_middle != null)  sendToMiddle();
 		
 		sendToBord();
@@ -84,15 +76,6 @@ public class Pile {
 	
 	private void sendToBord() {
 		game_ref.sendSelectionToBord(tiles_bord);
-	}
-	
-	public void test(int number) {
-		//creer un scenario
-		getSelection(tiles[number]);
-	}
-	
-	private void sendToBordTest() {
-		game_ref.sendSelectionToBordTest(tiles_bord);
 	}
 
 	public void display() {

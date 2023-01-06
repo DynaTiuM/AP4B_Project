@@ -1,6 +1,5 @@
 package model;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
 public class Malus {
@@ -95,19 +94,7 @@ public class Malus {
 		
 		System.out.println();
 	}
-	
-	public LinkedList<Tile> getContent(){
-		to_send.clear();
-			
-		 
-		 for(int i = previous_index; i< current_index; i++)
-		 	to_send.add(line[i]);
 
-		
-		return to_send;
-	}
-		
-	
 	public LinkedList<Tile> clear() {
 		
 		to_send.clear();

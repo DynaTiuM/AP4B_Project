@@ -34,16 +34,5 @@ public interface WindowProperties {
 	
 	// Constant for the size of the score in pixels
 	final static int SCORE_SIZE = BORD_SIZE/24;
-	
-	// Constant for the size of the gap between scores in pixels
-	final static int SIZE_GAP = (BORD_SIZE - NUMBER_SCORE_HOR * SCORE_SIZE) / (NUMBER_SCORE_HOR + 1);
-	
-	// Constant for the size of the grid unit in pixels
-	final static int UNIT_GRID = BORD_SIZE/10;
-	
-	
-	 // Method signature for a method that draws graphical elements.
-	 // @param g a Graphics object used for drawing
-	 
-	public void draw(Graphics g);
+
 }

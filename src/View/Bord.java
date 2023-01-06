@@ -13,12 +13,12 @@ public class Bord{
 	  
 	  public static final int BORD_SIZE = 300;
 	  public static final int RECT_SIZE = 25;
-	  private Position position;
-	  private PlayGrid playGrid;
-	  private View view_ref;
-	  private Pattern pattern;
-	  private Malus malus;
-	  private int playerID;
+	  private final Position position;
+	  private final PlayGrid playGrid;
+	  private final View view_ref;
+	  private final Pattern pattern;
+	  private final Malus malus;
+	  private final int playerID;
 
 	  public Bord(Position position, View view_ref, int playerID) {
 	    this.position = position;
@@ -33,6 +33,7 @@ public class Bord{
 	  public void draw(Graphics g) {
 		    ImageIcon icon = new ImageIcon("src\\Images\\Bord.png");
 		    if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
+				assert false : "Can't load the image!";
 		      // There was an error loading the image
 		    } else {
 		      // The image was successfully loaded
@@ -48,7 +49,7 @@ public class Bord{
 
 				Font font = new Font("Arial", Font.PLAIN, 25);
 				g.setFont(font);
-				g.drawString("ECTS: " +String.valueOf(score), position.getX() + BORD_SIZE/2 + 15, position.getY() + 50);
+				g.drawString("ECTS: " + score, position.getX() + BORD_SIZE/2 + 15, position.getY() + 50);
 			}catch (Exception e) {
 				System.out.println("Game not initialized !");
 			}

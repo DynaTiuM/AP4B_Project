@@ -7,7 +7,6 @@ import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 
 import controller.ActionSelectionTile;
 import model.Tile;

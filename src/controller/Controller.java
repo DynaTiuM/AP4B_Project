@@ -9,7 +9,7 @@ import model.*;
 
 public class Controller {
 	private Game game_m;
-	private View view_m;
+	private final View view_m;
 	
 	public Controller(int numPlayers)  {
 		view_m = new View(this, numPlayers);
@@ -65,10 +65,10 @@ public class Controller {
 	}
 	
 	public ActionSelectionTile actionSelectionTile(int ID, int numberPile) {
-		return new ActionSelectionTile(game_m, ID, numberPile, view_m);
+		return new ActionSelectionTile(game_m, ID, numberPile);
 	}
 	public ActionSelectionMiddlePile actionSelectionMiddlePile(int ID) {
-		return new ActionSelectionMiddlePile(game_m, ID, view_m);
+		return new ActionSelectionMiddlePile(game_m, ID);
 	}
 	
 	public ActionLine actionLine(int ID) {

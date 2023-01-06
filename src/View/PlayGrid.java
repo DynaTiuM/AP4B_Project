@@ -9,17 +9,15 @@ import controller.ActionLine;
 import model.Tile;
 
 public class PlayGrid {
-	private Position position;
-	private View view_m;
-	private Line[] lines;
+	private final View view_m;
+	private final Line[] lines;
 
   public PlayGrid(Position position, View view_ref, int RECT_SIZE) {
-	  this.position = position;
 	  this.view_m = view_ref;
 	  this.lines = new Line[5];
 
 	  for (int i = 0; i < 5; i++) {
-		  lines[i] = new Line(new Position(position.getX(), position.getY() + i * RECT_SIZE), i + 1, view_ref, RECT_SIZE);
+		  lines[i] = new Line(new Position(position.getX(), position.getY() + i * RECT_SIZE), i + 1, RECT_SIZE);
 	  }
   }
   

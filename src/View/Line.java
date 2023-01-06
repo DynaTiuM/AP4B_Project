@@ -10,15 +10,14 @@ import model.Tile;
 // Classe repr�sentant une ligne de Tiles dans l'interface graphique
 public class Line {
   // Taille d'une tuile en pixels
-	private int RECT_SIZE;
-    private static int buttonIdCounter = 0;      
-  private Position position;
-  private int length;
-  private JButton button;
-  private Tile_View[] tiles;
+	private final int RECT_SIZE;
+    private final Position position;
+    private final int length;
+    private final JButton button;
+    private final Tile_View[] tiles;
   
   // Constructeur de la classe Line
-  public Line(Position position, int length, View view_ref, int RECT_SIZE) {
+  public Line(Position position, int length, int RECT_SIZE) {
 	    // Initialisation de la position et de la longueur de la ligne
 		  this.RECT_SIZE = RECT_SIZE;
 		  this.position = position;
@@ -27,8 +26,7 @@ public class Line {
 	    // Cr�ation d'un nouveau bouton
 	    this.button = new JButton();
 	    button.setBounds(position.getX() - RECT_SIZE, position.getY(), RECT_SIZE, RECT_SIZE);
-	    button.setActionCommand("buttonPile" + Integer.toString(buttonIdCounter));
-	    
+
 	    JButton button = new JButton();
 	    ImageIcon icon = new ImageIcon("src\\Images\\ButtonLines.png");
 	    button.setIcon(icon);
@@ -37,7 +35,6 @@ public class Line {
 	    ImageIcon rolloverIcon = new ImageIcon("rolloverButtonLines.png");
 	    button.setSelectedIcon(selectedIcon);
 	    button.setRolloverIcon(rolloverIcon);
-	    buttonIdCounter++;
   }
   
   // M�thode qui retourne le tableau de tuiles de la ligne
@@ -56,6 +53,7 @@ public class Line {
     ImageIcon icon = new ImageIcon("src\\Images\\Cube.png");
     // V�rifie si l'image a pu �tre charg�e correctement
     if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
+        assert false : "Can't load the image : Line";
       // Erreur lors du chargement de l'image
     } else {
       // Image charg�e correctement

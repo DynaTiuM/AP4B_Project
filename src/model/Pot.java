@@ -7,8 +7,6 @@ public class Pot {
 	private Pile[] piles;
 	private final MiddlePile middlePile;
 	private final Bag bag;
-	
-	 private final boolean[] possible_pile;
 
 	private final Game game_ref;
 	
@@ -20,7 +18,6 @@ public class Pot {
 		
 		middlePile = new MiddlePile(this);
 		numberOfPiles = 1 + numberOfPlayers * 2;
-		possible_pile = new boolean[numberOfPiles];
 		
 		instanciatePiles();
 		
@@ -44,39 +41,16 @@ public class Pot {
 	private void instanciatePiles() {
 		piles = new Pile[numberOfPiles];
 		for(int i = 0; i < numberOfPiles; i++){
-			piles[i] = new Pile(game_ref, middlePile, this, i);
+			piles[i] = new Pile(game_ref, middlePile,  i);
 		}
-	}
-	
-	public Pile getPileIndex(int index) {
-		return piles[index];
 	}
 	
 	public LinkedList<Tile> modifyMiddlePile(int index) {
 		return middlePile.modifyMiddlePile(index);
 	}
 	
-	public void display() {
-		for(Pile p: piles) p.display();
-		middlePile.display();
-	}
-	
 	public void sendToBag(LinkedList<Tile> tiles) {
 		bag.getTilesBack(tiles);
-	}
-	
-	public boolean[] checkPossible() {
-		  for(int i = 0; i < possible_pile.length; i++) {
-			  possible_pile[i] = piles[i].checkPossible();
-		  }
-		  
-		  return possible_pile;
-	  }
-	
-	
-	public void testShuffle() {
-		bag.distributeContents();
-		
 	}
 	
 	public void sendCompleteMiddlePileToView(boolean bool) {
@@ -88,13 +62,13 @@ public class Pot {
 		
 	}
 	
-	public boolean isPlayPossible() {
+	public boolean isPlayNotPossible() {
 		int empty = 0;
 		for(Pile p: piles) empty += p.isEmpty();
 		
 		empty+= middlePile.isEmpty();
 		
-		return empty != this.numberOfPiles + 1;
+		return empty == this.numberOfPiles + 1;
 		
 	}
 

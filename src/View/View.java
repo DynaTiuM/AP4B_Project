@@ -2,8 +2,6 @@ package View;
 
 import java.awt.*;
 import java.util.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.Timer;
@@ -80,14 +78,6 @@ public class View extends JFrame {
 
 
         this.setVisible(true);
-    }
-
-    public void setButtonsPot(boolean possible[]) {
-        //pot_m.setButtons(possible);
-    }
-
-    public void setTile(LinkedList<Tile> tiles, int number) {
-        pot_m.setTile(tiles, number);
     }
 
     public void updatePile(LinkedList<Tile> to_update, int index) {
@@ -279,32 +269,32 @@ class ViewPanel extends JPanel {
 
 class PopupEnd extends JPanel {
 
-    private View view;
-    private final int WIDTH = 500;
-    private final int HEIGHT = 500;
+    private final View view;
 
     public PopupEnd(View view, model.Bord[] bords) {
         this.view = view;
 
         setLayout(null);
+        int WIDTH = 500;
+        int HEIGHT = 500;
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
         JButton quit = new JButton();
-        quit.setBounds((int)(WIDTH / 1.8), HEIGHT - HEIGHT/5, WIDTH/4, HEIGHT/10);
+        quit.setBounds((int)(WIDTH / 1.8), HEIGHT - HEIGHT /5, WIDTH /4, HEIGHT /10);
         quit.setText("Quitter");
+        quit.setBorder(BorderFactory.createLineBorder(new Color(64, 129, 166), 3));
+        quit.setBackground(new Color(246, 237, 227));
 
-        quit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                quit();
-            }
-        });
+
+        quit.addActionListener(e -> quit());
 
         this.add(quit);
 
         JButton playAgain = new JButton();
-        playAgain.setBounds((int)(WIDTH / 5.2), HEIGHT - HEIGHT/5, WIDTH/4, HEIGHT/10);
+        playAgain.setBounds((int)(WIDTH / 5.2), HEIGHT - HEIGHT /5, WIDTH /4, HEIGHT /10);
         playAgain.setText("Rejouer");
+        playAgain.setBorder(BorderFactory.createLineBorder(new Color(64, 129, 166), 3));
+        playAgain.setBackground(new Color(246, 237, 227));
 
         HashMap<Integer, Integer> scores = new HashMap<>();
 
@@ -334,6 +324,7 @@ class PopupEnd extends JPanel {
 
         JLabel end = new JLabel();
         end.setText("FIN DU JEU !");
+        end.setForeground(new Color(64, 129, 166));
 
         end.setFont(new Font("Serif", Font.BOLD, 40));
 
@@ -343,23 +334,14 @@ class PopupEnd extends JPanel {
         end.setVisible(true);
 
 
-        playAgain.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                newGame();
-            }
-        });
+        playAgain.addActionListener(e -> newGame());
         this.add(playAgain);
     }
     public static HashMap<Integer, Integer> triAvecValeur( HashMap<Integer, Integer> map ){
-        List<Map.Entry<Integer, Integer>> list = new LinkedList<Map.Entry<Integer, Integer>>( map.entrySet() );
-        Collections.sort( list, new Comparator<Map.Entry<Integer, Integer>>(){
-            public int compare( Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2 ){
-                return (o1.getValue()).compareTo( o2.getValue());
-            }
-        });
+        List<Map.Entry<Integer, Integer>> list = new LinkedList<>( map.entrySet() );
+        list.sort(Map.Entry.comparingByValue());
 
-        HashMap<Integer, Integer> map_apres = new LinkedHashMap<Integer, Integer>();
+        HashMap<Integer, Integer> map_apres = new LinkedHashMap<>();
         for(Map.Entry<Integer, Integer> entry : list)
             map_apres.put( entry.getKey(), entry.getValue() );
 
@@ -459,7 +441,7 @@ class PopupPanel extends JPanel {
                 this.add(button);
                 if (rolloverIcon.getImageLoadStatus() == MediaTracker.ERRORED) {
                     // Erreur lors du chargement de l'image
-                	System.out.println("error");
+                    assert false : "Can't load the image";
                   } else {
                       button.setRolloverIcon(rolloverIcon);
                   }
@@ -469,7 +451,8 @@ class PopupPanel extends JPanel {
 
                 // V�rifie si l'image a pu �tre charg�e correctement
                 if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
-                  // Erreur lors du chargement de l'image
+                    assert false : "Can't load the image";
+                    // Erreur lors du chargement de l'image
                 } else {
                     button.setIcon(icon);
                 }
@@ -482,21 +465,19 @@ class PopupPanel extends JPanel {
         // Toggle the visibility of the buttons every time the timer fires
         // Erreur lors du chargement de l'image
         // Timer to blink the buttons
-        Timer blinkTimer = new Timer(500, new ActionListener() {
-            // Toggle the visibility of the buttons every time the timer fires
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for (JButton button : buttons) {
-                    if (button.getIcon() == icon2) {
-                        button.setIcon(icon);
-                        repaint();
+        // Toggle the visibility of the buttons every time the timer fires
+        Timer blinkTimer = new Timer(500, e -> {
+            for (JButton button : buttons) {
+                if (button.getIcon() == icon2) {
+                    button.setIcon(icon);
+                    repaint();
+                } else {
+                    if (icon2.getImageLoadStatus() == MediaTracker.ERRORED) {
+                        assert false : "Can't load the image";
+                        // Erreur lors du chargement de l'image
                     } else {
-                        if (icon2.getImageLoadStatus() == MediaTracker.ERRORED) {
-                            // Erreur lors du chargement de l'image
-                        } else {
-                            button.setIcon(icon2);
-                            repaint();
-                        }
+                        button.setIcon(icon2);
+                        repaint();
                     }
                 }
             }

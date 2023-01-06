@@ -65,9 +65,6 @@ public class Tile {
 	public void setOccupiedTrue() {
 		this.occupied = true;
 	}
-	public void setOccupiedFalse() {
-		this.occupied = false;
-	}
 	
 	// renvoie la valeur de occupied
 	public boolean getOccupied() {

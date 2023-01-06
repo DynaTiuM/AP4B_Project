@@ -2,21 +2,16 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
 
-import View.View;
 import model.Game;
-import model.MiddlePile;
-import model.Pile;
-import model.Tile;
 
 public class ActionSelectionTile implements ActionListener {
 	
-	private Game model;
-	private int ID;
-	private int numberPile;
+	private final Game model;
+	private final int ID;
+	private final int numberPile;
 	
-	public ActionSelectionTile(Game ref, int ID, int numberPile, View ref_view) {
+	public ActionSelectionTile(Game ref, int ID, int numberPile) {
 		this.model = ref;
 		this.ID = ID;
 		this.numberPile = numberPile;

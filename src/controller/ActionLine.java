@@ -8,9 +8,9 @@ import model.Game;
 
 public class ActionLine implements ActionListener {
 	
-	private int lineSupervised;
-	private Game model;
-	private View view_m;
+	private final int lineSupervised;
+	private final Game model;
+	private final View view_m;
 	
 	public ActionLine(Game ref, int ID, View view) {
 		this.model = ref;

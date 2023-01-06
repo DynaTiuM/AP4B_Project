@@ -1,10 +1,7 @@
 package View;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map.Entry;
 
 import javax.swing.*;
 
@@ -14,36 +11,17 @@ import model.ColorEnum;
 public class MiddlePile {
 	private static final int RECT_SIZE = Bord.RECT_SIZE;
 	private int offsetY = 0;
-	private Position position;
-	private JButton button;
-	private Pot pot_m;
+	private final Position position;
+	private final Pot pot_m;
 	
-	private HashMap<Tile_View, JButton> tiles;
+	private final HashMap<Tile_View, JButton> tiles;
 
-  public MiddlePile(Pot ref, Position position) {
-    this.position = position;
-    this.button = new JButton();
-    this.tiles = new HashMap<>();
-    pot_m = ref;
-  }
+  	public MiddlePile(Pot ref, Position position) {
+    	this.position = position;
+    	this.tiles = new HashMap<>();
+    	pot_m = ref;
+  	}
 
-  int yPosition = 0;
-  
-  public void draw(Graphics g) {
-    // Draw the pile at the specified position
-	for (int i = 0; i < 28; i++) {
-		
-		if (i != 0 && i % 7 == 0) {
-			yPosition += RECT_SIZE;
-		}
-		
-	}
-}
-
-  	public void setButton(boolean value) {
-	    button.setVisible(value);
-	}
-  
   	public void updatePile(LinkedList<Tile> to_add, int previous_index, boolean delete) {
   		if(delete) {
   			for (HashMap.Entry<Tile_View, JButton> entry : this.tiles.entrySet()) {
@@ -129,8 +107,9 @@ public class MiddlePile {
   		for (HashMap.Entry<Tile_View, JButton> entry : this.tiles.entrySet()) {
   			Tile_View key = entry.getKey();
             JButton value = entry.getValue();
-            
-            if(key.color == tile.color) {
+
+			assert tile != null;
+			if(key.color == tile.color) {
             	tiles_tmp.put(key, value);
             }
   		}

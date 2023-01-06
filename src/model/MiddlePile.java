@@ -11,10 +11,7 @@ public class MiddlePile {
 
 	// Liste de "Tile" qui constitue la pile
 	private final LinkedList<Tile> tiles;
-	
-	// Liste de "Tile" qui est utilisée pour stocker une sélection de "Tile" en fonction de leur couleur
-	private final LinkedList<Tile> selection;
-	
+
 	// Référence à un objet Pot
 	private final Pot pot_ref;
 	
@@ -26,8 +23,7 @@ public class MiddlePile {
 	public MiddlePile(Pot ref) {
 		
 		tiles = new LinkedList<>();
-		selection = new LinkedList<>();
-		
+
 		pot_ref = ref;
 		
 		setFirst();
@@ -82,34 +78,13 @@ public class MiddlePile {
 		return toSend;
 	}
 	
-	// Renvoie une sélection de tuiles de la pile en fonction de leur couleur
-	public LinkedList<Tile> getSelection(Color color) {
-		System.out.println("FIRST HIHIUHIUHIUHIUHIUHUHIUHIUHIUHIUHIUHIUHIUHIUHIUHIUHIUHIUHIUHIUHIUHIUHIU " + false);
-		
-		selection.clear();
-		for(Tile p: tiles) if(p.getColor() == color) selection.add(p);
-		
-		
-		
-		return selection;
-	}
-	
-	
-	// Renvoie la valeur de first
-	public boolean isFirst() {
-		return this.first;
-	}
-	
-	
 	// Affiche le contenu de la pile dans la console
 	public void display() {
 		System.out.print("Middle : ");
 		for(Tile p: tiles) System.out.print(p.getColorEnum() + " ");
 		System.out.println();
 	}
-	
-	
-	
+
 	public int isEmpty() {
 		if(tiles.isEmpty()) {
 			return 1;
@@ -117,11 +92,7 @@ public class MiddlePile {
 			return 0;
 		}
 	}
-	
-	public boolean isEmptyView() {
-		return tiles.isEmpty();
-	}
-	
+
 	public void setFirst() {
 		first = true;
 		tiles.addFirst(new Tile(Color.gray));

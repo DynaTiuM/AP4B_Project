@@ -8,10 +8,10 @@ import javax.swing.ImageIcon;
 import model.Tile;
 
 public class Pattern {
-	private int RECT_SIZE;
-	private Position position;
-	private Tile_View[][] tile;
-	private View view_m;
+	private final int RECT_SIZE;
+	private final Position position;
+	private final Tile_View[][] tile;
+	private final View view_m;
 
 	public Pattern(Position position, View view, int RECT_SIZE) {
 		tile = new Tile_View[5][5];

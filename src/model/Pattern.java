@@ -6,17 +6,12 @@ import java.util.HashMap;
 import View.Position;
 
 
-
 public class Pattern {
 
 	private final Tile[][] grid;
-	private Color[] new_colorpos;
 	private final HashMap<Tile, Position> newTiles;
 	private final Bord bord_ref;
 	private int score;
-
-	private boolean end_trigger;
-
 	
 	public Pattern(Bord bord) {
 
@@ -24,7 +19,7 @@ public class Pattern {
 		this.bord_ref = bord;
 		grid = new Tile[5][5];
 
-		new_colorpos = new Color[5];
+		Color[] new_colorpos = new Color[5];
 
 		grid[0][0] = new Tile(Color.MAGENTA);
 		grid[0][1] = new Tile(Color.BLUE);
@@ -44,8 +39,6 @@ public class Pattern {
 				grid[l+1][i] = new Tile(new_colorpos[i]);				
 			}
 		}
-		
-		end_trigger = false;
 	}
 	
 	public void scoreMalus(int malus) {
@@ -62,13 +55,13 @@ public class Pattern {
 				if(!grid[index][i].getOccupied()) {
 					newTiles.put(to_place, new Position(i, index));
 				}
-				calculateScore(index, i, to_place);
+				calculateScore(index, i);
 				break;
 			}
 		}
 	}
 	
-	private void calculateScore(int index, int indexy, Tile to_add) {
+	private void calculateScore(int index, int indexy) {
 		
 		//let's suppose we won't encounter any segmenation fault
 		grid[index][indexy].setOccupiedTrue();
@@ -76,8 +69,8 @@ public class Pattern {
 		boolean first_line = false;
 		boolean first_column = false;
 		
-		int x = index;
-		int y = indexy;
+		int x;
+		int y;
 		
 		int total = 1;
 		
@@ -134,19 +127,8 @@ public class Pattern {
 		if(first_column && first_line) total++;
 		
 		score +=total;
-		//System.out.println("\nupdated score : " + score);
-	
-		
-		
-		//this.display();
-		
 	}
-	
-	public void substract(int malus) {
-		score -= malus;
-		if(score<0) score = 0;
-		//System.out.println("Score with malus : " + score);
-	}
+
 	
 	public void calculateEndOfGameBonuses() {
 		for(int i =0; i<5; i++) {

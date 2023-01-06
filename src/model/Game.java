@@ -47,11 +47,6 @@ public class Game {
 		players[current_player].setHand(tiles);
 	}
 
-	// Envoie une tuile à la main du joueur actuel
-	public void sendSelectionToBord(Tile tile) {
-		players[current_player].setHand(tile);
-	}
-	
 	// Envoie une liste de tuiles au Bag
 	public void sendToBag(LinkedList<Tile> tiles) {
 		pot.sendToBag(tiles);
@@ -156,9 +151,9 @@ public class Game {
 		}
 		
 
-		if(!pot.isPlayPossible()) {
+		if(pot.isPlayNotPossible()) {
 			this.endOfSet();
-			if(!pot.isPlayPossible()) this.endOfGame();
+			if(pot.isPlayNotPossible()) this.endOfGame();
 		}
 	}
 	
@@ -167,7 +162,6 @@ public class Game {
 	}
 	
 	public void endOfGame() {
-		//TODO
 		int winning_score = 0;
 		for(Bord p: players) {
 			p.calculateEndOfGameBonuses();

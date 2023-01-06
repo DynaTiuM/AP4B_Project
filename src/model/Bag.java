@@ -3,7 +3,6 @@ package model;
 import java.awt.Color;
 import java.util.Collections;
 import java.util.LinkedList;
-import java.util.Random;
 
 
 //déclaration de la classe "Bag"
@@ -19,24 +18,10 @@ public class Bag {
 		initialiseTiles(); // on initialise les tiles du bag
 		this.distributeContents(); // on remplit les piles
 	}
-	
-	
-	// retourne une "Tile" du "Bag" de manière aléatoire
-	public static Tile getRandomTile() {
-		Random rd = new Random();
-		
-		int tileIndex = rd.nextInt(tiles.size());
-		
-		Tile tile = tiles.get(tileIndex);
-		tiles.remove(tileIndex);
-		
-		return tile;
-	}
-	
-	
+
 	// initialise les "Tile" dans le "Bag" avec 20 "Tile" de chaque couleur
 	private void initialiseTiles() {
-		tiles = new LinkedList<Tile>();
+		tiles = new LinkedList<>();
 
 		// tableau des couleurs possibles pour les tuiles
 		Color[] colors = {Color.MAGENTA, Color.ORANGE, Color.GREEN, Color.BLUE, Color.YELLOW};
@@ -77,21 +62,13 @@ public class Bag {
 	
 	// Re-remplit le "Bag" 
 	public void getTilesBack(LinkedList<Tile> tiles_toadd) {
-		
 		for(Tile p: tiles_toadd) {
 			tiles.add(p);
 		}
-		
 	}
 
 
 	public void getTilesBack(Tile p) {
 		tiles.add(p);
 	}
-	
-	public void displayReceived() {
-		System.out.println("Current Size : " + tiles.size());
-	}
-	
-	
 }
