@@ -3,8 +3,9 @@ package controller;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import View.Position;
-import View.View;
+import view.PopupEnd;
+import view.Position;
+import view.View;
 import model.*;
 
 public class Controller {
@@ -70,11 +71,15 @@ public class Controller {
 	public ActionLine actionLine(int ID) {
 		return new ActionLine(gameRef, ID, viewRef);
 	}
+
+	public ActionEnd actionEnd(int ID, PopupEnd popupEnd) {
+		return new ActionEnd(viewRef, popupEnd, ID);
+	}
 	
 	public int getCurrentPlayer() {
 		return gameRef.getCurrentPlayer();
 	}
-	
+
 	public ActionMalus actionMalus() {
 		return new ActionMalus(gameRef, viewRef);
 	}
