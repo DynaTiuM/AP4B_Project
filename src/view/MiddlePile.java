@@ -1,6 +1,7 @@
 package View;
 
 import java.util.HashMap;
+
 import java.util.LinkedList;
 
 import javax.swing.*;
@@ -8,33 +9,53 @@ import javax.swing.*;
 import controller.ActionSelectionMiddlePile;
 import model.Tile;
 import model.ColorEnum;
+
+//Class used to display the MiddlePile on the View Panel
 public class MiddlePile {
+	//Size of a cell in MiddlePile
 	private static final int RECT_SIZE = Bord.RECT_SIZE;
+	
+	//allows us to track on which row to add new tiles
 	private int offsetY = 0;
+	
+	//Position of the MiddlePile on the viewPanel
 	private final Position position;
+	
+	//Reference to the pot
 	private final Pot pot_m;
 	
+	//Contains Tiles and their positions, to be able to access their references to remove them from the ViewPanel
 	private final HashMap<Tile_View, JButton> tiles;
 
+	
   	public MiddlePile(Pot ref, Position position) {
     	this.position = position;
     	this.tiles = new HashMap<>();
     	pot_m = ref;
   	}
 
+  	//either add or delete the tiles on the View Panel
   	public void updatePile(LinkedList<Tile> toAdd, int previousIndex, boolean delete) {
+  		
+  		//if we choose to delete : 
   		if(delete) {
   			for (HashMap.Entry<Tile_View, JButton> entry : this.tiles.entrySet()) {
+  				
+  				//remove current Button
   				pot_m.removeB(entry.getValue());
+  				
+  				//Remove current Tile
   				pot_m.removeT(entry.getKey());
   				this.offsetY = 0;
   			}
   		  		
   			tiles.clear();
   		}
+  		
   		Tile_View tile = null;
   		int offsetX = (previousIndex % 7) * RECT_SIZE;
   		
+  		//Parse all the Tiles to add to Panel View
 	  
   		for(Tile p: toAdd) {
   			switch (p.getColorEnum()){
@@ -52,12 +73,12 @@ public class MiddlePile {
   		  	  		break;
   			}
   			
-  			// For every tile, we associate it a button
-
+  			// For every tile, we associate it with a button
 			JButton buttonTile = new JButton();
 			buttonTile.setOpaque(false);
 			buttonTile.setContentAreaFilled(false);
-			//enlever la bordure
+			
+			//Remove border
 			buttonTile.setBorderPainted(false);
 
 			buttonTile.setBounds(position.getX() + offsetX, position.getY() + this.offsetY, RECT_SIZE, RECT_SIZE);
@@ -76,7 +97,7 @@ public class MiddlePile {
   			pot_m.addB(buttonTile);
 			pot_m.addT(tile);
   			
-  			
+  			//Change the offsetX and offsetY after having set a Tile
   			offsetX += RECT_SIZE;
   			if (offsetX >= 7* RECT_SIZE) {
   				offsetX = 0;
@@ -87,7 +108,6 @@ public class MiddlePile {
 
   	public void initiateButton(JButton button, int ID) {
   		ActionSelectionMiddlePile action = pot_m.actionSelectionMiddlePile(ID);
-			
 		button.addActionListener(action);
   	}
 }

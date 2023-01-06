@@ -11,14 +11,21 @@ import javax.swing.JButton;
 
 import controller.ActionSelectionTile;
 import model.Tile;
-
+//Display A pile in the ViewPanel
 public class Pile {
     private static final int RECT_SIZE = Bord.RECT_SIZE;
     private final Position position;
    
+    //Stores tiles in the pile
     private final Tile_View[] tiles;
+    
+    //Stores Buttons we will need to get the Tiles
     private final JButton[] buttons;
+    
+    //Reference to the View
     private final View viewRef;
+    
+    //ID of the Pile
     int number;
 
     public Pile(Position position, View viewRef, int number) {
@@ -52,10 +59,14 @@ public class Pile {
         }
     }
 
+    //Method used to get Tiles from the model and adding them on the ViewPanel
     public boolean updateTile(LinkedList<Tile> toIterate) {
 
+    	//Coordinates x and y of the tiles (will be multiplied by RECT_SIZE * 2)
         int x = 0;
         int y = 0;
+        
+        //index of the current Tile beeing studied
         int i = 0;
 
         if (toIterate.getFirst() != null) {
@@ -79,14 +90,21 @@ public class Pile {
                 }
                 
                 buttons[i] = new JButton();
+                
+                //Basic configurations of buttons, buttons have been configured to not be visible from behind the tiles
                 buttons[i].setOpaque(false);
                 buttons[i].setContentAreaFilled(false);
-                //enlever la bordure
+                //Removes border
                 buttons[i].setBorderPainted(false);
                 buttons[i].setBounds(position.getX() + x * (RECT_SIZE * 2), position.getY() + y * (RECT_SIZE * 2), RECT_SIZE, RECT_SIZE);
                
+                //Add the current Button
                 viewRef.getPanel().addB(buttons[i]);
+                
+                //Add the current Tile
                 viewRef.getPanel().addT(tiles[i]);
+                
+                //changes coordinates x and y of piles for the next one 
                 switch (i) {
                     case 0:
                     case 2:
@@ -101,12 +119,12 @@ public class Pile {
             }
         }
 
-
+        //checks if the pile was not empty
         return toIterate.getFirst() != null;
 
     }
 
-
+    //Remove the buttons and tiles on the ViewPanel
     public void updatePile(LinkedList<Tile> toUpdate) {
 
         ViewPanel temp = this.viewRef.getPanel();
@@ -114,9 +132,11 @@ public class Pile {
         if (!updateTile(toUpdate)) {
 
         	for(JButton button : buttons) {
+        		//Remove the current button
         		temp.removeB(button);
         	}
             for (Tile_View tile : tiles) {
+            	//Remove the current Tile
                 temp.removeT(tile);
             }
 

@@ -8,9 +8,12 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
+//Class used to display the scores of players as well as the winner at the end of the game
 public class PopupEnd extends JPanel {
 
     public PopupEnd(View view, model.Bord[] bords) {
+    	
+    	//basic configurations
         setLayout(null);
         int WIDTH = 500;
         int HEIGHT = 500;

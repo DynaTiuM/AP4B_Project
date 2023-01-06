@@ -1,6 +1,9 @@
 package View;
 
+//Class used to simplify determining the coordinates of one of the components of the ViewPanel
 public class Position {
+	
+	  //Coordinates x an y
 	  private final int x;
 	  private final int y;
 

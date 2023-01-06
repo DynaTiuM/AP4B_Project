@@ -8,22 +8,35 @@ import javax.swing.*;
 import controller.ActionMalus;
 import model.Tile;
 
+//Class used to display the Malus of a player on the View Panel
 public class Malus {
+	
+	//Width and Height of a cell in the Malus Grid
 	private final int RECT_WIDTH;
 	private final int RECT_HEIGHT;
+	
+	//Position of the Malus Grid on the Panel
 	private final Position position;
+	
+	//Button used to put tiles in Malus Grid
 	private final JButton button;
+	
 	private final Font font;
 
+	//Stores the tiles, to be able to access their references to remove them from the ViewPanel
 	private final Tile_View[] tiles;
 
+	//reference to the view
 	private final View viewRef;
 
+	
 	public Malus(Position position, View viewRef, int RECT_SIZE) {
 		this.viewRef = viewRef;
 
 		tiles = new Tile_View[7];
 		this.position = position;
+		
+		// Set the button to select Malus, this will be use in the popUp
 		this.button = new JButton();
 		this.button.setBounds(275, 38, 200, 50);
 		ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("MalusButton.png")));
@@ -38,6 +51,7 @@ public class Malus {
 	public void draw(Graphics g) {
 		ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("Malus.PNG")));
 
+		// Check if the Image was successfully loaded
 		if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
 			assert false : "Can't load the image : Malus";
 			// There was an error loading the image
@@ -48,21 +62,23 @@ public class Malus {
 				g.drawImage(malus, position.getX() + (RECT_WIDTH * i), position.getY(), RECT_WIDTH, RECT_HEIGHT, null);
 			}
 		}
-		//Modification de la couleur et de la police de g
+		
+		// Modify the color of g
 		g.setFont(font);
 		g.setColor(Color.RED);
-		// Afficher les cases num�rot�es -1
+		
+		// Display the number of the cells 
 		g.drawString("-1", position.getX() + (int)(RECT_WIDTH*0.35), position.getY() + RECT_HEIGHT/3);
 		g.drawString("-1", position.getX() + (int)(RECT_WIDTH*1.35), position.getY() + RECT_HEIGHT/3);
-		// Afficher les cases num�rot�es -2
+
 		g.drawString("-2", position.getX() + (int)(RECT_WIDTH * 2.35), position.getY() + RECT_HEIGHT/3);
 		g.drawString("-2", position.getX() + (int)(RECT_WIDTH * 3.35), position.getY() + RECT_HEIGHT/3);
 		g.drawString("-2", position.getX() + (int)(RECT_WIDTH * 4.35), position.getY() + RECT_HEIGHT/3);
-		// Afficher les cases num�rot�es -3
+
 		g.drawString("-3", position.getX() + (int)(RECT_WIDTH * 5.35), position.getY() + RECT_HEIGHT/3);
 		g.drawString("-3", position.getX() + (int)(RECT_WIDTH * 6.35), position.getY() + RECT_HEIGHT/3);
 
-		//On remet g � le couleur de base;
+		// Modify back the color of g
 		g.setColor(Color.BLACK);
 	}
 
@@ -70,10 +86,13 @@ public class Malus {
 		button.setVisible(value);
 	}
 
+	//adds the Tiles in the malus Grid of Player
 	public void updateViewLine(Tile[] malus) {
+		//empties Malus
 		clearMalus();
+		
 		int temp = 0;
-
+		//parse the malus Grid of the Player
 		for(Tile p: malus) {
 			if(p != null){
 				switch (p.getColorEnum()){
@@ -91,11 +110,12 @@ public class Malus {
 						break;
 
 				}
-
+				//add current Tile in the View Tile
 				if(tiles[temp] != null) viewRef.getPanel().addT(tiles[temp]);
 
 			}
 			temp++;
+			//function end if temp goes out of bounds
 			if(temp >= 7) {
 				break;
 			}
@@ -114,15 +134,17 @@ public class Malus {
 
 	public void clearMalus() {
 
+		// For each tile of Malus
 		for(Tile_View tile : tiles) {
 			if(tile != null) {
-
+				// Remove the Tile
 				viewRef.getPanel().removeT(tile);
 			}
 		}
 		for(Tile_View tile : tiles) {
 			tile = null;
 		}
+		// Repaint to update the view
 		viewRef.getPanel().repaint();
 	}
 

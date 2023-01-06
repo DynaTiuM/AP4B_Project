@@ -8,68 +8,79 @@ import javax.swing.JButton;
 import controller.ActionSelectionMiddlePile;
 import model.Tile;
 
-// La classe Pot représente une collection de piles de tuiles dans un jeu
+//Displays the Piles and MiddlePile
 public class Pot {
-    // Tableau contenant les piles de tuiles
+    // Array contening the Piles
     private final Pile[] piles;
-    // Pile du milieu
+    
     private final MiddlePile middlePile;
   
-    // Référence vers la vue principale
+    // Reference towards view, used for communication
     private final View viewRef;
  
 
-    // Constructeur prenant en entrée la position du pot sur l'écran et le nombre de piles à créer
+    // Constructor with the position of the Pot, the number of tiles to instanciate and the reference to the view
     public Pot(Position position, int numberOfPiles, View ref) {
 	  
-	    // Enregistrement de la référence vers la vue principale
+	    // sets reference to View
 	    viewRef = ref;
         
-        // Création du tableau de piles de la bonne longueur
+ 
         piles = new Pile[numberOfPiles];
     
-        // Calcul de la position centrale de la fenêtre
+        // Determine center of the frame
         int centerX = position.getX();
 
-        // Calcul de la taille des piles
+        // Determine size of Piles
         int pileSize = Bord.RECT_SIZE * 4;
 
-        // Calcul des coordonnées x et y du coin supérieur gauche de la première pile
+        // Determine the top left coordinates x and y of the first pile
         int firstPileX = centerX - pileSize;
 
         int yPosition = pileSize / 2;
 
-        // Création des piles
+        // Creation of piles
         for (int i = 0; i < numberOfPiles; i++) {
-
+        	
             if (i % 2 == 0 && i != 0) {
                 yPosition += pileSize;
             }
 
-            // Création de la pile et enregistrement dans le tableau
+            
             piles[i] = new Pile(new Position(firstPileX + (i % 2) * pileSize, yPosition), viewRef, i);
         }
     
-        // Création de la pile du milieu et enregistrement dans l'attribut middlePile
+        
         middlePile = new MiddlePile(this, new Position(firstPileX, yPosition + pileSize));
     }
   
-    // Méthode ajoutant une tuile à la vue principale
+    //Method allowing us to add the Tile panels to the ViewPanel
     public void addT(Tile_View tile) {
 	    viewRef.getPanel().addT(tile);
     }
   
+    //Method allowing us to add the Buttons to the ViewPanel
     public void addB(JButton button) {
 	    viewRef.getPanel().addB(button);
     }
+    
+    //Method allowing us to remove the Tile panels from the ViewPanel
+    public void removeT(Tile_View tile) {
+		viewRef.getPanel().removeT(tile);
+	}
+	
+    //Method allowing us to remove the Buttons from the ViewPanel
+	public void removeB(JButton button) {
+		viewRef.getPanel().removeB(button);
+	}
   
     public ActionSelectionMiddlePile actionSelectionMiddlePile(int ID) {
         return viewRef.actionSelectionMiddlePile(ID);
     }
 
-    // Méthode dessinant les piles
+    
     public void draw(Graphics g) {
-        // Dessin des piles
+        
         for (Pile pile : piles) {
             pile.draw(g);
         }
@@ -89,11 +100,5 @@ public class Pot {
         middlePile.updatePile(toUpdate, previousIndex, delete);
     }
 
-	public void removeT(Tile_View tile) {
-		viewRef.getPanel().removeT(tile);
-	}
 	
-	public void removeB(JButton button) {
-		viewRef.getPanel().removeB(button);
-	}
 }

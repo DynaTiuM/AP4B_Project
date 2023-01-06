@@ -7,22 +7,32 @@ import javax.swing.*;
 
 import model.Tile;
 
-// Classe repr�sentant une ligne de Tiles dans l'interface graphique
+//Class Displaying a Line in the View Panel
 public class Line {
-  // Taille d'une tuile en pixels
+	
+  // Size of a cell of Line
 	private final int RECT_SIZE;
+	
+	//Position of Line on the View Panel
     private final Position position;
+    
     private final int length;
+    
+    //Button needed to play a hand in the Line
     private final JButton button;
+    
+    //Stores the tile, to be able to access their references to remove them from the ViewPanel
     private final Tile_View[] tiles;
   
   // Constructeur de la classe Line
   public Line(Position position, int length, int RECT_SIZE) {
+	  
       // Initialisation de la position et de la longueur de la ligne
       this.RECT_SIZE = RECT_SIZE;
       this.position = position;
       tiles = new Tile_View[length];
       this.length = length;
+      
       // Cr�ation d'un nouveau bouton
       this.button = new JButton();
       button.setBounds(position.getX() - RECT_SIZE, position.getY(), RECT_SIZE, RECT_SIZE);

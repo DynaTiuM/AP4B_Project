@@ -9,18 +9,34 @@ import javax.swing.ImageIcon;
 
 import model.Tile;
 
-
+//Class used to contain the Malus grid, Pattern grid and the PlayGrid of a player (5 Lines)
 public class Bord{
-	  
+	
+	  //Size of a Bord
 	  public static final int BORD_SIZE = 300;
+	  
+	  //Size of a Tile
 	  public static final int RECT_SIZE = 25;
+	  
+	  //Position of a Bord on the View Panel
 	  private final Position position;
+	  
+	  //Lines of a player
 	  private final PlayGrid playGrid;
-	  private final View view_ref;
+	 
+	  //Pattern grid of a player
 	  private final Pattern pattern;
+	  
+	  //Malus grid of a player
 	  private final Malus malus;
+	  
+	  //Reference to the View
+	  private final View view_ref;
+	  
+	  //used to identify the player
 	  private final int playerID;
 
+	  
 	  public Bord(Position position, View view_ref, int playerID) {
 	    this.position = position;
 	    this.view_ref = view_ref;
@@ -28,9 +44,9 @@ public class Bord{
 	    this.playGrid = new PlayGrid(new Position(position.getX() + RECT_SIZE, position.getY() + RECT_SIZE*4), view_ref,  RECT_SIZE);
 	    this.pattern = new Pattern(new Position(position.getX() + 10 + BORD_SIZE / 2, position.getY()+ RECT_SIZE*4), view_ref, RECT_SIZE);
 	    this.malus = new Malus(new Position(position.getX() + 10, position.getY() + BORD_SIZE - RECT_SIZE * 2 - 10 ), view_ref, RECT_SIZE);
-	    this.setButtons(true);
 	  }
 
+	  //Draw the Bord
 	  public void draw(Graphics g) {
 		  ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("Bord.png")));
 		    if (icon.getImageLoadStatus() == MediaTracker.ERRORED) {
@@ -56,37 +72,34 @@ public class Bord{
 			}
 		  }
 
-	  public void setButtons(boolean visible) {
-	    malus.setButton(visible);
-	    playGrid.setButton(visible);
+	  // Update the line i of playGrid
+	  public void updateViewLine(LinkedList<Tile> toSend, int previousIndex, int i, Tile[] malus) {
+		  playGrid.updateViewLine(toSend, previousIndex, i);
+		  this.malus.updateViewLine(malus);
 	  }
 
-	public void updateViewLine(LinkedList<Tile> toSend, int previousIndex, int i, Tile[] malus) {
-		playGrid.updateViewLine(toSend, previousIndex, i);
-		this.malus.updateViewLine(malus);
-	}
+	  //Update the pattern of the bord
+	  public void updatePattern(HashMap<Tile, Position> toSend) {
+		  pattern.updatePattern(toSend, this.playGrid);
+	  }
 
-	public void updatePattern(HashMap<Tile, Position> toSend) {
-		pattern.updatePattern(toSend, this.playGrid);
-	}
+	  //Update the line malus of the bord
+	  public void updateMalus(Tile[] malus) {
+		  this.malus.updateViewLine(malus);
+	  }
 
-	public void updateMalus(Tile[] malus) {
-		this.malus.updateViewLine(malus);
-	}
-
-	public void clearMalus(){
+	  //Clear the line Malus
+	  public void clearMalus(){
 		  malus.clearMalus();
-	}
+	  }
 
-	public void updateViewLine(LinkedList<Tile> toSend, int previousIndex, int i) {
-		playGrid.updateViewLine(toSend, previousIndex, i);
-		
-	}
+	  public void updateViewLine(LinkedList<Tile> toSend, int previousIndex, int i) {
+		  playGrid.updateViewLine(toSend, previousIndex, i);
+	  }
 
-	public void sendMalusFirstToView(int previous) {
-		malus.addMalusFirst(previous);
-		
-	}
+	  public void sendMalusFirstToView(int previous) {
+		  malus.addMalusFirst(previous);
+	  }
 
 	
 }

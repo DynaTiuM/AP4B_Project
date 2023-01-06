@@ -8,8 +8,13 @@ import javax.swing.JButton;
 import controller.ActionLine;
 import model.Tile;
 
+//Class displaying the PlayGrid in the ViewPanel
 public class PlayGrid {
+	
+	//Reference to the view
 	private final View viewRef;
+	
+	//Array of Lines
 	private final Line[] lines;
 
   public PlayGrid(Position position, View viewRef, int RECT_SIZE) {
