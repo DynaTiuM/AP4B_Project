@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="AP4A:jar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/AP4A_jar</output-path>
+    <root id="archive" name="AP4A.jar">
+      <element id="module-output" name="AP4A" />
+    </root>
+  </artifact>
+</component>
