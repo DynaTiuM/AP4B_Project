@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -84,43 +84,7 @@ public class MiddlePile {
 	  		}
   		}
   	}
-  	
-  	public void updatePile(LinkedList<Tile> toRemove) {
-  		Tile ref = toRemove.get(0);
-  		Tile_View tile = null;
-  		
-  		switch (ref.getColorEnum()){
-		  case O: tile = new Orange(new Position(position.getX(), position.getY()));
-		  	break;
-		  case M: tile = new Purple(new Position(position.getX(), position.getY()));
-		  	break;
-		  case B: tile = new Blue(new Position(position.getX(), position.getY()));
-		  	break;
-		  case Y: tile = new Yellow(new Position(position.getX(), position.getY()));
-		  	break;
-		  case G: tile = new Green(new Position(position.getX(), position.getY()));
-			  break;
-		}
-  		
-  		HashMap<Tile_View, JButton> tiles_tmp = new HashMap<>();
-  		
-  		for (HashMap.Entry<Tile_View, JButton> entry : this.tiles.entrySet()) {
-  			Tile_View key = entry.getKey();
-            JButton value = entry.getValue();
 
-			assert tile != null;
-			if(key.color == tile.color) {
-            	tiles_tmp.put(key, value);
-            }
-  		}
-  		
-  		for (HashMap.Entry<Tile_View, JButton> entry : tiles_tmp.entrySet()) {
-  			pot_m.removeT(entry.getKey());
-  			pot_m.removeB(entry.getValue());
-  			this.tiles.remove(entry.getKey());
-  		}
-  	}
-  	
   	public void initiateButton(JButton button, int ID) {
   		ActionSelectionMiddlePile action = pot_m.actionSelectionMiddlePile(ID);
 			

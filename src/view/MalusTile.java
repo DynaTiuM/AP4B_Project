@@ -1,6 +1,4 @@
-package View;
-
-import javax.swing.ImageIcon;
+package view;
 
 import model.ColorEnum;
 
